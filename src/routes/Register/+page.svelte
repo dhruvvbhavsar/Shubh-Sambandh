@@ -1,16 +1,17 @@
 <script lang="ts">
-	// @ts-nocheck
-	import type { PageData } from './$types';
+	import type { PageData, RequestEvent } from './$types';
 	import { superForm } from 'sveltekit-superforms/client';
 	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
 	export let data: PageData;
 	const { form } = superForm(data.form);
 
-	let imagePreviewUrl;
+	let imagePreviewUrl: string | null;
 
-	function handleImageUpload(event) {
-		const file = event.target.files[0];
-
+	function handleImageUpload(event: Event) {
+		const file = (event.target as HTMLInputElement).files?.[0];
+  if (!file) {
+    return;
+  }
 		if (file.size > 1000000) {
 			alert('The file size exceeds 1MB limit.');
 			return;
@@ -18,7 +19,7 @@
 
 		const reader = new FileReader();
 		reader.onload = () => {
-			imagePreviewUrl = reader.result;
+			imagePreviewUrl = reader.result as string;
 		};
 		reader.readAsDataURL(file);
 	}
@@ -253,6 +254,8 @@
 							placeholder="Enter your password"
 							class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 						/>
+					</div>
+					<div>
 
 						<label for="pass" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
 							>Confirm password</label
@@ -264,6 +267,7 @@
 							placeholder="Enter your password"
 							class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 						/>
+					</div>
 
 					<button
 						class="flex items-center justify-between w-full px-6 py-3 text-sm tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
