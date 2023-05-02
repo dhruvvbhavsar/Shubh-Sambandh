@@ -33,6 +33,7 @@
 	"type": "module",
 	"dependencies": {
 		"@prisma/client": "^4.13.0",
+		"aws-sdk": "^2.1367.0",
 		"bcrypt": "^5.1.0"
 	}
 }

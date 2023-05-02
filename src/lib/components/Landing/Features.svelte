@@ -12,7 +12,7 @@
 		</div>
 
 		<div class="mt-8 xl:mt-12 lg:flex lg:items-center">
-			<div class="grid w-full grid-cols-1 gap-8 lg:w-1/2 xl:gap-16 md:grid-cols-2">
+			<div class="grid w-full grid-cols-1 gap-8 md:grid-cols-2">
 				<div class="space-y-3">
 					<span
 						class="inline-block p-3 text-blue-500 bg-blue-100 rounded-xl dark:text-white dark:bg-blue-500"
@@ -271,13 +271,13 @@
 				</div>
 			</div>
 
-			<div class="hidden lg:flex lg:w-1/2 lg:justify-center">
+			<!-- <div class="hidden lg:flex lg:w-1/2 lg:justify-center">
 				<img
 					class="w-[28rem] h-[28rem] flex-shrink-0 object-cover xl:w-[34rem] xl:h-[34rem] rounded-full"
 					src="https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
 					alt=""
 				/>
-			</div>
+			</div> -->
 		</div>
 	</div>
 </section>

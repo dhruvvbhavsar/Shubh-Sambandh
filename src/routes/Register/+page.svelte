@@ -9,9 +9,9 @@
 
 	function handleImageUpload(event: Event) {
 		const file = (event.target as HTMLInputElement).files?.[0];
-  if (!file) {
-    return;
-  }
+		if (!file) {
+			return;
+		}
 		if (file.size > 1000000) {
 			alert('The file size exceeds 1MB limit.');
 			return;
@@ -22,6 +22,7 @@
 			imagePreviewUrl = reader.result as string;
 		};
 		reader.readAsDataURL(file);
+
 	}
 
 	function removeImage() {
@@ -29,7 +30,6 @@
 	}
 </script>
 
-<SuperDebug data={$form} />
 <section class="bg-white dark:bg-gray-900">
 	<div class="flex justify-center min-h-screen">
 		<div
@@ -57,11 +57,7 @@
 						>
 						{#if imagePreviewUrl}
 							<div class="relative rounded-md overflow-hidden w-32 h-32">
-								<img
-									src={imagePreviewUrl}
-									alt="User Profile"
-									class="object-cover w-full h-full"
-								/>
+								<img src={imagePreviewUrl} alt="User Profile" class="object-cover w-full h-full" />
 								<button
 									id="x_button"
 									class="absolute top-1 right-1 text-white hover:text-red-500 p-1 rounded-full"
@@ -84,7 +80,7 @@
 						{:else}
 							<div class="relative border rounded-md overflow-hidden">
 								<input
-									id="pfp"
+									name="pfp"
 									type="file"
 									accept="image/*"
 									class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
@@ -101,11 +97,12 @@
 							</div>
 						{/if}
 					</div>
-
 					<div>
-						<label for="f_name" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">First Name</label>
+						<label for="firstName" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+							>First Name</label
+						>
 						<input
-							id="f_name"
+							name="firstName"
 							bind:value={$form.firstName}
 							type="text"
 							placeholder="John"
@@ -114,27 +111,30 @@
 					</div>
 
 					<div>
-						<label for="l_name" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Last name</label>
+						<label for="lastName" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+							>Last Name</label
+						>
 						<input
-						id="l_name"
-						bind:value={$form.lastName}
+							name="lastName"
+							bind:value={$form.lastName}
 							type="text"
-							placeholder="Snow"
+							placeholder="John"
 							class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 						/>
 					</div>
 
 					<div>
-						<label for="gender" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Gender</label>
+						<label for="gender" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+							>Gender</label
+						>
 						<select
-						id="gender"
-						bind:value={$form.gender}
-							name="Gender"
+							bind:value={$form.gender}
+							name="gender"
 							class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 						>
-						<option value="" selected disabled hidden>Select Gender</option>
-							<option value="male">Male</option>
-							<option value="female">Female</option>
+							<option value="" selected disabled hidden>Select Gender</option>
+							<option value="Male">Male</option>
+							<option value="Female">Female</option>
 						</select>
 					</div>
 
@@ -148,10 +148,12 @@
 					</div> -->
 
 					<div>
-						<label for="email" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Email address</label>
+						<label for="email" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+							>Email address</label
+						>
 						<input
-						id="email"
-						bind:value={$form.email}
+							name="email"
+							bind:value={$form.email}
 							type="email"
 							placeholder="johnsnow@example.com"
 							class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
@@ -159,47 +161,50 @@
 					</div>
 
 					<div>
-						<label for="number" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Phone Number</label>
+						<label for="mobileNumber" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Phone number</label>
 						<input
-						id="number"
-						bind:value={$form.mobileNumber}
-							type="tel"
-							maxlength="10"
-							placeholder="0000000000"
+							name="mobileNumber"
+							type="text"
+							maxlength="14"
+							placeholder="+91 9658745236"
 							class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 						/>
 					</div>
 
 					<div>
-						<label for="dob" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Date of Birth</label>
+						<label for="dateOfBirth" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+							>Date of Birth</label
+						>
 						<input
-						id="dob"
-						bind:value={$form.dateOfBirth}
+							name="dateOfBirth"
+							bind:value={$form.dateOfBirth}
 							type="date"
 							class="block w-full px-5 py-3 mt-2 text-gray-700 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 						/>
 					</div>
 
 					<div>
-						<label for="tob" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Time of Birth</label>
+						<label for="timeOfBirth" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+							>Time of Birth</label
+						>
 						<input
-						id="tob"
-						bind:value={$form.timeOfBirth}
+							name="timeOfBirth"
+							bind:value={$form.timeOfBirth}
 							type="time"
 							class="block w-full px-5 py-3 mt-2 text-gray-700 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 						/>
 					</div>
 
 					<div>
-						<label for="m_status" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Marital Status</label
+						<label for="maritalStatus" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+							>Marital Status</label
 						>
 						<select
-						bind:value={$form.maritalStatus}
-							name="Marital Status"
-							id="m_status"
+							bind:value={$form.maritalStatus}
+							name="maritalStatus"
 							class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 						>
-						<option value="" selected disabled hidden>Select Marital Status</option>
+							<option value="" selected disabled hidden>Select Marital Status</option>
 							<option value="single">Single</option>
 							<option value="divorced">Divorced</option>
 							<option value="widow">Widowed</option>
@@ -207,15 +212,15 @@
 					</div>
 
 					<div>
-						<label for="caste" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Caste</label
+						<label for="caste" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+							>Caste</label
 						>
 						<select
-						bind:value={$form.caste}
+							bind:value={$form.caste}
 							name="caste"
-							id="caste"
 							class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 						>
-						<option value="" selected disabled hidden>Select Caste</option>
+							<option value="" selected disabled hidden>Select Caste</option>
 							<option value="hindu">Hindu</option>
 							<option value="muslim">Muslim</option>
 							<option value="sikh">Sikh</option>
@@ -223,12 +228,13 @@
 						</select>
 					</div>
 
-
 					<div>
-						<label for="country" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Country</label>
+						<label for="country" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+							>Country</label
+						>
 						<input
-						id="country"
-						bind:value={$form.country}
+							name="country"
+							bind:value={$form.country}
 							type="text"
 							placeholder="India"
 							class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
@@ -236,10 +242,12 @@
 					</div>
 
 					<div>
-						<label for="city" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">City</label>
+						<label for="city" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+							>City</label
+						>
 						<input
-						id="city"
-						bind:value={$form.city}
+							name="city"
+							bind:value={$form.city}
 							type="text"
 							placeholder="Mumbai"
 							class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
@@ -247,24 +255,25 @@
 					</div>
 
 					<div>
-						<label for="passs" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Password</label>
+						<label for="password" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+							>Password</label
+						>
 						<input
-							id="passs"
+							name="password"
 							type="password"
 							placeholder="Enter your password"
 							class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 						/>
 					</div>
 					<div>
-
-						<label for="pass" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
-							>Confirm password</label
+						<label for="passwordHash" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+							>Confirm Password</label
 						>
 						<input
-						bind:value={$form.passwordHash}
-							id="pass"
-							type="password"
+							name="passwordHash"
+							bind:value={$form.passwordHash}
 							placeholder="Enter your password"
+							type="password"
 							class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 						/>
 					</div>

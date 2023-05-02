@@ -11,16 +11,17 @@ generator client {
   provider = "prisma-client-js"
 }
 
+
 model User {
-  id Int @id @default(autoincrement())
+  id String @id @default(cuid())
+  serialNumber String @unique
   firstName String
   lastName String
   gender String
   caste String
   dateOfBirth DateTime 
   timeOfBirth String   
-  city String          
-  state String         
+  city String                 
   country String       
   maritalStatus String 
   mobileNumber String
