@@ -1,13 +1,14 @@
 <script lang="ts">
 	import type { PageData, RequestEvent } from './$types';
 	import { superForm } from 'sveltekit-superforms/client';
-	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
 	export let data: PageData;
+	const uploadUrl = data.url;
 	const { form } = superForm(data.form);
 
 	let imagePreviewUrl: string | null;
 
-	function handleImageUpload(event: Event) {
+
+	async function handleImageUpload(event: Event) {
 		const file = (event.target as HTMLInputElement).files?.[0];
 		if (!file) {
 			return;
@@ -17,12 +18,23 @@
 			return;
 		}
 
+		await fetch(uploadUrl, {
+			method: 'PUT',
+			headers: {
+				'Content-Type': file.type
+			},
+			body: file
+		});
+
+		const imageUrl = uploadUrl.split("?")[0]
+		console.log('Image uploaded',imageUrl);
+
 		const reader = new FileReader();
 		reader.onload = () => {
 			imagePreviewUrl = reader.result as string;
 		};
 		reader.readAsDataURL(file);
-
+		imagePreviewUrl = imageUrl
 	}
 
 	function removeImage() {
@@ -85,6 +97,7 @@
 									accept="image/*"
 									class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
 									on:change={handleImageUpload}
+									bind:value={$form.profilePictureUrl}
 								/>
 								<div class="flex items-center justify-center h-full">
 									<svg class="h-20 w-20 text-gray-400" fill="none" viewBox="0 0 24 24">
@@ -161,7 +174,9 @@
 					</div>
 
 					<div>
-						<label for="mobileNumber" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Phone number</label>
+						<label for="mobileNumber" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+							>Phone number</label
+						>
 						<input
 							name="mobileNumber"
 							type="text"

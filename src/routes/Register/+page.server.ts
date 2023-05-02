@@ -10,9 +10,23 @@ import AWS from 'aws-sdk';
 const s3 = new AWS.S3({
 	accessKeyId: process.env.AWS_ACCESS_KEY_ID,
 	secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-	region: process.env.AWS_REGION
+	region: process.env.AWS_REGION,
+    signatureVersion: 'v4'
 });
 
+const bucketName = process.env.S3_BUCKET_NAME;
+
+async function generateUploadURL(fileName: string) {
+	const imageName = fileName
+	const params = ({
+		Bucket: bucketName,
+		Key: imageName,
+		Expires: 60 * 3
+	})
+	
+	const uploadUrl = await s3.getSignedUrlPromise('putObject', params)
+	return uploadUrl
+}
 
 const userSchema = z.object({
 	firstName: z.string(),
@@ -35,12 +49,15 @@ const userSchema = z.object({
 	email: z.string()
 });
 
+
+
 export const load: PageServerLoad = async () => {
 	// Server API:
-	const form = await superValidate(userSchema);
+	const form = await superValidate(userSchema)
+	const url = await generateUploadURL("test") as string;
 
 	// Always return { form } in load and form actions.
-	return { form };
+	return { form , url };
 };
 
 export const actions: Actions = {
