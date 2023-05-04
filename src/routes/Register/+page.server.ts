@@ -3,10 +3,10 @@ import { z } from 'zod';
 import { fail } from '@sveltejs/kit';
 import bycrypt from 'bcrypt';
 import type { Actions, PageServerLoad } from './$types';
-import prisma from '$lib/prisma';
+import prisma from '$lib/server/prisma';
 import AWS from 'aws-sdk';
+import { url } from 'inspector';
 
-// Create an instance of the S3 client with your AWS credentials
 const s3 = new AWS.S3({
 	accessKeyId: process.env.AWS_ACCESS_KEY_ID,
 	secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
@@ -15,72 +15,63 @@ const s3 = new AWS.S3({
 });
 
 const bucketName = process.env.S3_BUCKET_NAME;
+let uploadUrll: string
 
-async function generateUploadURL(fileName: string) {
-	const imageName = fileName
+async function generateUploadURL() {
+	const imageName =  `${Date.now()}.jpg`
 	const params = ({
 		Bucket: bucketName,
 		Key: imageName,
-		Expires: 60 * 3
+		Expires: 60 * 5
 	})
-	
+
 	const uploadUrl = await s3.getSignedUrlPromise('putObject', params)
+	uploadUrll = uploadUrl.split('?')[0]
 	return uploadUrl
+
 }
 
+
 const userSchema = z.object({
-	firstName: z.string(),
-	lastName: z.string(),
-	gender: z.string(),
-	caste: z.string(),
+	firstName: z.string().min(3).max(20).trim().toLowerCase(),
+	lastName: z.string().min(3).max(20).trim().toLowerCase(),
+	gender: z.string().default('Male'),
+	caste: z.string().default('hindu'),
 	dateOfBirth: z.string(),
 	timeOfBirth: z.string(),
-	city: z.string(),
-	country: z.string(),
-	maritalStatus: z.string(),
+	city: z.string().max(20),
+	country: z.string().max(20),
+	maritalStatus: z.string().default('single'),
 	profilePictureUrl: z
 		.string()
-		.url()
 		.default(
 			'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
 		),
-	passwordHash: z.string(),
-	mobileNumber: z.string(),
-	email: z.string()
+	passwordHash: z.string().min(8).max(64),
+	mobileNumber: z.string().min(10).max(10),
+	email: z.string().email()
 });
 
-
-
 export const load: PageServerLoad = async () => {
-	// Server API:
-	const form = await superValidate(userSchema)
-	const url = await generateUploadURL("test") as string;
+	const form = await superValidate(userSchema);
+	const url = await generateUploadURL() 
 
-	// Always return { form } in load and form actions.
-	return { form , url };
+	return { form,url };
 };
 
 export const actions: Actions = {
-	default: async ({ request }) => {
-		// Use superValidate in form actions too, but with the request
+	register: async ({request}) => {
 		const form = await superValidate(request, userSchema);
-
-		// Convenient validation check:
+		form.data.profilePictureUrl =  uploadUrll
 		if (!form.valid) {
-			// Again, always return { form } and things will just work.
 			return fail(400, { form });
 		}
 
-		// TODO: Do something with the validated data
 		try {
-			// Get the number of existing users
 			const count = await prisma.user.count();
-
-			// Generate the next serial number by adding 1 to the count
 			const paddedCount = String(count + 1).padStart(4, '0');
-
-			// Generate the formatted user ID by concatenating "SS#" with the serial number
 			const ssId = `SS#${paddedCount}`;
+
 			await prisma.user.create({
 				data: {
 					serialNumber: ssId,
@@ -106,7 +97,6 @@ export const actions: Actions = {
 			return fail(500, { message: 'Could not create user' });
 		}
 
-		// Yep, return { form } here too
 		return { form };
 	}
 };

@@ -1,12 +1,42 @@
 <script lang="ts">
 	import type { PageData, RequestEvent } from './$types';
 	import { superForm } from 'sveltekit-superforms/client';
+	import { z } from 'zod';
+	let password: string = '';
+	const userSchema = z.object({
+		firstName: z.string().min(3).max(20).trim().toLowerCase(),
+		lastName: z.string().min(3).max(20).trim().toLowerCase(),
+		gender: z.string().default('Male'),
+		caste: z.string().default('hindu'),
+		dateOfBirth: z.string(),
+		timeOfBirth: z.string(),
+		city: z.string().max(20),
+		country: z.string().max(20),
+		maritalStatus: z.string().default('single'),
+		profilePictureUrl: z
+			.string()
+			.default(
+				'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
+			),
+		passwordHash: z.string().min(8).max(64),
+		mobileNumber: z.string().min(10).max(10),
+		email: z.string().email()
+	});
 	export let data: PageData;
-	const uploadUrl = data.url;
-	const { form } = superForm(data.form);
+	let finalUrl = ""
 
-	let imagePreviewUrl: string | null;
+	const { form, errors } = superForm(data.form, {
+		taintedMessage: 'Are you sure you want leave?',
+		validators: userSchema
+	});
+	const preSignedUrl = data.url;
+	console.log("PreSignedUrl:",preSignedUrl);
+	let imagePreviewUrl: string;
+	
 
+	$: match = password === $form.passwordHash;
+
+	let selectedFile: File | undefined;
 
 	async function handleImageUpload(event: Event) {
 		const file = (event.target as HTMLInputElement).files?.[0];
@@ -18,30 +48,56 @@
 			return;
 		}
 
-		await fetch(uploadUrl, {
-			method: 'PUT',
-			headers: {
-				'Content-Type': file.type
-			},
-			body: file
-		});
-
-		const imageUrl = uploadUrl.split("?")[0]
-		console.log('Image uploaded',imageUrl);
-
 		const reader = new FileReader();
 		reader.onload = () => {
 			imagePreviewUrl = reader.result as string;
 		};
 		reader.readAsDataURL(file);
-		imagePreviewUrl = imageUrl
+
+		selectedFile = file;
 	}
 
-	function removeImage() {
-		imagePreviewUrl = null;
+	async function uploadSelectedFile() {
+		if (!selectedFile) {
+			return;
+		}
+
+		try {
+			var imageUrl = await uploadToS3(selectedFile, preSignedUrl);
+			imageUrl = imageUrl.split("?")[0]
+			finalUrl = imageUrl
+			$form.profilePictureUrl = imageUrl
+			console.log("UPLOAD:",imageUrl)
+		} catch (error) {
+			console.error('Error uploading image:', error);
+		}
+	}
+
+	async function uploadToS3(file: File, preSignedUrl: string): Promise<string> {
+		const response = await fetch(preSignedUrl, {
+			method: 'PUT',
+			body: file,
+			headers: {
+				'Content-Type': file.type
+			}
+		});
+
+		if (!response.ok) {
+			throw new Error(`Failed to upload file to S3. Status: ${response.status}`);
+		}
+
+		const imageUrl = response.url;
+		return imageUrl;
+	}
+
+	function handleSubmit(event: Event) {
+		uploadSelectedFile();
+	}
+
+	async function removeImage() {
+		imagePreviewUrl = '';
 	}
 </script>
-
 <section class="bg-white dark:bg-gray-900">
 	<div class="flex justify-center min-h-screen">
 		<div
@@ -62,7 +118,7 @@
 					our website, and we wish you the best of luck in your journey.
 				</p>
 
-				<form method="POST" class="grid grid-cols-1 gap-6 mt-8 md:grid-cols-2">
+				<form method="POST" action="?/register" class="grid grid-cols-1 gap-6 mt-8 md:grid-cols-2">
 					<div class="relative md:col-span-2 md:mx-auto">
 						<label for="pfp" class="block mb-2 text-sm text-gray-600 dark:text-gray-200 md:mx-auto"
 							>Profile Picture <span class="italic">(Max file size: 1 Mb)</span></label
@@ -117,10 +173,13 @@
 						<input
 							name="firstName"
 							bind:value={$form.firstName}
+							data-invalid={$errors.firstName}
 							type="text"
 							placeholder="John"
 							class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 						/>
+						{#if $errors.firstName}<span class="text-red-600 text-sm">{$errors.firstName}</span
+							>{/if}
 					</div>
 
 					<div>
@@ -134,6 +193,7 @@
 							placeholder="John"
 							class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 						/>
+						{#if $errors.lastName}<span class="text-red-600 text-sm">{$errors.lastName}</span>{/if}
 					</div>
 
 					<div>
@@ -149,6 +209,7 @@
 							<option value="Male">Male</option>
 							<option value="Female">Female</option>
 						</select>
+						{#if $errors.gender}<span class="text-red-600 text-sm">{$errors.gender}</span>{/if}
 					</div>
 
 					<!-- <div>
@@ -171,6 +232,7 @@
 							placeholder="johnsnow@example.com"
 							class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 						/>
+						{#if $errors.email}<span class="text-red-600 text-sm">{$errors.email}</span>{/if}
 					</div>
 
 					<div>
@@ -184,6 +246,9 @@
 							placeholder="+91 9658745236"
 							class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 						/>
+						{#if $errors.mobileNumber}<span class="text-red-600 text-sm"
+								>{$errors.mobileNumber}</span
+							>{/if}
 					</div>
 
 					<div>
@@ -196,6 +261,8 @@
 							type="date"
 							class="block w-full px-5 py-3 mt-2 text-gray-700 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 						/>
+						{#if $errors.dateOfBirth}<span class="text-red-600 text-sm">{$errors.dateOfBirth}</span
+							>{/if}
 					</div>
 
 					<div>
@@ -208,6 +275,8 @@
 							type="time"
 							class="block w-full px-5 py-3 mt-2 text-gray-700 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 						/>
+						{#if $errors.timeOfBirth}<span class="text-red-600 text-sm">{$errors.timeOfBirth}</span
+							>{/if}
 					</div>
 
 					<div>
@@ -224,6 +293,9 @@
 							<option value="divorced">Divorced</option>
 							<option value="widow">Widowed</option>
 						</select>
+						{#if $errors.maritalStatus}<span class="text-red-600 text-sm"
+								>{$errors.maritalStatus}</span
+							>{/if}
 					</div>
 
 					<div>
@@ -241,6 +313,7 @@
 							<option value="sikh">Sikh</option>
 							<option value="christian">Christian</option>
 						</select>
+						{#if $errors.caste}<span class="text-red-600 text-sm">{$errors.caste}</span>{/if}
 					</div>
 
 					<div>
@@ -254,6 +327,7 @@
 							placeholder="India"
 							class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 						/>
+						{#if $errors.country}<span class="text-red-600 text-sm">{$errors.country}</span>{/if}
 					</div>
 
 					<div>
@@ -267,6 +341,7 @@
 							placeholder="Mumbai"
 							class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 						/>
+						{#if $errors.city}<span class="text-red-600 text-sm">{$errors.city}</span>{/if}
 					</div>
 
 					<div>
@@ -277,6 +352,7 @@
 							name="password"
 							type="password"
 							placeholder="Enter your password"
+							bind:value={password}
 							class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 						/>
 					</div>
@@ -291,10 +367,21 @@
 							type="password"
 							class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 						/>
+						{#if !match}
+							<p class="text-red-500 text-sm">Passwords do not match</p>
+						{/if}
 					</div>
 
 					<button
-						class="flex items-center justify-between w-full px-6 py-3 text-sm tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+						on:click={(e) => {
+							handleSubmit(e)
+						}}
+						disabled={!match || $form.passwordHash.length == 0}
+						class={`flex items-center justify-between w-full px-6 py-3 text-sm tracking-wide text-white capitalize transition-colors duration-300 transform rounded-lg focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 ${
+							!match || $form.passwordHash.length == 0
+								? 'bg-gray-400 cursor-not-allowed'
+								: 'bg-blue-500 hover:bg-blue-400'
+						}`}
 					>
 						<span>Sign Up </span>
 
