@@ -1,11 +1,12 @@
-import { superValidate } from 'sveltekit-superforms/server';
+import { message, superValidate } from 'sveltekit-superforms/server';
 import { z } from 'zod';
 import { fail } from '@sveltejs/kit';
 import bycrypt from 'bcrypt';
 import type { Actions, PageServerLoad } from './$types';
 import prisma from '$lib/server/prisma';
 import AWS from 'aws-sdk';
-import { url } from 'inspector';
+
+
 
 const s3 = new AWS.S3({
 	accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -30,6 +31,17 @@ async function generateUploadURL() {
 	return uploadUrl
 
 }
+
+async function checkStatusCode(url: string) {
+	const response = await fetch(url);
+	if (response.status === 403) {
+	  return false;
+	} else if (response.headers.get('Content-Type')?.includes('xml')) {
+	  return false;
+	} else {
+	  return true;
+	}
+  }
 
 
 const userSchema = z.object({
@@ -59,10 +71,11 @@ export const load: PageServerLoad = async () => {
 	return { form,url };
 };
 
-export const actions: Actions = {
+export const actions = { 
 	register: async ({request}) => {
 		const form = await superValidate(request, userSchema);
-		form.data.profilePictureUrl =  uploadUrll
+		form.data.profilePictureUrl = uploadUrll
+		
 		if (!form.valid) {
 			return fail(400, { form });
 		}
@@ -70,7 +83,7 @@ export const actions: Actions = {
 		try {
 			const count = await prisma.user.count();
 			const paddedCount = String(count + 1).padStart(4, '0');
-			const ssId = `SS#${paddedCount}`;
+			var ssId = `SS#${paddedCount}`;
 
 			await prisma.user.create({
 				data: {
@@ -97,6 +110,6 @@ export const actions: Actions = {
 			return fail(500, { message: 'Could not create user' });
 		}
 
-		return { form };
+		return message(form, `${form.data.firstName} ${form.data.lastName}`)
 	}
-};
+} satisfies Actions;

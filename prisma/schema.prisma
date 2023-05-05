@@ -9,7 +9,8 @@ datasource db {
 }
 
 model User {
-  id                String   @id @default(cuid())
+  id                String   @default(cuid())
+  serialNumber      String   @unique
   firstName         String
   lastName          String
   gender            String
@@ -23,5 +24,4 @@ model User {
   email             String
   profilePictureUrl String
   passwordHash      String
-  serialNumber      String   @unique
 }

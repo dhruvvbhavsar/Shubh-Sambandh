@@ -53,16 +53,16 @@
 						</div>
 
 						<div class="mt-6">
-							<!-- <div class="flex justify-between mb-2">
+							<div class="flex justify-between mb-2">
 								<label for="password" class="text-sm text-gray-600 dark:text-gray-200"
 									>Password</label
 								>
-								<a
+								<!-- <a
 									href="#"
 									class="text-sm text-gray-400 focus:text-blue-500 hover:text-blue-500 hover:underline"
 									>Forgot password?</a
-								>
-							</div> -->
+								> -->
+							</div>
 
 							<input
 								type="password"
