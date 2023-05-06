@@ -45,15 +45,16 @@ async function checkStatusCode(url: string) {
 
 
 const userSchema = z.object({
-	firstName: z.string().min(3).max(20).trim().toLowerCase(),
-	lastName: z.string().min(3).max(20).trim().toLowerCase(),
+	firstName: z.string().min(3).max(20).trim(),
+	lastName: z.string().min(3).max(20).trim(),
 	gender: z.string().default('Male'),
 	caste: z.string().default('hindu'),
 	dateOfBirth: z.string(),
 	timeOfBirth: z.string(),
 	city: z.string().max(20),
 	country: z.string().max(20),
-	maritalStatus: z.string().default('single'),
+	maritalStatus: z.string().default('never married'),
+	other_caste: z.string().nullable(),
 	profilePictureUrl: z
 		.string()
 		.default(

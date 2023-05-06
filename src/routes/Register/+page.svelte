@@ -4,15 +4,16 @@
 	import { z } from 'zod';
 	let password: string = '';
 	const userSchema = z.object({
-		firstName: z.string().min(3).max(20).trim().toLowerCase(),
-		lastName: z.string().min(3).max(20).trim().toLowerCase(),
+		firstName: z.string().min(3).max(20).trim(),
+		lastName: z.string().min(3).max(20).trim(),
 		gender: z.string().default('Male'),
 		caste: z.string().default('hindu'),
 		dateOfBirth: z.string(),
 		timeOfBirth: z.string(),
 		city: z.string().max(20),
 		country: z.string().max(20),
-		maritalStatus: z.string().default('single'),
+		maritalStatus: z.string().default('never married'),
+		other_caste: z.string().nullable(),
 		profilePictureUrl: z
 			.string()
 			.default(
@@ -209,7 +210,7 @@
 								name="lastName"
 								bind:value={$form.lastName}
 								type="text"
-								placeholder="John"
+								placeholder="Snow"
 								class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 							/>
 							{#if $errors.lastName}<span class="text-red-600 text-sm">{$errors.lastName}</span
@@ -262,8 +263,8 @@
 							<input
 								name="mobileNumber"
 								type="text"
-								maxlength="14"
-								placeholder="+91 9658745236"
+								maxlength="10"
+								placeholder="0000000000"
 								class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 							/>
 							{#if $errors.mobileNumber}<span class="text-red-600 text-sm"
@@ -311,32 +312,40 @@
 								class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 							>
 								<option value="" selected disabled hidden>Select Marital Status</option>
-								<option value="single">Single</option>
+								<option value="never married">Never Married</option>
 								<option value="divorced">Divorced</option>
-								<option value="widow">Widowed</option>
+								<option value="widowed">Widowed</option>
+								<option value="separated">Separated</option>
 							</select>
+							
 							{#if $errors.maritalStatus}<span class="text-red-600 text-sm"
 									>{$errors.maritalStatus}</span
 								>{/if}
 						</div>
 
 						<div>
-							<label for="caste" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
-								>Caste</label
-							>
-							<select
-								bind:value={$form.caste}
-								name="caste"
-								class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-							>
+							<label for="caste" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Caste</label>
+							<select bind:value={$form.caste} name="caste" class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40">
 								<option value="" selected disabled hidden>Select Caste</option>
 								<option value="hindu">Hindu</option>
 								<option value="muslim">Muslim</option>
 								<option value="sikh">Sikh</option>
 								<option value="christian">Christian</option>
+								<option value="buddhist">Buddhist</option>
+								<option value="jain">Jain</option>
+								<option value="others">Others</option>
 							</select>
+							
+							{#if $form.caste === 'others'}
+								<div class="mt-2">
+									<label for="other_caste" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Please specify</label>
+									<input type="text" bind:value={$form.other_caste} name="caste" class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+								</div>
+							{/if}
 							{#if $errors.caste}<span class="text-red-600 text-sm">{$errors.caste}</span>{/if}
 						</div>
+						
+						
 
 						<div>
 							<label for="country" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
