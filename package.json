@@ -33,7 +33,6 @@
 	"type": "module",
 	"dependencies": {
 		"@lucia-auth/adapter-prisma": "^2.0.0",
-		"@lucia-auth/sveltekit": "^0.6.11",
 		"@prisma/client": "^4.13.0",
 		"@uploadthing/react": "^2.0.1",
 		"aws-sdk": "^2.1367.0",
