@@ -1,3 +1,10 @@
+<script lang="ts">
+	import { page } from '$app/stores';
+	import type { ActionData } from './$types';
+
+	export let data: ActionData;
+</script>
+
 <div class="bg-white dark:bg-gray-900">
 	<div class="flex justify-center h-screen">
 		<div
@@ -9,9 +16,9 @@
 					<h2 class="text-2xl font-bold text-white sm:text-3xl">Shubh Sambandh</h2>
 
 					<p class="max-w-xl mt-3 text-gray-300">
-						Welcome to Shubh Sambandh! We are delighted to have you here and
-						look forward to helping you find your perfect match. Please sign in to access your
-						account and begin your journey towards finding your life partner.
+						Welcome to Shubh Sambandh! We are delighted to have you here and look forward to helping
+						you find your perfect match. Please sign in to access your account and begin your
+						journey towards finding your life partner.
 					</p>
 				</div>
 			</div>
@@ -21,24 +28,26 @@
 			<div class="flex-1">
 				<div class="text-center">
 					<div class="flex justify-center mx-auto">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 512 512"
-							class="w-8 h-8 md:w-10 md:h-10"
-							fill="white"
-						>
-							<!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-							<path
-								d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"
-							/>
-						</svg>
+						<a href="/">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 512 512"
+								class="w-8 h-8 md:w-10 md:h-10"
+								fill="white"
+							>
+								<!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+								<path
+									d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"
+								/>
+							</svg>
+						</a>
 					</div>
 
 					<p class="mt-3 text-gray-500 dark:text-gray-300">Sign in to access your account</p>
 				</div>
 
 				<div class="mt-8">
-					<form>
+					<form method="POST">
 						<div>
 							<label for="email" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
 								>Email Address</label
@@ -88,6 +97,9 @@
 							class="text-blue-500 focus:outline-none focus:underline hover:underline">Sign up</a
 						>.
 					</p>
+					{#if $page.status == 400}
+						<p class="mt-2 text-sm text-center text-red-700">Invalid Credentials</p>
+					{/if}
 				</div>
 			</div>
 		</div>

@@ -11,7 +11,7 @@
 <Hero />
 <About />
 <Features />
-<Testimonials />
+<!-- <Testimonials /> -->
 <Blogs />
 <Faq />
 <Footer />

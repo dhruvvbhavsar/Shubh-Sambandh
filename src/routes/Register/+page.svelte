@@ -324,7 +324,7 @@
 						</div>
 
 						<div>
-							<label for="caste" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Caste</label>
+							<label for="caste" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Religon</label>
 							<select bind:value={$form.caste} name="caste" class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40">
 								<option value="" selected disabled hidden>Select Caste</option>
 								<option value="hindu">Hindu</option>
