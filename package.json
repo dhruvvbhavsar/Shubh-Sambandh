@@ -34,11 +34,7 @@
 	"dependencies": {
 		"@lucia-auth/adapter-prisma": "^2.0.0",
 		"@prisma/client": "^4.13.0",
-		"@uploadthing/react": "^2.0.1",
 		"aws-sdk": "^2.1367.0",
-		"bcrypt": "^5.1.0",
-		"lucia-auth": "^1.5.0",
-		"react-dropzone": "^14.2.3",
-		"uploadthing": "^2.0.1"
+		"lucia-auth": "^1.5.0"
 	}
 }
