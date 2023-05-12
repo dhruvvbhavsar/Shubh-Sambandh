@@ -1,14 +1,19 @@
 import { redirect, type Actions, fail } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 import { auth } from "$lib/server/lucia";
+import prisma from "$lib/server/prisma";
+  
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const { user } = await locals.auth.validateUser();
 	if (!user) throw redirect(302, "/Sign");
 	console.log(user)
 
+	const users = await prisma.authUser.findMany();
+	console.log(users)
+
 	return {
-		user
+		user,users
 	};
 };
 
