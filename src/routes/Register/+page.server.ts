@@ -1,7 +1,6 @@
 import { message, superValidate } from 'sveltekit-superforms/server';
 import { z } from 'zod';
 import { fail, redirect } from '@sveltejs/kit';
-import bycrypt from 'bcrypt';
 import type { Actions, PageServerLoad } from './$types';
 import prisma from '$lib/server/prisma';
 import AWS from 'aws-sdk';
@@ -62,6 +61,7 @@ const userSchema = z.object({
 	email: z.string().email()
 });
 
+
 export const load: PageServerLoad = async ({ locals }) => {
 	const session = await locals.auth.validate();
 	if (session) {
@@ -77,7 +77,9 @@ export const load: PageServerLoad = async ({ locals }) => {
 export const actions = {
 	register: async ({ request }) => {
 		const form = await superValidate(request, userSchema);
-		form.data.profilePictureUrl = uploadUrll;
+		form.data.profilePictureUrl = await checkStatusCode(uploadUrll)
+			? uploadUrll
+			: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
 
 		if (!form.valid) {
 			return fail(400, { form });
@@ -111,7 +113,7 @@ export const actions = {
 			return message(form, `${form.data.firstName} ${form.data.lastName}`);
 		} catch {
 			// username already in use
-			return fail(400);
+			return fail(400, {form});
 		}
 	}
 } satisfies Actions;

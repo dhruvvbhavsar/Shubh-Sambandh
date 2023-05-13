@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import type { ActionData, PageData, RequestEvent } from './$types';
 	import { superForm } from 'sveltekit-superforms/client';
 	import { z } from 'zod';
@@ -24,6 +25,7 @@
 		email: z.string().email()
 	});
 	export let data: PageData;
+	export let act: ActionData;
 
 	const { form, errors, message } = superForm(data.form, {
 		taintedMessage: 'Are you sure you want leave?',
@@ -58,17 +60,16 @@
 
 	async function uploadSelectedFile() {
 		if (!selectedFile) {
-			return 
+			return;
 		}
-			try {
-				var imageUrl = await uploadToS3(selectedFile, preSignedUrl);
-				imageUrl = imageUrl.split('?')[0];
-				$form.profilePictureUrl = imageUrl;
-				console.log('UPLOAD:', imageUrl);
-			} catch (error) {
-				console.error('Error uploading image:', error);
-			}
-
+		try {
+			var imageUrl = await uploadToS3(selectedFile, preSignedUrl);
+			imageUrl = imageUrl.split('?')[0];
+			$form.profilePictureUrl = imageUrl;
+			console.log('UPLOAD:', imageUrl);
+		} catch (error) {
+			console.error('Error uploading image:', error);
+		}
 	}
 
 	async function uploadToS3(file: File, preSignedUrl: string): Promise<string> {
@@ -184,6 +185,9 @@
 										</svg>
 									</div>
 								</div>
+							{/if}
+							{#if $page.status == 400}
+								<p class="mt-2 text-sm text-center text-red-700">User already Exists</p>
 							{/if}
 						</div>
 						<div>
@@ -317,15 +321,21 @@
 								<option value="widowed">Widowed</option>
 								<option value="separated">Separated</option>
 							</select>
-							
+
 							{#if $errors.maritalStatus}<span class="text-red-600 text-sm"
 									>{$errors.maritalStatus}</span
 								>{/if}
 						</div>
 
 						<div>
-							<label for="caste" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Religon</label>
-							<select bind:value={$form.caste} name="caste" class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40">
+							<label for="caste" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+								>Religon</label
+							>
+							<select
+								bind:value={$form.caste}
+								name="caste"
+								class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+							>
 								<option value="" selected disabled hidden>Select Caste</option>
 								<option value="hindu">Hindu</option>
 								<option value="muslim">Muslim</option>
@@ -335,17 +345,24 @@
 								<option value="jain">Jain</option>
 								<option value="others">Others</option>
 							</select>
-							
+
 							{#if $form.caste === 'others'}
 								<div class="mt-2">
-									<label for="other_caste" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Please specify</label>
-									<input type="text" bind:value={$form.other_caste} name="caste" class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+									<label
+										for="other_caste"
+										class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+										>Please specify</label
+									>
+									<input
+										type="text"
+										bind:value={$form.other_caste}
+										name="caste"
+										class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+									/>
 								</div>
 							{/if}
 							{#if $errors.caste}<span class="text-red-600 text-sm">{$errors.caste}</span>{/if}
 						</div>
-						
-						
 
 						<div>
 							<label for="country" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
@@ -405,7 +422,7 @@
 
 						<button
 							on:click={(e) => {
-								handleSubmit(e)
+								handleSubmit(e);
 							}}
 							disabled={!match || $form.passwordHash.length == 0}
 							class={`flex items-center justify-between w-full px-6 py-3 text-sm tracking-wide text-white capitalize transition-colors duration-300 transform rounded-lg focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 ${

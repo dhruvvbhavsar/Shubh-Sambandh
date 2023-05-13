@@ -10,7 +10,6 @@ export const load: PageServerLoad = async ({ locals }) => {
 	console.log(user)
 
 	const users = await prisma.authUser.findMany();
-	console.log(users)
 
 	return {
 		user,users

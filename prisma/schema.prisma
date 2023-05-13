@@ -20,8 +20,8 @@ model AuthUser {
   city              String
   country           String
   maritalStatus     String
-  mobileNumber      String
-  email             String
+  mobileNumber      String        @unique
+  email             String        @unique
   profilePictureUrl String
   auth_session      AuthSession[]
   auth_key          AuthKey[]
