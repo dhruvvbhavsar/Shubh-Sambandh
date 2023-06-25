@@ -6,6 +6,7 @@
 
 .back {
     background-image: url('./assets/image-9.jpg');
+    /* background-image: url('https://namaskaarindia1.files.wordpress.com/2020/07/147.jpg'); */
     background-position: bottom;
     background-size: cover;
 }
