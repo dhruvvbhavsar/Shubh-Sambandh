@@ -23,7 +23,7 @@
 </script>
 
 <div class="col-span-full text-white">
-	<label for="hobbies" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Sports</label>
+	<label for="hobbies" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Hobbies</label>
 	<Select
 		on:change={handleChange}
 		multiple
