@@ -1,6 +1,6 @@
-<section class="bg-white dark:bg-gray-900" id="blogs">
+<section class="bg-gray-900" id="blogs">
     <div class="container px-6 py-10 mx-auto">
-        <h1 class="text-2xl font-semibold text-gray-800 capitalize lg:text-3xl dark:text-white">From the blog</h1>
+        <h1 class="text-2xl font-semibold  capitalize lg:text-3xl text-white">From the blog</h1>
 
         <div class="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2">
             <div class="lg:flex">
@@ -9,11 +9,11 @@
                     alt="">
 
                 <div class="flex flex-col justify-between py-6 lg:mx-6">
-                    <a href="/Blogs/secrets-of-happy-married-life-pt1" class="text-xl font-semibold text-gray-800 hover:underline dark:text-white ">
+                    <a href="/Blogs/secrets-of-happy-married-life-pt1" class="text-xl font-semibold hover:underline text-white ">
                         Secret of Happy Married Life, Part - I
                     </a>
 
-                    <span class="text-sm text-gray-500 dark:text-gray-300">On: 4<sup>th</sup> April 2019</span>
+                    <span class="text-sm text-gray-300">On: 4<sup>th</sup> April 2019</span>
                 </div>
             </div>
 

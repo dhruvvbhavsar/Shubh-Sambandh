@@ -1,0 +1,37 @@
+export var sportsList = [
+  { value: 'archery', label: 'Archery' },
+  { value: 'athletics/track-field', label: 'Athletics/Track Field' },
+  { value: 'badminton', label: 'Badminton' },
+  { value: 'basketball', label: 'Basketball' },
+  { value: 'billiards-and-snooker', label: 'Billiards and Snooker' },
+  { value: 'boxing', label: 'Boxing' },
+  { value: 'carrom', label: 'Carrom' },
+  { value: 'chess', label: 'Chess' },
+  { value: 'cricket', label: 'Cricket' },
+  { value: 'cycling', label: 'Cycling' },
+  { value: 'equestrian', label: 'Equestrian' },
+  { value: 'fencing', label: 'Fencing' },
+  { value: 'football', label: 'Football' },
+  { value: 'golf', label: 'Golf' },
+  { value: 'gymnastics', label: 'Gymnastics' },
+  { value: 'hockey', label: 'Hockey' },
+  { value: 'kabaddi', label: 'Kabaddi' },
+  { value: 'kho-kho', label: 'Kho Kho' },
+  { value: 'martial-arts', label: 'Martial Arts' },
+  { value: 'motorsports', label: 'Motorsports' },
+  { value: 'polo', label: 'Polo' },
+  { value: 'rowing', label: 'Rowing' },
+  { value: 'sailing', label: 'Sailing' },
+  { value: 'shooting', label: 'Shooting' },
+  { value: 'swimming', label: 'Swimming' },
+  { value: 'squash', label: 'Squash' },
+  { value: 'table-tennis', label: 'Table Tennis' },
+  { value: 'tennis', label: 'Tennis' },
+  { value: 'volleyball', label: 'Volleyball' },
+  { value: 'weightlifting', label: 'Weightlifting' },
+  { value: 'wrestling', label: 'Wrestling' },
+  { value: 'yoga', label: 'Yoga' }
+];
+
+
+  export const diseases = ['allergy','chronic pain','digestive disorders','mental health','others']

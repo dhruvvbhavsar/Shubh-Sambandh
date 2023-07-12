@@ -25,7 +25,6 @@
 		email: z.string().email()
 	});
 	export let data: PageData;
-	export let act: ActionData;
 
 	const { form, errors, message } = superForm(data.form, {
 		taintedMessage: 'Are you sure you want leave?',
@@ -98,7 +97,7 @@
 	}
 </script>
 
-<section class="bg-white dark:bg-gray-900">
+<section class="bg-gray-900">
 	<div class="flex justify-center min-h-screen">
 		<div
 			class="hidden bg-cover lg:block lg:w-2/5 bg-bottom"

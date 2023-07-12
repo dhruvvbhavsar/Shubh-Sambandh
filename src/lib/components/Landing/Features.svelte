@@ -1,6 +1,6 @@
-<section class="bg-white dark:bg-gray-900" id="features">
+<section class="bg-gray-900" id="features">
 	<div class="container px-6 py-10 mx-auto">
-		<h1 class="text-2xl font-semibold text-gray-800 capitalize lg:text-3xl dark:text-white">
+		<h1 class="text-2xl font-semibold capitalize lg:text-3xl text-white">
 			explore our <br />
 			awesome Components
 		</h1>
@@ -14,9 +14,7 @@
 		<div class="mt-8 xl:mt-12 lg:flex lg:items-center">
 			<div class="grid w-full grid-cols-1 gap-8 md:grid-cols-2">
 				<div class="space-y-3">
-					<span
-						class="inline-block p-3 text-blue-500 bg-blue-100 rounded-xl dark:text-white dark:bg-blue-500"
-					>
+					<span class="inline-block p-3 rounded-xl text-white bg-blue-500">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							class="w-6 h-6"
@@ -33,11 +31,9 @@
 						</svg>
 					</span>
 
-					<h1 class="text-xl font-semibold text-gray-700 capitalize dark:text-white">
-						Meaningful Connections
-					</h1>
+					<h1 class="text-xl font-semibold capitalize text-white">Meaningful Connections</h1>
 
-					<p class="text-gray-500 dark:text-gray-300">
+					<p class="text-gray-300">
 						At ShubhSambandh, we believe in the power of meaningful connections. Finding a life
 						partner is about finding someone who understands and complements you on a deeper level.
 						We believe that meaningful connections are based on shared values, goals, and beliefs.
@@ -50,9 +46,7 @@
 				</div>
 
 				<div class="space-y-3">
-					<span
-						class="inline-block p-3 text-blue-500 bg-blue-100 rounded-xl dark:text-white dark:bg-blue-500"
-					>
+					<span class="inline-block p-3 rounded-xl text-white bg-blue-500">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							class="w-6 h-6"
@@ -75,11 +69,9 @@
 						</svg>
 					</span>
 
-					<h1 class="text-xl font-semibold text-gray-700 capitalize dark:text-white">
-						Spiritual Compatibility
-					</h1>
+					<h1 class="text-xl font-semibold capitalize text-white">Spiritual Compatibility</h1>
 
-					<p class="text-gray-500 dark:text-gray-300">
+					<p class="text-gray-300">
 						Spiritual compatibility is a crucial element in any long-lasting and meaningful
 						relationship. It involves connecting with each other on a deeper level, sharing similar
 						beliefs and values, and supporting each other's spiritual growth and journey. When two
@@ -96,7 +88,7 @@
 
 				<div class="space-y-3">
 					<span
-						class="inline-block p-3 text-blue-500 bg-blue-100 rounded-xl dark:text-white dark:bg-blue-500"
+						class="inline-block p-3 rounded-xl text-white bg-blue-500"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -114,11 +106,9 @@
 						</svg>
 					</span>
 
-					<h1 class="text-xl font-semibold text-gray-700 capitalize dark:text-white">
-						Safe and Secure Environment
-					</h1>
+					<h1 class="text-xl font-semibold capitalize text-white">Safe and Secure Environment</h1>
 
-					<p class="text-gray-500 dark:text-gray-300">
+					<p class="text-gray-300">
 						We prioritize providing a safe and secure environment for all of our users. We take data
 						privacy and security seriously and ensure that all user data is encrypted and protected.
 						Our team of moderators works tirelessly to ensure that our platform is free from fake
@@ -134,7 +124,7 @@
 
 				<div class="space-y-3">
 					<span
-						class="inline-block p-3 text-blue-500 bg-blue-100 rounded-xl dark:text-white dark:bg-blue-500"
+						class="inline-block p-3 rounded-xl text-white bg-blue-500"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -152,11 +142,9 @@
 						</svg>
 					</span>
 
-					<h1 class="text-xl font-semibold text-gray-700 capitalize dark:text-white">
-						Supportive community
-					</h1>
+					<h1 class="text-xl font-semibold capitalize text-white">Supportive community</h1>
 
-					<p class="text-gray-500 dark:text-gray-300">
+					<p class="text-gray-300">
 						Our website is not just a platform for finding a partner but also a community where
 						individuals can connect, share their experiences, and receive support. That is why we're
 						dedicated to providing a supportive community that goes beyond just the digital realm.
@@ -173,7 +161,7 @@
 
 				<div class="space-y-3">
 					<span
-						class="inline-block p-3 text-blue-500 bg-blue-100 rounded-xl dark:text-white dark:bg-blue-500"
+						class="inline-block p-3 rounded-xl text-white bg-blue-500"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -191,11 +179,9 @@
 						</svg>
 					</span>
 
-					<h1 class="text-xl font-semibold text-gray-700 capitalize dark:text-white">
-						Quality profiles
-					</h1>
+					<h1 class="text-xl font-semibold capitalize text-white">Quality profiles</h1>
 
-					<p class="text-gray-500 dark:text-gray-300">
+					<p class="text-gray-300">
 						We take the process of creating a profile seriously and provide guidelines to ensure the
 						information shared is accurate and authentic. Our comprehensive profiles focus on the
 						individual's personalities, values, interests, and goals which help our users find their
@@ -209,7 +195,7 @@
 
 				<div class="space-y-3">
 					<span
-						class="inline-block p-3 text-blue-500 bg-blue-100 rounded-xl dark:text-white dark:bg-blue-500"
+						class="inline-block p-3 rounded-xl text-white bg-blue-500"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -227,11 +213,9 @@
 						</svg>
 					</span>
 
-					<h1 class="text-xl font-semibold text-gray-700 capitalize dark:text-white">
-						Advanced search features
-					</h1>
+					<h1 class="text-xl font-semibold capitalize text-white">Advanced search features</h1>
 
-					<p class="text-gray-500 dark:text-gray-300">
+					<p class="text-gray-300">
 						Our advanced search features allow users to search for potential partners based on their
 						spiritual beliefs, location, age, and other important factors. This feature saves time
 						and ensures that users are matched with individuals who share similar interests and
@@ -241,7 +225,7 @@
 
 				<div class="space-y-3">
 					<span
-						class="inline-block p-3 text-blue-500 bg-blue-100 rounded-xl dark:text-white dark:bg-blue-500"
+						class="inline-block p-3 rounded-xl text-white bg-blue-500"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -259,11 +243,9 @@
 						</svg>
 					</span>
 
-					<h1 class="text-xl font-semibold text-gray-700 capitalize dark:text-white">
-						Exceptional Customer Service
-					</h1>
+					<h1 class="text-xl font-semibold capitalize text-white">Exceptional Customer Service</h1>
 
-					<p class="text-gray-500 dark:text-gray-300">
+					<p class="text-gray-300">
 						Our team is dedicated to providing exceptional customer service and support to our
 						users. We are always available to answer your questions and help you navigate our
 						platform
