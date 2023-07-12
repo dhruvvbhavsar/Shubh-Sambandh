@@ -17,7 +17,7 @@
 		"autoprefixer": "^10.4.14",
 		"eslint": "^8.28.0",
 		"eslint-config-prettier": "^8.5.0",
-		"eslint-plugin-svelte": "^4.0.0",
+		"eslint-plugin-svelte3": "^4.0.0",
 		"postcss": "^8.4.22",
 		"prettier": "^2.8.0",
 		"prettier-plugin-svelte": "^2.10.1",
@@ -39,8 +39,6 @@
 		"clsx": "^1.2.1",
 		"lucia-auth": "^1.5.0",
 		"lucide-svelte": "^0.258.0",
-		"radix-svelte": "^0.8.0",
-		"svelte-multiselect": "^10.0.0",
 		"svelte-select": "^5.6.1",
 		"tailwind-merge": "^1.13.2",
 		"tailwindcss-animate": "^1.0.6"
