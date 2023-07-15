@@ -9,7 +9,6 @@
 	let diet: string;
 	let otherDiet: string;
 	let selected: string[];
-
 </script>
 
 <form class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
@@ -82,19 +81,7 @@
 			</div>
 		{/if}
 	</div>
-	<div>
-		<label for="bloodGroup" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
-			>Blood Group</label
-		>
-		<select
-			name="bloodGroup"
-			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-		>
-			<!-- {#each locationData as country}
-        <option>{country.name}</option>
-        {/each} -->
-		</select>
-	</div>
+
 	<HobbiesComponent items={hobbies} />
 	<SportsComponent items={sportsList} />
 	<div class="col-span-full">

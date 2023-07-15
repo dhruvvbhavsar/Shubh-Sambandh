@@ -1,5 +1,6 @@
 <script>
-	import { sportsList, diseases, hobbies } from './options';
+	import { Button } from '$components/ui/button';
+	import { diseases } from './options';
 	let currentMedicalCondition = false;
 	let currentMedicalInfo = '';
 	let previousMedicalCondition = false;
@@ -169,4 +170,7 @@
 			</select>
 		</div>
 	{/if}
+	<Button class="bg-black dark:bg-white text-white dark:text-black rounded-lg mx-auto col-span-full"
+		>Save Medical Details</Button
+	>
 </form>

@@ -1,6 +1,7 @@
 <script>
 	import PersonalDetails from './PersonalDetails.svelte';
 	import MedicalDetails from './MedicalDetails.svelte';
+	import SpiritualDetails from './SpiritualDetails.svelte';
 </script>
 
 <section class="dark:bg-gray-900 min-h-max">
@@ -42,6 +43,7 @@
 				</p>
 				<PersonalDetails />
 				<MedicalDetails />
+				<SpiritualDetails />
 			</div>
 		</div>
 	</div>

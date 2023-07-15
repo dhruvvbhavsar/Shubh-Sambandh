@@ -4,7 +4,7 @@
 
 	let value: any = null;
 
-	export let items;
+	export let items: any;
 
 	function handleFilter(e: any) {
 		if (value?.find((i) => i.label === filterText)) return;
