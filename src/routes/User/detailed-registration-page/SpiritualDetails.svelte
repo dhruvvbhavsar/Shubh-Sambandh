@@ -19,13 +19,13 @@
 	let initiatedName: string
 </script>
 
-<form class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 place-items-center">
+<form class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
 	<h1
 		class="text-4xl font-semibold col-span-1 text-center md:col-span-2 tracking-wider text-gray-800 capitalize dark:text-white"
 	>
 		Spiritual Details
 	</h1>
-	<div>
+	<div class="col-span-full">
 		<label for="religious-affiliation" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
 			>Do you a religious affiliation with any spiritual organization?</label
 		>
@@ -41,7 +41,7 @@
 	</div>
 
 	{#if isAffiliated}
-		<div>
+		<div class="col-span-full">
 			<label for="spiritualOrgName" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
 				>Which spiritual organization are you connected to?
 			</label>
@@ -57,7 +57,7 @@
 		</div>
 	{/if}
 	{#if spiritualOrgName === 'others' && isAffiliated}
-		<div class="mt-2">
+		<div class="mt-2 col-span-full">
 			<label for="otherOrgName" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
 				>Please specify about the spiritual organisation you are connected to</label
 			>
@@ -77,7 +77,7 @@
 			For ISKCON Devotees
 		</h1>
 		<SpiritualOrgsComponent />
-		<div>
+		<div class="col-span-full">
 			<label for="religious-affiliation" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
 				>Do you have a counsellor?</label
 			>
@@ -92,7 +92,7 @@
 			</select>
 		</div>
 		{#if haveCounsellor}
-			<div class="mt-2">
+			<div class="mt-2 col-span-full">
 				<label for="counsellorName" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
 					>Name of your counsellor</label
 				>
@@ -103,7 +103,7 @@
 					class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 				/>
 			</div>
-			<div class="mt-2">
+			<div class="mt-2 col-span-full">
 				<label for="counsellorNumber" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
 					>Contact number of your counsellor</label
 				>
@@ -121,7 +121,7 @@
 		>
 			Devotional Practices
 		</h1>
-		<div>
+		<div class="col-span-full">
 			<label for="doYouChant" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
 				>Do you chant the Hare Krishna Mahamantra?
 			</label>
@@ -137,7 +137,7 @@
 			</select>
 		</div>
 		{#if doYouChant === 'yes'}
-			<div>
+			<div class="col-span-full">
 				<label for="chantFreq" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
 					>How often do you chant the Hare Krishna Mahamantra?
 				</label>
@@ -156,9 +156,9 @@
 				</select>
 			</div>
 
-			<div>
+			<div class="col-span-full">
 				<label for="howManyRounds" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
-					>How often do you chant the Hare Krishna Mahamantra?
+					>How many rounds of the Hare Krishna Mahamantra do you chant?
 				</label>
 				<select
 					bind:value={howManyRounds}
@@ -177,9 +177,9 @@
 					<option value="more">More</option>
 				</select>
 			</div>
-			<div>
+			<div class="col-span-full">
 				<label for="chantingTimeline" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
-					>Do you chant the Hare Krishna Mahamantra?
+					>Since how long have you been chanting the Mahamantra?
 				</label>
 				<select
 					bind:value={chantingTimeline}
@@ -195,7 +195,7 @@
 				</select>
 			</div>
 		{/if}
-		<div>
+		<div class="col-span-full">
 			<label for="areYouInvolved" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
 				>Are you involved in ISKCON activities?
 			</label>
@@ -210,7 +210,7 @@
 				<option value="planning">Planning to be involved</option>
 			</select>
 		</div>
-		<div>
+		<div class="col-span-full">
 			<label for="attendFestivals" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
 				>Attendance or service at temple activities or festivals
 			</label>
@@ -230,7 +230,7 @@
 		>
 			Initiation Status
 		</h1>
-		<div>
+		<div class="col-span-full">
 			<label for="areYouInitiated" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
 				>Have you been initiated by a Spiritual Master?
 			</label>
@@ -246,7 +246,7 @@
 			</select>
 		</div>
 		{#if areYouInitiated==='yes'}
-		<div>
+		<div class="col-span-full">
 			<label for="initiatedName" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
 				>Initiated name
 			</label>
@@ -259,7 +259,7 @@
 		</div>
 		{/if}
 	{/if}
-	<div>
+	<div class="col-span-full">
 		<label for="spiritualityImportance" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
 			>Importance of spirituality in your life
 		</label>

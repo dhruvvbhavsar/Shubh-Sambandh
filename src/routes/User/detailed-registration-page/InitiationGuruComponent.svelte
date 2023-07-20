@@ -12,11 +12,14 @@
 		>Counselor's Spiritual Master</label
 	>
 	<Select
-		--background="white"
-		--item-color="black"
-        --list-background="white"
-		--placeholder-color="black"
-		--selected-item-color="black"
+	--background="transparent"
+		--item-color="white"
+        --list-background="#111827"
+		--placeholder-color="white"
+		--selected-item-color="white"
+		--item-hover-color="black"
+		--item-is-active-bg="white"
+		--item-is-active-color="black"
 		{items}
 		groupBy={(item) => item.group}
 		bind:value

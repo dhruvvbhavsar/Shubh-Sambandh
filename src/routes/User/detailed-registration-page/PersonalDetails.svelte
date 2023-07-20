@@ -1,11 +1,12 @@
 <script lang="ts">
-	import { X } from 'lucide-svelte';
+	import { Info, X } from 'lucide-svelte';
 	import { sportsList, diseases, hobbies } from './options';
 	import { Textarea } from '$components/ui/textarea';
 	import { Button } from '$components/ui/button';
 	import Select from 'svelte-select';
 	import SportsComponent from './SportsComponent.svelte';
 	import HobbiesComponent from './HobbiesComponent.svelte';
+	import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from '$components/ui/tooltip';
 	let diet: string;
 	let otherDiet: string;
 	let selected: string[];
@@ -17,7 +18,7 @@
 	>
 		Personal Details
 	</h1>
-	<div>
+	<div class="col-span-full">
 		<label for="placeOfBirth" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
 			>Place of Birth</label
 		>
@@ -31,7 +32,7 @@
 		</select>
 	</div>
 
-	<div>
+	<div class="col-span-full">
 		<label for="bloodGroup" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
 			>Blood Group</label
 		>
@@ -52,7 +53,7 @@
 		</select>
 	</div>
 
-	<div>
+	<div class="col-span-full">
 		<label for="caste" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Diet</label>
 		<select
 			bind:value={diet}
@@ -85,13 +86,30 @@
 	<HobbiesComponent items={hobbies} />
 	<SportsComponent items={sportsList} />
 	<div class="col-span-full">
-		<label for="bio" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Bio</label>
+		<div class="flex gap-2 items-center mb-2">
+			<label for="bio" class="block text-sm text-gray-600 dark:text-gray-200">Bio</label>
+			<TooltipProvider>
+				<Tooltip>
+					<TooltipTrigger><Info class="h-5 w-5 text-white" /></TooltipTrigger>
+					<TooltipContent class="bg-current w-96">
+						<p class="text-white text-justify">
+							You can share some details about your personality, interests, and background. This
+							will help potential matches to get to know you better. Consider mentioning your
+							hobbies, passions, and any unique qualities that make you who you are. Take this
+							opportunity to express what you value in a relationship. Keep your repsonse concise,
+							yet informative, focusing on the most important aspects of your personality and life.
+							Feel free to update you profile periodically as your interests and preferences evolve.
+						</p>
+					</TooltipContent>
+				</Tooltip>
+			</TooltipProvider>
+		</div>
 		<Textarea
 			class="text-white border-gray-600 rounded-lg h-32 placeholder:text-sm placeholder:text-gray-400 text-base"
-			placeholder="You can share some details about your personality, interests, and background. This will help potential matches to get to know you better. Consider mentioning your hobbies, passions, and any unique qualities that make you who you are. Take this opportunity to express what you value in a relationship. Keep your repsonse concise, yet informative, focusing on the most important aspects of your personality and life. Feel free to update you profile periodically as your interests and preferences evolve."
+			placeholder="I'm Batman"
 		/>
 	</div>
-	<Button class="bg-black dark:bg-white text-white dark:text-black rounded-lg mx-auto col-span-full"
+	<Button type="submit" class="bg-black dark:bg-white text-white dark:text-black rounded-lg mx-auto col-span-full"
 		>Save Personal Details</Button
 	>
 </form>

@@ -8,13 +8,13 @@
 	let takingMedicine = false;
 </script>
 
-<form class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 place-items-center">
+<form class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
 	<h1
-		class="text-4xl font-semibold col-span-1 text-center md:col-span-2 tracking-wider text-gray-800 capitalize dark:text-white"
+		class="text-4xl font-semibold  text-center col-span-1 md:col-span-2 tracking-wider text-gray-800 capitalize dark:text-white"
 	>
 		Medical Details
 	</h1>
-	<div>
+	<div class="col-span-full">
 		<label for="disease" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
 			>Do you have any pre-existing medical disease?</label
 		>
@@ -30,7 +30,7 @@
 	</div>
 
 	{#if currentMedicalCondition}
-		<div>
+		<div class="col-span-full">
 			<label for="medicalConditions" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
 				>Please select from the below list any condtion/allergies that apply to you</label
 			>
@@ -42,7 +42,7 @@
 				<option value="" selected disabled hidden>Select Option</option>
 				<option value="allergy">Allergies (please specify in the provided text box)</option>
 				<option value="asthama">Asthma</option>
-				<option value="cancer">Cancer (please specify in the provided text box)</option>
+
 				<option value="chronic pain"
 					>Chronic pain conditions (please specify in the provided text box)</option
 				>
@@ -62,9 +62,9 @@
 		</div>
 	{/if}
 	{#if diseases.includes(currentMedicalInfo) && currentMedicalCondition}
-		<div class="mt-2">
+		<div class="mt-2 col-span-full">
 			<label for="additionalMedicalInfo" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
-				>Please specify about your {currentMedicalInfo} condition</label
+				>Please specify your pre-existing disease</label
 			>
 			<input
 				type="text"
@@ -74,7 +74,7 @@
 		</div>
 	{/if}
 
-	<div>
+	<div class="col-span-full">
 		<label for="disease" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
 			>Did you have any medical condition in the past that is now completely cured?</label
 		>
@@ -90,7 +90,7 @@
 	</div>
 
 	{#if previousMedicalCondition}
-		<div>
+		<div class="col-span-full">
 			<label for="medicalConditions" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
 				>Please select from the below list any condtion/allergies that apply to you</label
 			>
@@ -102,7 +102,7 @@
 				<option value="" selected disabled hidden>Select Option</option>
 				<option value="allergy">Allergies (please specify in the provided text box)</option>
 				<option value="asthama">Asthma</option>
-				<option value="cancer">Cancer (please specify in the provided text box)</option>
+
 				<option value="chronic pain"
 					>Chronic pain conditions (please specify in the provided text box)</option
 				>
@@ -122,9 +122,9 @@
 		</div>
 	{/if}
 	{#if diseases.includes(previousMedicalInfo) && previousMedicalCondition}
-		<div class="mt-2">
+		<div class="mt-2 col-span-full">
 			<label for="additionalMedicalInfo" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
-				>Please specify about your {previousMedicalInfo} condition</label
+				>Please specify about your condition</label
 			>
 			<input
 				type="text"
@@ -134,7 +134,7 @@
 		</div>
 	{/if}
 
-	<div>
+	<div class="col-span-full">
 		<label for="takingMedicine" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
 			>Are you currently taking any medications for the treatment/management of any disease?</label
 		>
@@ -150,7 +150,7 @@
 	</div>
 
 	{#if takingMedicine}
-		<div>
+		<div class="col-span-full">
 			<label
 				for="takingMedicineForHowLong"
 				class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
