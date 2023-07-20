@@ -16,6 +16,7 @@
 	let attendFestivals: string;
 	let areYouInitiated: string
 	let spiritualityImportance: string
+	let initiatedName: string
 </script>
 
 <form class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 place-items-center">
@@ -244,6 +245,19 @@
 				<option value="dont want">Dont want to be initiated</option>
 			</select>
 		</div>
+		{#if areYouInitiated==='yes'}
+		<div>
+			<label for="initiatedName" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				>Initiated name
+			</label>
+			<input
+				bind:value={initiatedName}
+				type="text"
+				name="initiatedName"
+				class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			/>
+		</div>
+		{/if}
 	{/if}
 	<div>
 		<label for="spiritualityImportance" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
