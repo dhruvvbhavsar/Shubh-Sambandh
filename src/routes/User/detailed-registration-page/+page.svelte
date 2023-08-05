@@ -2,6 +2,12 @@
 	import PersonalDetails from './PersonalDetails.svelte';
 	import MedicalDetails from './MedicalDetails.svelte';
 	import SpiritualDetails from './SpiritualDetails.svelte';
+	import LifeStyleDetails from './LifeStyleDetails.svelte';
+	import EducationalDetails from './EducationalDetails.svelte';
+	import ProfessionalDetails from './ProfessionalDetails.svelte';
+	import FamilyDetails from './FamilyDetails.svelte';
+	import PartnerPreferences from './PartnerPreferences.svelte';
+	import AstrologyDetails from './AstrologyDetails.svelte';
 </script>
 
 <section class="dark:bg-gray-900 min-h-max">
@@ -44,6 +50,12 @@
 				<PersonalDetails />
 				<MedicalDetails />
 				<SpiritualDetails />
+				<LifeStyleDetails />
+				<EducationalDetails />
+				<ProfessionalDetails />
+				<FamilyDetails />
+				<PartnerPreferences />
+				<AstrologyDetails />
 			</div>
 		</div>
 	</div>

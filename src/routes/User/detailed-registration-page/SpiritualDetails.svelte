@@ -3,6 +3,7 @@
 	import InitiationGuruComponent from './InitiationGuruComponent.svelte';
 	import SpiritualOrgsComponent from './SpiritualOrgsComponent.svelte';
 	let isAffiliated: boolean = false;
+
 	let haveCounsellor: boolean = false;
 	let counsellorName: string;
 	let counsellorNumber: number;
@@ -12,11 +13,36 @@
 	let chantFreq: string;
 	let howManyRounds: number | string;
 	let chantingTimeline: string;
+
 	let areYouInvolved: string;
 	let attendFestivals: string;
-	let areYouInitiated: string
-	let spiritualityImportance: string
-	let initiatedName: string
+	let areYouInitiated: string;
+	let spiritualityImportance: string;
+
+	let initiatedName: string;
+	let aspiringtobeInitiated: string;
+	let initiationGuru: string;
+
+	let understanding_prabhupad: string;
+	let bhagwatam_knowledge: string;
+
+	let diet_pref: string;
+	let diet_prasadam: string;
+
+	let committment_spiritual: string;
+	let adherence_principles: string;
+
+	let involvement: string;
+	let participation: string;
+
+	let willingness_for_service: string;
+	let service_interests: string;
+
+	let connection_culture: string;
+	let understanding_iskcon: string;
+
+	let committment_readiness: string;
+	let children_willingness: string;
 </script>
 
 <form class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
@@ -116,6 +142,7 @@
 			</div>
 			<InitiationGuruComponent />
 		{/if}
+
 		<h1
 			class="text-xl font-semibold col-span-1 text-center md:col-span-2 tracking-wider text-gray-800 capitalize dark:text-white"
 		>
@@ -225,6 +252,7 @@
 				<option value="planning">Planning to serve or attend</option>
 			</select>
 		</div>
+
 		<h1
 			class="text-xl font-semibold col-span-1 text-center md:col-span-2 tracking-wider text-gray-800 capitalize dark:text-white"
 		>
@@ -241,23 +269,389 @@
 			>
 				<option value="" selected disabled hidden>Select Option</option>
 				<option value="yes">Yes</option>
-				<option value="not yet">No Yet</option>
+				<option value="not yet">Not Yet</option>
 				<option value="dont want">Dont want to be initiated</option>
 			</select>
 		</div>
-		{#if areYouInitiated==='yes'}
-		<div class="col-span-full">
-			<label for="initiatedName" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
-				>Initiated name
-			</label>
-			<input
-				bind:value={initiatedName}
-				type="text"
-				name="initiatedName"
-				class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-			/>
-		</div>
+		{#if areYouInitiated === 'yes'}
+			<div class="col-span-full">
+				<label for="initiatedName" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+					>Initiated name
+				</label>
+				<input
+					bind:value={initiatedName}
+					type="text"
+					name="initiatedName"
+					class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				/>
+			</div>
+
+			<div class="col-span-full">
+				<label for="initiationGuru" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+					>Name of the Initiation Guru
+				</label>
+				<input
+					bind:value={initiationGuru}
+					type="text"
+					name="initiationGuru"
+					class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				/>
+			</div>
 		{/if}
+
+		{#if areYouInitiated === 'not yet'}
+			<div class="col-span-full">
+				<label
+					for="aspiringtobeInitiated"
+					class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+					>Aspiring to be initiated by:
+				</label>
+				<input
+					bind:value={aspiringtobeInitiated}
+					type="text"
+					name="aspiringtobeInitiated"
+					class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				/>
+			</div>
+		{/if}
+
+		<h1
+			class="text-xl font-semibold col-span-1 text-center md:col-span-2 tracking-wider text-gray-800 capitalize dark:text-white"
+		>
+			Familiarity with ISKCON Philosophy
+		</h1>
+
+		<div class="col-span-full">
+			<label
+				for="understanding_prabhupad"
+				class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				>Understanding and acceptance of the teachings of Srila Prabhupada
+			</label>
+			<select
+				bind:value={understanding_prabhupad}
+				name="understanding_prabhupad"
+				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			>
+				<option value="" selected disabled hidden>Select Option</option>
+				<option value="Completely Understand and Accept">Completely Understand and Accept</option>
+				<option value="Partially Understand and Accept">Partially Understand and Accept</option>
+				<option value="Completely Understand and Do Not Accept"
+					>Completely Understand and Do Not Accept</option
+				>
+				<option value="Partially Understand and Do Not Accept"
+					>Partially Understand and Do Not Accept</option
+				>
+				<option value="Do Not Understand">Do Not Understand</option>
+			</select>
+		</div>
+
+		<div class="col-span-full">
+			<label for="bhagwatam_knowledge" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				>Knowledge of the Bhagvad Gita and Srimad Bhagvatam
+			</label>
+			<select
+				bind:value={bhagwatam_knowledge}
+				name="bhagwatam_knowledge"
+				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			>
+				<option value="" selected disabled hidden>Select Option</option>
+				<option value="Advanced Knowledge">Advanced Knowledge</option>
+				<option value="Intermediate Knowledge">Intermediate Knowledge</option>
+				<option value="Basic Knowledge">Basic Knowledge</option>
+				<option value="No Knowledge">No Knowledge</option>
+			</select>
+		</div>
+
+		<h1
+			class="text-xl font-semibold col-span-1 text-center md:col-span-2 tracking-wider text-gray-800 capitalize dark:text-white"
+		>
+			Dietary Preferences
+		</h1>
+
+		<div class="col-span-full">
+			<label for="diet_pref" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				>Vegetarian or vegan (avoidance of meat, fish, eggs)
+			</label>
+			<select
+				bind:value={diet_pref}
+				name="diet_pref"
+				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			>
+				<option value="" selected disabled hidden>Select Option</option>
+				<option value="Strictly Vegetarian or Vegan">Strictly Vegetarian or Vegan</option>
+				<option value="Mostly Vegetarian or Vegan">Mostly Vegetarian or Vegan</option>
+				<option value="Occasionally Non-Vegetarian">Occasionally Non-Vegetarian</option>
+				<option value="Regularly Consume Meat, Fish, and Eggs"
+					>Regularly Consume Meat, Fish, and Eggs</option
+				>
+			</select>
+		</div>
+
+		<div class="col-span-full">
+			<label for="diet_prasadam" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				>Observance of the prasadam (sanctified food) distribution system
+			</label>
+			<select
+				bind:value={diet_prasadam}
+				name="diet_prasadam"
+				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			>
+				<option value="" selected disabled hidden>Select Option</option>
+				<option value="Strictly Observe Prasadam">Strictly Observe Prasadam</option>
+				<option value="Occasionally Observe Prasadam">Occasionally Observe Prasadam</option>
+				<option value="Only at the temple">Only at the temple</option>
+				<option value="Not Familiar With Prasadam System">Not Familiar With Prasadam System</option>
+			</select>
+		</div>
+
+		<h1
+			class="text-xl font-semibold col-span-1 text-center md:col-span-2 tracking-wider text-gray-800 capitalize dark:text-white"
+		>
+			Spiritual Values and Lifestyle
+		</h1>
+
+		<div class="col-span-full">
+			<label for="committment_spiritual" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				>Commitment to living a spiritually conscious life
+			</label>
+			<select
+				bind:value={committment_spiritual}
+				name="committment_spiritual"
+				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			>
+				<option value="" selected disabled hidden>Select Option</option>
+				<option value="Fully Committed">Fully Committed</option>
+				<option value="Mostly Committed">Mostly Committed</option>
+				<option value="Somewhat Committed">Somewhat Committed</option>
+				<option value="Not Committed">Not Committed</option>
+			</select>
+		</div>
+
+		<div class="col-span-full">
+			<label for="adherence_principles" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				>Adherence to the four regulative principles: no meat eating. no gambling, no illicit sex,
+				no intoxication
+			</label>
+			<select
+				bind:value={adherence_principles}
+				name="adherence_principles"
+				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			>
+				<option value="" selected disabled hidden>Select Option</option>
+				<option value="Strictly Adhere to All Four Principles"
+					>Strictly Adhere to All Four Principles</option
+				>
+				<option value="Adhere to Some of the Principles">Adhere to Some of the Principles</option>
+				<option value="Occasionally Follow the Principles"
+					>Occasionally Follow the Principles</option
+				>
+				<option value="Do Not Follow Any of the Principles"
+					>Do Not Follow Any of the Principles</option
+				>
+			</select>
+		</div>
+
+		<h1
+			class="text-xl font-semibold col-span-1 text-center md:col-span-2 tracking-wider text-gray-800 capitalize dark:text-white"
+		>
+			Connection to ISKCON Community
+		</h1>
+
+		<div class="col-span-full">
+			<label for="involvement" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				>Involvement in local ISKCON temple or community
+			</label>
+			<select
+				bind:value={involvement}
+				name="involvement"
+				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			>
+				<option value="" selected disabled hidden>Select Option</option>
+				<option value="Actively Involved">Actively Involved</option>
+				<option value="Moderately Involved">Moderately Involved</option>
+				<option value="Occasionally Involved">Occasionally Involved</option>
+				<option value="Not Involved">Not Involved</option>
+			</select>
+		</div>
+
+		<div class="col-span-full">
+			<label for="participation" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				>Participation in devotee association or study groups
+			</label>
+			<select
+				bind:value={participation}
+				name="participation"
+				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			>
+				<option value="" selected disabled hidden>Select Option</option>
+				<option value="Actively Participate">Actively Participate</option>
+				<option value="Occasionally Participate">Occasionally Participate</option>
+				<option value="Interested but Haven't Participated Yet"
+					>Interested but Haven't Participated Yet</option
+				>
+				<option value="Not Interested">Not Interested</option>
+				<option value="Not Aware of Such Group">Not Aware of Such Group</option>
+			</select>
+		</div>
+
+		<h1
+			class="text-xl font-semibold col-span-1 text-center md:col-span-2 tracking-wider text-gray-800 capitalize dark:text-white"
+		>
+			Service and Seva
+		</h1>
+
+		<div class="col-span-full">
+			<label
+				for="willingness_for_service"
+				class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				>Willingness to engage in devotional service or seva within the ISKCON community
+			</label>
+			<select
+				bind:value={willingness_for_service}
+				name="willingness_for_service"
+				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			>
+				<option value="" selected disabled hidden>Select Option</option>
+				<option value="Willing and Actively Engaged in Seva"
+					>Willing and Actively Engaged in Seva</option
+				>
+				<option value="Willing but Not Yet Engaged in Seva"
+					>Willing but Not Yet Engaged in Seva</option
+				>
+				<option value="Unsure or Undecided about Engaging in Seva"
+					>Unsure or Undecided about Engaging in Seva</option
+				>
+				<option value="Not Willing to Engage in Seva">Not Willing to Engage in Seva</option>
+			</select>
+		</div>
+
+		<div class="col-span-full">
+			<label for="service_interests" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				>Interest in specific areas of service, such as deity worship, book distribution, or
+				outreach programs
+			</label>
+			<select
+				bind:value={service_interests}
+				name="service_interests"
+				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			>
+				<option value="" selected disabled hidden>Select Option</option>
+				<option value="Interested and Actively Involved">Interested and Actively Involved</option>
+				<option value="Interested but Not Actively Involved Yet"
+					>Interested but Not Actively Involved Yet</option
+				>
+				<option value="Not Sure about Specific Areas of Service"
+					>Not Sure about Specific Areas of Service</option
+				>
+				<option value="Not Interested in Any Specific Areas of Service"
+					>Not Interested in Any Specific Areas of Service</option
+				>
+			</select>
+		</div>
+
+		<h1
+			class="text-xl font-semibold col-span-1 text-center md:col-span-2 tracking-wider text-gray-800 capitalize dark:text-white"
+		>
+			Cultural Backgrund
+		</h1>
+
+		<div class="col-span-full">
+			<label for="connection_culture" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				>Connection to Vaishnava culture
+			</label>
+			<select
+				bind:value={connection_culture}
+				name="connection_culture"
+				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			>
+				<option value="" selected disabled hidden>Select Option</option>
+				<option value="Strong Connection and Active Involvement"
+					>Strong Connection and Active Involvement</option
+				>
+				<option value="Moderate Connection and Involvement"
+					>Moderate Connection and Involvement</option
+				>
+				<option value="Familiar with Vaishnava Culture but Not Actively Involved"
+					>Familiar with Vaishnava Culture but Not Actively Involved</option
+				>
+				<option value="Not Familiar with Vaishnava Culture"
+					>Not Familiar with Vaishnava Culture</option
+				>
+			</select>
+		</div>
+
+		<div class="col-span-full">
+			<label for="understanding_iskcon" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				>Understanding and appreciation of traditional ISKCON customs and etiquette
+			</label>
+			<select
+				bind:value={understanding_iskcon}
+				name="understanding_iskcon"
+				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			>
+				<option value="" selected disabled hidden>Select Option</option>
+				<option value="Deep Understanding and Strict Adherence"
+					>Deep Understanding and Strict Adherence</option
+				>
+				<option value="Deep Understanding and Some Adherence"
+					>Deep Understanding and Some Adherence</option
+				>
+				<option value="Moderate Understanding and Strict Adherence"
+					>Moderate Understanding and Strict Adherence</option
+				>
+				<option value="Moderate Understanding and Some Adherence"
+					>Moderate Understanding and Some Adherence</option
+				>
+				<option value="Familiar with Customs and Etiquette but Not Strictly Adherent"
+					>Familiar with Customs and Etiquette but Not Strictly Adherent</option
+				>
+				<option value="Not Familiar with Customs and Etiquette"
+					>Not Familiar with Customs and Etiquette</option
+				>
+			</select>
+		</div>
+
+		<h1
+			class="text-xl font-semibold col-span-1 text-center md:col-span-2 tracking-wider text-gray-800 capitalize dark:text-white"
+		>
+			Personal commitment to Marriage and Family Life
+		</h1>
+
+		<div class="col-span-full">
+			<label for="committment_readiness" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				>Readiness for a lifelong commitment to marriage and family in accordnace with ISKCON values
+			</label>
+			<select
+				bind:value={committment_readiness}
+				name="committment_readiness"
+				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			>
+				<option value="" selected disabled hidden>Select Option</option>
+				<option value="Fully Ready and Committed">Fully Ready and Committed</option>
+				<option value="Mostly Ready and Committed">Mostly Ready and Committed</option>
+				<option value="Considering it but Unsure">Considering it but Unsure</option>
+				<option value="Not Ready or Committed">Not Ready or Committed</option>
+			</select>
+		</div>
+
+		<div class="col-span-full">
+			<label for="children_willingness" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				>Willingness to raise children in a Krishna conscious environment
+			</label>
+			<select
+				bind:value={children_willingness}
+				name="children_willingness"
+				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			>
+				<option value="" selected disabled hidden>Select Option</option>
+				<option value="Completely Willing and Prepared">Completely Willing and Prepared</option>
+				<option value="Willing but Need Guidance*">Willing but Need Guidance*</option>
+				<option value="Considering it but Uncertain">Considering it but Uncertain</option>
+				<option value="Not Willing to Raise Children in Such an Environment"
+					>Not Willing to Raise Children in Such an Environment</option
+				>
+			</select>
+		</div>
 	{/if}
 	<div class="col-span-full">
 		<label for="spiritualityImportance" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
@@ -276,6 +670,6 @@
 		</select>
 	</div>
 	<Button class="bg-black dark:bg-white text-white dark:text-black rounded-lg mx-auto col-span-full"
-	>Save Spiritual Details</Button
->
+		>Save Spiritual Details</Button
+	>
 </form>
