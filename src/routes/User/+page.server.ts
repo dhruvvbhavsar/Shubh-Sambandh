@@ -9,7 +9,22 @@ export const load: PageServerLoad = async ({ locals }) => {
 	if (!user) throw redirect(302, "/Sign");
 	console.log(user)
 
-	const users = await prisma.authUser.findMany();
+	const users = await prisma.authUser.findMany({
+		select: {
+			firstName: true,
+			profilePictureUrl: true,
+			city: true,
+			country: true,
+			dateOfBirth: true,
+			id: true
+		},
+		where: {
+			NOT: {
+				id: user.userId
+			}
+		}
+	});
+	console.log(users)
 
 	return {
 		user,users

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { redirect } from '@sveltejs/kit';
 	import type { PageData } from './$types';
 
 	let open = false;
@@ -57,7 +58,7 @@
 
 	<div class="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 lg:grid-cols-4 gap-3 p-3">
 		{#each users as user }
-		<div class="w-full overflow-hidden rounded-lg bg-blue-300 p-4 shadow-lg">
+		<a href={`/User/${user.id}`} class="w-full overflow-hidden rounded-lg bg-blue-300 p-4 shadow-lg">
 			<div
 				class="h-60 bg-cover bg-center"
 				style="background-image: url('{user.profilePictureUrl}')"
@@ -78,7 +79,7 @@
 					<div class="text-sm text-gray-600">{user.city}, {user.country}</div>
 				</div>
 			</div>
-		</div>
+		</a>
 		{/each}
 	</div>
 </div>
