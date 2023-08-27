@@ -2,7 +2,7 @@
 	import Select from 'svelte-select';
 	import { initiatingGurus } from './options';
 
-	let value: any = null;
+	export let value: any = null;
 
 	let items = initiatingGurus;
 </script>

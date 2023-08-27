@@ -1,11 +1,30 @@
 <script lang="ts">
 	import { Button } from '$components/ui/button';
+	import { formData } from '../../../form_store';
 
 	let qualification: string;
 	let other_qualification: string;
+
+	function handleSubmit(event: any) {
+    event.preventDefault();
+
+    // Collect form data
+    const educationalData = {
+      qualification,
+      other_qualification,
+    };
+
+    // Update the formData store with educationalData
+    formData.update(data => ({ ...data, educational_details: educationalData }));
+
+    // Log the updated formData to see the changes
+    formData.subscribe(updatedData => {
+      console.log("Updated Form Data:", updatedData);
+    });
+  }
 </script>
 
-<form class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+<form on:submit={handleSubmit} class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
 	<h1
 		class="text-4xl font-semibold col-span-1 text-center md:col-span-2 tracking-wider text-gray-800 capitalize dark:text-white"
 	>

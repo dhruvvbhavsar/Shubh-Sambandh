@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Button } from '$components/ui/button';
+	import { formData } from '../../../form_store';
 
 	const age_range: string[] = [
 		'Younger than me',
@@ -7,20 +8,14 @@
 		'Older than me',
 		'No specific preference'
 	];
-	let p_age_range: string[] = [];
 
 	const marital_status = ['Never Married', 'Divorced', 'Awaiting Divorce', 'Widowed', 'Separated'];
-	let p_marital_status: string[] = [];
 
 	const devotional_preferences = [
 		'Connected to ISKCON',
 		'Connected to any other spiritual organization',
 		'No specific preference'
 	];
-	let p_devotional: string[] = [];
-
-	let p_initiation_status: string;
-	let p_chanting_status: string;
 
 	const rashi = [
 		'Mesh',
@@ -36,8 +31,12 @@
 		'Dhanu',
 		'Meen'
 	];
+	let p_devotional: string[] = [];
+	let p_age_range: string[] = [];
+	let p_initiation_status: string;
+	let p_chanting_status: string;
 	let p_specific_rashi: string[] = [];
-
+	let p_marital_status: string[] = [];
 	let age_difference: string;
 	let p_education: string;
 	let p_occupation: string;
@@ -50,9 +49,43 @@
 	let p_language: string;
 	let p_manglik: string;
 	let p_rashi: string;
+
+	function handleSubmit(event: any) {
+    event.preventDefault();
+
+    // Collect form data
+    const partnerPreferencesData = {
+      p_devotional,
+      p_age_range,
+      p_initiation_status,
+      p_chanting_status,
+      p_specific_rashi,
+      p_marital_status,
+      age_difference,
+      p_education,
+      p_occupation,
+      p_annual_income,
+      p_family_background,
+      p_location,
+      p_diet,
+      p_post_living,
+      p_other_post_living,
+      p_language,
+      p_manglik,
+      p_rashi,
+    };
+
+    // Update the formData store with partnerPreferencesData
+    formData.update(data => ({ ...data, partner_preferences: partnerPreferencesData }));
+
+    // Log the updated formData to see the changes
+    formData.subscribe(updatedData => {
+      console.log("Updated Form Data:", updatedData);
+    });
+  }
 </script>
 
-<form class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+<form on:submit={handleSubmit} class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
 	<h1
 		class="text-4xl font-semibold col-span-1 text-center md:col-span-2 tracking-wider text-gray-800 capitalize dark:text-white"
 	>
@@ -394,7 +427,6 @@
 			{/each}
 		</div>
 	{/if}
-
 	<Button
 		type="submit"
 		class="bg-black dark:bg-white text-white dark:text-black rounded-lg mx-auto col-span-full"

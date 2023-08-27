@@ -2,8 +2,7 @@
 	import Select from 'svelte-select';
 	let filterText = '';
 
-	let value: any = null;
-
+	export let value: any = null;
 	export let items: any;
 
 	function handleFilter(e: any) {

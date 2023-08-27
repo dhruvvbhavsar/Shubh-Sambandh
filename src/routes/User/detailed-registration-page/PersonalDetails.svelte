@@ -2,11 +2,13 @@
 	import { Info, X } from 'lucide-svelte';
 	import { Textarea } from '$components/ui/textarea';
 	import { Button } from '$components/ui/button';
+	import { formData } from '../../../form_store';
 
 	import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from '$components/ui/tooltip';
+	let place_of_birth: string;
+	let blood_group: string;
 	let diet: string;
 	let otherDiet: string;
-	let selected: string[];
 	let caste: string;
 	let mother_tongue: string;
 	let other_tongue: string;
@@ -19,9 +21,38 @@
 	let other_pwd_relation: string;
 	let pwd_relation_name: string;
 	let pwd_relation_number: string;
+	let bio: string;
+
+	function handleSubmit(event: any) {
+		event.preventDefault();
+
+		const personalData = {
+			place_of_birth,
+			blood_group,
+			diet,
+			otherDiet,
+			caste,
+			mother_tongue,
+			other_tongue,
+			height,
+			weight,
+			pwd,
+			pwd_type,
+			other_pwd,
+			pwd_relation,
+			other_pwd_relation,
+			pwd_relation_name,
+			pwd_relation_number,
+			bio
+		};
+		formData.update((data) => ({ ...data, personal_details: personalData }));
+		formData.subscribe((updatedData) => {
+			console.log('Updated Form Data:', updatedData);
+		});
+	}
 </script>
 
-<form class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+<form on:submit={handleSubmit} class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
 	<h1
 		class="text-4xl font-semibold col-span-1 text-center md:col-span-2 tracking-wider text-gray-800 capitalize dark:text-white"
 	>
@@ -32,6 +63,7 @@
 			>Place of Birth</label
 		>
 		<select
+			bind:value={place_of_birth}
 			name="placeOfBirth"
 			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		>
@@ -46,6 +78,7 @@
 			>Blood Group</label
 		>
 		<select
+			bind:value={blood_group}
 			name="bloodGroup"
 			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		>
@@ -300,7 +333,7 @@
 				<input
 					type="text"
 					bind:value={other_pwd_relation}
-					name="diet"
+					name="other_pwd_relation"
 					class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 				/>
 			</div>
@@ -314,7 +347,7 @@
 				<input
 					type="text"
 					bind:value={pwd_relation_name}
-					name="diet"
+					name="pwd_relation_name"
 					class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 				/>
 			</div>
@@ -326,7 +359,7 @@
 				<input
 					type="text"
 					bind:value={pwd_relation_number}
-					name="diet"
+					name="pwd_relation_number"
 					class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 				/>
 			</div>
@@ -353,6 +386,8 @@
 			</TooltipProvider>
 		</div>
 		<Textarea
+			bind:value={bio}
+			name="bio"
 			class="text-white border-gray-600 rounded-lg h-32 placeholder:text-sm placeholder:text-gray-400 text-base"
 			placeholder="I'm Batman"
 		/>
