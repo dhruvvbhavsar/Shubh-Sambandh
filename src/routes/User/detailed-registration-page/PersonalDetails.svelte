@@ -191,7 +191,7 @@
 	</div>
 
 	<div class="col-span-full">
-		<label for="height" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">height</label>
+		<label for="height" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Height</label>
 		<select
 			bind:value={height}
 			name="height"
@@ -222,7 +222,7 @@
 			name="weight"
 			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		>
-			<option value="" selected disabled hidden>Select Caste</option>
+			<option value="" selected disabled hidden>Select Weight</option>
 			<option value="<40 kgs">{'<40 kgs'}</option>
 			<option value="40-50 kgs">40-50 kgs</option>
 			<option value="51-60 kgs">51-60 kgs</option>
@@ -389,7 +389,7 @@
 			bind:value={bio}
 			name="bio"
 			class="text-white border-gray-600 rounded-lg h-32 placeholder:text-sm placeholder:text-gray-400 text-base"
-			placeholder="I'm Batman"
+			placeholder="describe your personality in less than 200 words"
 		/>
 	</div>
 	<Button

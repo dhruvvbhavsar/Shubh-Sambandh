@@ -340,7 +340,7 @@
 
 			<div class="col-span-full">
 				<label for="initiationGuru" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
-					>Name of the Initiation Guru
+					>Name of the Spiritual Master
 				</label>
 				<input
 					bind:value={initiationGuru}

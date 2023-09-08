@@ -84,6 +84,7 @@
 			<option value="" selected disabled hidden>Select Option</option>
 			<option value="yes">Yes</option>
 			<option value="no">No</option>
+			<option value="doesn't matter">Doesn't Matter</option>
 		</select>
 	</div>
 	{#if own_house === 'no'}

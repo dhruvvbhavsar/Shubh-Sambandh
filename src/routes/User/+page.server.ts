@@ -7,7 +7,7 @@ import prisma from "$lib/server/prisma";
 export const load: PageServerLoad = async ({ locals }) => {
 	const { user } = await locals.auth.validateUser();
 	if (!user) throw redirect(302, "/Sign");
-	console.log(user)
+	// console.log(user)
 
 	const users = await prisma.authUser.findMany({
 		select: {
@@ -24,7 +24,6 @@ export const load: PageServerLoad = async ({ locals }) => {
 			}
 		}
 	});
-	console.log(users)
 
 	return {
 		user,users

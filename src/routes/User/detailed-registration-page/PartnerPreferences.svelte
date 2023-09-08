@@ -13,7 +13,7 @@
 
 	const devotional_preferences = [
 		'Connected to ISKCON',
-		'Connected to any other spiritual organization',
+		// 'Connected to any other spiritual organization',
 		'No specific preference'
 	];
 

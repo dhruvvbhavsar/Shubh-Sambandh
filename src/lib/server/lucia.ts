@@ -23,7 +23,8 @@ export const auth = lucia({
 			dateOfBirth: userData.dateOfBirth,
 			timeOfBirth: userData.timeOfBirth,
 			maritalStatus: userData.maritalStatus,
-			mobileNumber: userData.mobileNumber
+			mobileNumber: userData.mobileNumber,
+			isPaid: userData.isPaid,
 		}
 	}
 });
