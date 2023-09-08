@@ -2,7 +2,7 @@
 	import Select from 'svelte-select';
 	import { spiritualOrgs } from './options';
 
-	let value: any = null;
+	export let value: any = null;
 
 	let items = spiritualOrgs;
 </script>

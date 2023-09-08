@@ -47,7 +47,7 @@
 					more accurate and tailored matches for you. Join now and embark on a more personalized and
 					fruitful matchmaking experience.
 				</p>
-				<PersonalDetails />
+				<PersonalDetails /> 
 				<MedicalDetails />
 				<SpiritualDetails />
 				<LifeStyleDetails />

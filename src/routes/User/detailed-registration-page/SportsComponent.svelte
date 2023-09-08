@@ -2,9 +2,8 @@
 	import Select from 'svelte-select';
 	let filterText = '';
 
-	let value: any = null;
-
-	export let items;
+	export let value: any = null;
+	export let items: any;
 
 	function handleFilter(e: any) {
 		if (value?.find((i) => i.label === filterText)) return;
@@ -25,6 +24,7 @@
 <div class="col-span-full text-white">
 	<label for="hobbies" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Sports</label>
 	<Select
+		placeholder="Select Option"
 		on:change={handleChange}
 		multiple
 		on:filter={handleFilter}

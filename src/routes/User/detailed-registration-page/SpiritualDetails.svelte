@@ -1,12 +1,15 @@
 <script lang="ts">
 	import { Button } from '$components/ui/button';
+	import { formData } from '../../../form_store';
 	import InitiationGuruComponent from './InitiationGuruComponent.svelte';
 	import SpiritualOrgsComponent from './SpiritualOrgsComponent.svelte';
 	let isAffiliated: boolean = false;
 
+	let templeLocation: any;
 	let haveCounsellor: boolean = false;
 	let counsellorName: string;
 	let counsellorNumber: number;
+	let counsellorInitiationGuru: any;
 	let spiritualOrgName: string;
 	let otherOrgName: string;
 	let doYouChant: string;
@@ -43,9 +46,58 @@
 
 	let committment_readiness: string;
 	let children_willingness: string;
+
+	function handleSubmit(event: any) {
+		event.preventDefault();
+
+		// Collect form data
+		const spiritualData = {
+			isAffiliated,
+			templeLocation,
+			haveCounsellor,
+			counsellorName,
+			counsellorNumber,
+			counsellorInitiationGuru,
+			spiritualOrgName,
+			otherOrgName,
+			doYouChant,
+			chantFreq,
+			howManyRounds,
+			chantingTimeline,
+			areYouInvolved,
+			attendFestivals,
+			areYouInitiated,
+			spiritualityImportance,
+			initiatedName,
+			aspiringtobeInitiated,
+			initiationGuru,
+			understanding_prabhupad,
+			bhagwatam_knowledge,
+			diet_pref,
+			diet_prasadam,
+			committment_spiritual,
+			adherence_principles,
+			involvement,
+			participation,
+			willingness_for_service,
+			service_interests,
+			connection_culture,
+			understanding_iskcon,
+			committment_readiness,
+			children_willingness
+		};
+
+		// Update the formData store with spiritualData
+		formData.update((data) => ({ ...data, spiritual_details: spiritualData }));
+
+		// Log the updated formData to see the changes
+		formData.subscribe((updatedData) => {
+			console.log('Updated Form Data:', updatedData);
+		});
+	}
 </script>
 
-<form class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+<form on:submit={handleSubmit} class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
 	<h1
 		class="text-4xl font-semibold col-span-1 text-center md:col-span-2 tracking-wider text-gray-800 capitalize dark:text-white"
 	>
@@ -102,7 +154,7 @@
 		>
 			For ISKCON Devotees
 		</h1>
-		<SpiritualOrgsComponent />
+		<SpiritualOrgsComponent bind:value={templeLocation} />
 		<div class="col-span-full">
 			<label for="religious-affiliation" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
 				>Do you have a counsellor?</label
@@ -140,7 +192,7 @@
 					class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 				/>
 			</div>
-			<InitiationGuruComponent />
+			<InitiationGuruComponent bind:value={counsellorInitiationGuru} />
 		{/if}
 
 		<h1
@@ -288,7 +340,7 @@
 
 			<div class="col-span-full">
 				<label for="initiationGuru" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
-					>Name of the Initiation Guru
+					>Name of the Spiritual Master
 				</label>
 				<input
 					bind:value={initiationGuru}
@@ -669,7 +721,9 @@
 			<option value="Nil">Nil</option>
 		</select>
 	</div>
-	<Button class="bg-black dark:bg-white text-white dark:text-black rounded-lg mx-auto col-span-full"
+	<Button
+		type="submit"
+		class="bg-black dark:bg-white text-white dark:text-black rounded-lg mx-auto col-span-full"
 		>Save Spiritual Details</Button
 	>
 </form>

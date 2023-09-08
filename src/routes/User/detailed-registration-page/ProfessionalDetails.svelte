@@ -2,14 +2,34 @@
 	import { Button } from '$components/ui/button';
 	import { careers_list } from './options';
 	import Select from 'svelte-select';
+	import { formData } from '../../../form_store';
 	let items = careers_list;
 
-	let career: string;
+	let career: any;
 	let designation: string;
 	let income: string;
+
+	function handleSubmit(event: any) {
+		event.preventDefault();
+
+		// Collect form data
+		const professionalData = {
+			career,
+			designation,
+			income
+		};
+
+		// Update the formData store with professionalData
+		formData.update((data) => ({ ...data, professional_details: professionalData }));
+
+		// Log the updated formData to see the changes
+		formData.subscribe((updatedData) => {
+			console.log('Updated Form Data:', updatedData);
+		});
+	}
 </script>
 
-<form class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+<form on:submit={handleSubmit} class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
 	<h1
 		class="text-4xl font-semibold col-span-1 text-center md:col-span-2 tracking-wider text-gray-800 capitalize dark:text-white"
 	>
@@ -21,7 +41,7 @@
 		>
 		<Select
 			{items}
-			value={career}
+			bind:value={career}
 			closeListOnChange={true}
 			--background="transparent"
 			--item-color="white"
@@ -67,7 +87,6 @@
 			<option value="Greater than 25,00,000">Greater than 25,00,000</option>
 		</select>
 	</div>
-
 	<Button
 		type="submit"
 		class="bg-black dark:bg-white text-white dark:text-black rounded-lg mx-auto col-span-full"

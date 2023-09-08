@@ -23,6 +23,8 @@ model AuthUser {
   mobileNumber      String        @unique
   email             String        @unique
   profilePictureUrl String
+  isPaid            Boolean       @default(false) 
+  isProfileComplete Boolean       @default(false)
   auth_session      AuthSession[]
   auth_key          AuthKey[]
 
@@ -41,12 +43,12 @@ model AuthSession {
 }
 
 model AuthKey {
-  id              String  @id @unique
+  id              String   @id @unique
   hashed_password String?
   user_id         String
   primary_key     Boolean
   expires         BigInt?
-  auth_user       AuthUser    @relation(references: [id], fields: [user_id], onDelete: Cascade)
+  auth_user       AuthUser @relation(references: [id], fields: [user_id], onDelete: Cascade)
 
   @@index([user_id])
   @@map("auth_key")

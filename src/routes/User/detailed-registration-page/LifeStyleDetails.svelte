@@ -3,23 +3,52 @@
 	import HobbiesComponent from './HobbiesComponent.svelte';
 	import { sportsList, hobbies } from './options';
 	import { Button } from '$components/ui/button';
+	import { formData } from '../../../form_store';
 
+	let s_hobbies: any[] = [];
+	let s_sports: any[] = [];
 	let do_you_exercise: string;
 	let exercise_thoughts: string;
 	let who_do_you_live_with: string;
 	let others_who_do_you_live_with: string;
 	let after_marriage_plans: string;
 	let others_after_marriage_plans: string;
+
+	function handleSubmit(event: any) {
+    event.preventDefault();
+	
+	const selectedHobbies = s_hobbies.map(hobby => hobby.label);
+	const selectedSports = s_sports.map(sport => sport.label);
+    // Collect form data
+    const lifestyleData = {
+      s_hobbies : selectedHobbies,
+      s_sports: selectedSports,
+      do_you_exercise,
+      exercise_thoughts,
+      who_do_you_live_with,
+      others_who_do_you_live_with,
+      after_marriage_plans,
+      others_after_marriage_plans,
+    };
+
+    // Update the formData store with lifestyleData
+    formData.update(data => ({ ...data, lifestyle_details: lifestyleData }));
+
+    // Log the updated formData to see the changes
+    formData.subscribe(updatedData => {
+      console.log("Updated Form Data:", updatedData);
+    });
+  }
 </script>
 
-<form class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+<form on:submit={handleSubmit} class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
 	<h1
 		class="text-4xl font-semibold col-span-1 text-center md:col-span-2 tracking-wider text-gray-800 capitalize dark:text-white"
 	>
 		Lifestyle Details
 	</h1>
-	<HobbiesComponent items={hobbies} />
-	<SportsComponent items={sportsList} />
+	<HobbiesComponent items={hobbies} bind:value={s_hobbies} />
+	<SportsComponent items={sportsList} bind:value={s_sports} />
 	<div class="col-span-full">
 		<label for="do_you_exercise" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
 			>Do you exercise?</label

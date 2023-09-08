@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Button } from '$components/ui/button';
+	import { formData } from '../../../form_store';
 
 	let family_type: string;
 	let own_house: string;
@@ -16,9 +17,40 @@
 	let have_siblings: string;
 	let how_many_siblings: string;
 	let family_devotional_details: string;
+
+	function handleSubmit(event: any) {
+		event.preventDefault();
+
+		// Collect form data
+		const familyData = {
+			family_type,
+			own_house,
+			housing_status,
+			other_housing_status,
+			family_value,
+			other_family_value,
+			father_name,
+			father_status,
+			other_father_status,
+			mother_name,
+			mother_status,
+			other_mother_status,
+			have_siblings,
+			how_many_siblings,
+			family_devotional_details
+		};
+
+		// Update the formData store with familyData
+		formData.update((data) => ({ ...data, family_details: familyData }));
+
+		// Log the updated formData to see the changes
+		formData.subscribe((updatedData) => {
+			console.log('Updated Form Data:', updatedData);
+		});
+	}
 </script>
 
-<form class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+<form on:submit={handleSubmit} class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
 	<h1
 		class="text-4xl font-semibold col-span-1 text-center md:col-span-2 tracking-wider text-gray-800 capitalize dark:text-white"
 	>
@@ -52,6 +84,7 @@
 			<option value="" selected disabled hidden>Select Option</option>
 			<option value="yes">Yes</option>
 			<option value="no">No</option>
+			<option value="doesn't matter">Doesn't Matter</option>
 		</select>
 	</div>
 	{#if own_house === 'no'}
@@ -245,7 +278,9 @@
 		</div>
 	{/if}
 	<div class="col-span-full">
-		<label for="family_devotional_details" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+		<label
+			for="family_devotional_details"
+			class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
 			>Devotional details of family members</label
 		>
 		<select

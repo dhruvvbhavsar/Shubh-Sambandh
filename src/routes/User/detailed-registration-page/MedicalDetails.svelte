@@ -1,14 +1,43 @@
-<script>
+<script lang="ts">
 	import { Button } from '$components/ui/button';
+	import { formData } from '../../../form_store';
 	import { diseases } from './options';
-	let currentMedicalCondition = false;
-	let currentMedicalInfo = '';
-	let previousMedicalCondition = false;
-	let previousMedicalInfo = '';
-	let takingMedicine = false;
-</script>
+  
+	let currentMedicalCondition: boolean = false;
+	let currentMedicalInfo: string;
+	let additionalMedicalInfo: string;
+	let previousMedicalCondition: boolean = false;
+	let previousMedicalInfo: string;
+	let additionalPreviousMedicalInfo: string;
+	let takingMedicine: boolean = false;
+	let howLongTakingMedicine: string;
+  
+	function handleSubmit(event: any) {
+	  event.preventDefault();
+  
+	  // Collect form data
+	  const medicalData = {
+		currentMedicalCondition,
+		currentMedicalInfo,
+		additionalMedicalInfo,
+		previousMedicalCondition,
+		previousMedicalInfo,
+		additionalPreviousMedicalInfo,
+		takingMedicine,
+		howLongTakingMedicine,
+	  };
+  
+	  // Update the formData store with medicalData
+	  formData.update(data => ({ ...data, medical_details: medicalData }));
+  
+	  // Log the updated formData to see the changes
+	  formData.subscribe(updatedData => {
+		console.log("Updated Form Data:", updatedData);
+	  });
+	}
+  </script>
 
-<form class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+<form on:submit={handleSubmit} class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
 	<h1
 		class="text-4xl font-semibold  text-center col-span-1 md:col-span-2 tracking-wider text-gray-800 capitalize dark:text-white"
 	>
@@ -67,6 +96,7 @@
 				>Please specify your pre-existing disease</label
 			>
 			<input
+				bind:value={additionalMedicalInfo}
 				type="text"
 				name="additionalInfo"
 				class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
@@ -127,6 +157,7 @@
 				>Please specify about your condition</label
 			>
 			<input
+				bind:value={additionalPreviousMedicalInfo}
 				type="text"
 				name="additionalInfo"
 				class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
@@ -157,6 +188,7 @@
 				>How long have you been taking these medications?</label
 			>
 			<select
+				bind:value={howLongTakingMedicine}
 				name="medicineIntakeDuration"
 				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
@@ -170,7 +202,9 @@
 			</select>
 		</div>
 	{/if}
-	<Button class="bg-black dark:bg-white text-white dark:text-black rounded-lg mx-auto col-span-full"
+	<Button
+		type="submit"
+		class="bg-black dark:bg-white text-white dark:text-black rounded-lg mx-auto col-span-full"
 		>Save Medical Details</Button
 	>
 </form>

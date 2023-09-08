@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Button } from '$components/ui/button';
+	import { formData } from '../../../form_store';
 
 	let manglik: string;
 	let rashi: string;
@@ -7,9 +8,31 @@
 	let astrology_compatibility: string;
 	let consultation: string;
 	let p_astrologer: string;
+
+	function handleSubmit(event: any) {
+		event.preventDefault();
+
+		// Collect form data
+		const astrologyData = {
+			manglik,
+			rashi,
+			horoscope_match,
+			astrology_compatibility,
+			consultation,
+			p_astrologer
+		};
+
+		// Update the formData store with astrologyData
+		formData.update((data) => ({ ...data, astrology_details: astrologyData }));
+
+		// Log the updated formData to see the changes
+		formData.subscribe((updatedData) => {
+			console.log('Updated Form Data:', updatedData);
+		});
+	}
 </script>
 
-<form class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+<form on:submit={handleSubmit} class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
 	<h1
 		class="text-4xl font-semibold col-span-1 text-center md:col-span-2 tracking-wider text-gray-800 capitalize dark:text-white"
 	>
@@ -138,7 +161,6 @@
 			Stay Tuned! we soon will be starting our own Astrology Consultation Services!
 		</h1>
 	{/if}
-
 	<Button
 		type="submit"
 		class="bg-black dark:bg-white text-white dark:text-black rounded-lg mx-auto col-span-full"
