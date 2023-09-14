@@ -90,27 +90,36 @@
 	</div>
 </div>
 
-<div class="fixed bottom-5 right-5">
-	{#if user.isPaid}
-		<AlertDialog.Root>
-			<AlertDialog.Trigger>
-				<Button class="bg-gray-900 hover:bg-gray-600 text-white">Get Premium</Button>
-			</AlertDialog.Trigger>
-			<AlertDialog.Content class="bg-white">
-				<AlertDialog.Header>
-					<AlertDialog.Title>Let's get you a premium membership...</AlertDialog.Title>
-					<AlertDialog.Description>
-						Get personalized matches, unlimited enquiries and more!
-					</AlertDialog.Description>
-				</AlertDialog.Header>
-				<AlertDialog.Footer>
-					<AlertDialog.Cancel>Skip</AlertDialog.Cancel>
-					<AlertDialog.Action>
-						<a href="/Pricing">Okay</a>
-					</AlertDialog.Action>
-				</AlertDialog.Footer>
-			</AlertDialog.Content>
-		</AlertDialog.Root>
-	{/if}
+<AlertDialog.Root open={!user.isPaid}>
+	<AlertDialog.Content class="bg-white">
+		<AlertDialog.Header>
+			<AlertDialog.Title>Let's get you a premium membership...</AlertDialog.Title>
+			<AlertDialog.Description>
+				Get personalized matches, unlimited enquiries and more!
+			</AlertDialog.Description>
+		</AlertDialog.Header>
+		<AlertDialog.Footer>
+			<AlertDialog.Cancel>Skip</AlertDialog.Cancel>
+			<AlertDialog.Action>
+				<a href="/Pricing">Okay</a>
+			</AlertDialog.Action>
+		</AlertDialog.Footer>
+	</AlertDialog.Content>
+</AlertDialog.Root>
 
-</div>
+<AlertDialog.Root open={user.isPaid && !user.isProfileComplete}>
+	<AlertDialog.Content class="bg-white">
+		<AlertDialog.Header>
+			<AlertDialog.Title>Woah!</AlertDialog.Title>
+			<AlertDialog.Description>
+				We see that you have purchased a premium membership. But haven't completed your profile yet.
+			</AlertDialog.Description>
+		</AlertDialog.Header>
+		<AlertDialog.Footer>
+			<AlertDialog.Cancel>Skip</AlertDialog.Cancel>
+			<AlertDialog.Action>
+				<a href="/User/detailed-registration-page">Okay</a>
+			</AlertDialog.Action>
+		</AlertDialog.Footer>
+	</AlertDialog.Content>
+</AlertDialog.Root>

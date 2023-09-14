@@ -3,6 +3,13 @@
 	import type { ActionData, PageData, RequestEvent } from './$types';
 	import { superForm } from 'sveltekit-superforms/client';
 	import { z } from 'zod';
+	import { Country, City } from 'country-state-city';
+
+	let countries = Country.getAllCountries();
+
+	$: country_iso = countries.find((country) => country.name === $form.country)?.isoCode ?? 'IN';
+	$: cities = City.getCitiesOfCountry(country_iso) ?? [];
+
 	let password: string = '';
 	const userSchema = z.object({
 		firstName: z.string().min(3).max(20).trim(),
@@ -11,8 +18,8 @@
 		caste: z.string().default('hindu'),
 		dateOfBirth: z.string(),
 		timeOfBirth: z.string(),
-		city: z.string().max(20),
-		country: z.string().max(20),
+		city: z.string(),
+		country: z.string(),
 		maritalStatus: z.string().default('never married'),
 		other_caste: z.string().nullable(),
 		profilePictureUrl: z
@@ -367,13 +374,16 @@
 							<label for="country" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
 								>Country</label
 							>
-							<input
-								name="country"
+							<select
 								bind:value={$form.country}
-								type="text"
-								placeholder="India"
+								name="country"
 								class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-							/>
+							>
+								<option value="" selected disabled hidden>Select Current Country</option>
+								{#each countries as country}
+									<option value={country.name}>{country.name}</option>
+								{/each}
+							</select>
 							{#if $errors.country}<span class="text-red-600 text-sm">{$errors.country}</span>{/if}
 						</div>
 
@@ -381,13 +391,16 @@
 							<label for="city" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
 								>City</label
 							>
-							<input
-								name="city"
+							<select
 								bind:value={$form.city}
-								type="text"
-								placeholder="Mumbai"
+								name="city"
 								class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-							/>
+							>
+								<option value="" selected disabled hidden>Select City</option>
+								{#each cities as city}
+									<option value={city.name}>{city.name}</option>
+								{/each}
+							</select>
 							{#if $errors.city}<span class="text-red-600 text-sm">{$errors.city}</span>{/if}
 						</div>
 

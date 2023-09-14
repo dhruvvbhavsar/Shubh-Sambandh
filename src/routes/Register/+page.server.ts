@@ -29,17 +29,6 @@ async function generateUploadURL() {
 	return uploadUrl;
 }
 
-async function checkStatusCode(url: string) {
-	const response = await fetch(url);
-	if (response.status === 403) {
-		return false;
-	} else if (response.headers.get('Content-Type')?.includes('xml')) {
-		return false;
-	} else {
-		return true;
-	}
-}
-
 const userSchema = z.object({
 	firstName: z.string().min(3).max(20).trim(),
 	lastName: z.string().min(3).max(20).trim(),
@@ -47,8 +36,8 @@ const userSchema = z.object({
 	caste: z.string().default('hindu'),
 	dateOfBirth: z.string(),
 	timeOfBirth: z.string(),
-	city: z.string().max(20),
-	country: z.string().max(20),
+	city: z.string(),
+	country: z.string(),
 	maritalStatus: z.string().default('never married'),
 	other_caste: z.string().nullable(),
 	profilePictureUrl: z
@@ -60,7 +49,6 @@ const userSchema = z.object({
 	mobileNumber: z.string().min(10).max(10),
 	email: z.string().email()
 });
-
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const session = await locals.auth.validate();
@@ -77,9 +65,9 @@ export const load: PageServerLoad = async ({ locals }) => {
 export const actions = {
 	register: async ({ request }) => {
 		const form = await superValidate(request, userSchema);
-		form.data.profilePictureUrl = await checkStatusCode(uploadUrll)
-			? uploadUrll
-			: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
+		form.data.profilePictureUrl =
+			uploadUrll ??
+			'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
 
 		if (!form.valid) {
 			return fail(400, { form });
@@ -113,7 +101,7 @@ export const actions = {
 			return message(form, `${form.data.firstName} ${form.data.lastName}`);
 		} catch {
 			// username already in use
-			return fail(400, {form});
+			return fail(400, { form });
 		}
 	}
 } satisfies Actions;
