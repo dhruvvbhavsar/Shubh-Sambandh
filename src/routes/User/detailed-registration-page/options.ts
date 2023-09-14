@@ -1964,3 +1964,29 @@ export var careers_list = [
 	{ value: 'writers-and-editors', label: 'Writers and Editors' },
 	{ value: 'zoologists-and-wildlife-biologists', label: 'Zoologists and Wildlife Biologists' }
 ];
+
+export const books  = [
+	"Bhagvad Gita - As It Is",
+	"Srimad Bhagvatam/Bhagvata Purana",
+	"Sri Isopanisad",
+	"A Second Chance",
+	"Beyond Birth and Death",
+	"Civilization and Transcendence",
+	"Easy Journey to Other Planets",
+	"Elevation to Krsna Consciousness",
+	"Krsna, The Reservoir of Pleasure",
+	"Krsna, The Supreme Personality of Godhead",
+	"Light of the Bhagavata",
+	"Message of Godhead",
+	"On the Way to Krsna",
+	"Perfect Questions, Perfect Answers",
+	"Teachings of Lord Caitanya",
+	"Teachings of Lord Kapila: The Son of Devahuti",
+	"Teachings of Queen Kunti",
+	"The Nectar of Devotion",
+	"The Nectar of Instruction",
+	"The Path of Perfection",
+	"The Perfection of Yoga",
+	"The Science of Self Realization"
+  ];
+  

@@ -389,6 +389,9 @@
 			<option value="No, my partner should not be Manglik"
 				>No, my partner should not be Manglik</option
 			>
+			<option value="No preference"
+				>No preference</option
+			>
 		</select>
 	</div>
 

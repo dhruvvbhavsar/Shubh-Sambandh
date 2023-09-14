@@ -3,12 +3,48 @@
 	import { Textarea } from '$components/ui/textarea';
 	import { Button } from '$components/ui/button';
 	import { formData } from '../../../form_store';
-
+	import { Country, State, City } from 'country-state-city';
 	import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from '$components/ui/tooltip';
-	let place_of_birth: string;
+
+	let countries = Country.getAllCountries();
+
+	$: current_con_iso =
+		countries.find((country) => country.name === current_country)?.isoCode ?? 'IN';
+	$: current_states = State.getStatesOfCountry(current_con_iso);
+	$: current_state_iso =
+		current_states.find((state) => state.name === current_state)?.isoCode ?? 'MH';
+	$: current_cities = City.getCitiesOfState(current_con_iso, current_state_iso);
+
+	$: permanent_con_iso =
+		countries.find((country) => country.name === permanent_country)?.isoCode ?? 'IN';
+	$: permanent_states = State.getStatesOfCountry(permanent_con_iso);
+	$: permanent_state_iso =
+		permanent_states.find((state) => state.name === permanent_state)?.isoCode ?? 'MH';
+	$: permanent_cities = City.getCitiesOfState(permanent_con_iso, permanent_state_iso);
+
+	$: if (is_permanent) {
+		permanent_country = current_country;
+		permanent_state = current_state;
+		permanent_city = current_city;
+	}
+
+	let country_of_birth: string;
+	let current_country: string;
+	let current_state: string;
+	let current_city: string;
+	let is_permanent: boolean;
+	let permanent_country: string;
+	let permanent_state: string;
+	let permanent_city: string;
+	let citizenship_status: string;
+	let other_citizenship_status: string;
+	let dual_citizenship: string;
+	let dual_citizenship_countries: string[] = [];
 	let blood_group: string;
 	let diet: string;
-	let otherDiet: string;
+	let other_diet: string;
+	let marital_status: string;
+	let category: string;
 	let caste: string;
 	let mother_tongue: string;
 	let other_tongue: string;
@@ -27,10 +63,22 @@
 		event.preventDefault();
 
 		const personalData = {
-			place_of_birth,
+			country_of_birth,
+			current_country,
+			current_state,
+			current_city,
+			permanent_country,
+			permanent_state,
+			permanent_city,
+			citizenship_status,
+			other_citizenship_status,
+			dual_citizenship,
+			dual_citizenship_countries,
 			blood_group,
 			diet,
-			otherDiet,
+			other_diet,
+			marital_status,
+			category,
 			caste,
 			mother_tongue,
 			other_tongue,
@@ -47,7 +95,7 @@
 		};
 		formData.update((data) => ({ ...data, personal_details: personalData }));
 		formData.subscribe((updatedData) => {
-			console.log('Updated Form Data:', updatedData);
+			console.log('Updated Form Data:', updatedData.personal_details);
 		});
 	}
 </script>
@@ -59,19 +107,210 @@
 		Personal Details
 	</h1>
 	<div class="col-span-full">
-		<label for="placeOfBirth" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
-			>Place of Birth</label
+		<label for="countryOfBirth" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			>Country of Birth</label
 		>
 		<select
-			bind:value={place_of_birth}
-			name="placeOfBirth"
+			bind:value={country_of_birth}
+			name="countryOfBirth"
 			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		>
 			<option value="" selected disabled hidden>Select Place of Birth</option>
-			<option value="india">India</option>
-			<option value="outside-india">Out of India</option>
+			{#each countries as country}
+				<option value={country.name}>{country.name}</option>
+			{/each}
 		</select>
 	</div>
+
+	<div class="col-span-full">
+		<label for="currentCountry" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			>Current Country</label
+		>
+		<select
+			bind:value={current_country}
+			name="currentCountry"
+			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+		>
+			<option value="" selected disabled hidden>Select Current Country</option>
+			{#each countries as country}
+				<option value={country.name}>{country.name}</option>
+			{/each}
+		</select>
+	</div>
+
+	{#if current_country}
+		<div class="col-span-full">
+			<label for="currentState" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				>Current State</label
+			>
+			<select
+				bind:value={current_state}
+				name="currentState"
+				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			>
+				<option value="" selected disabled hidden>Select Current State</option>
+				{#each current_states as state}
+					<option value={state.name}>{state.name}</option>
+				{/each}
+			</select>
+		</div>
+	{/if}
+
+	{#if current_state}
+		<div class="col-span-full">
+			<label for="currentCity" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				>Current City</label
+			>
+			<select
+				bind:value={current_city}
+				name="currentCity"
+				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			>
+				<option value="" selected disabled hidden>Select Current City</option>
+				{#each current_cities as city}
+					<option value={city.name}>{city.name}</option>
+				{/each}
+			</select>
+		</div>
+	{/if}
+
+	<div class="col-span-full flex flex-col items-center justify-center">
+		<label for="p_marital_status" class="block mb-2 text-lg text-gray-600 dark:text-gray-200"
+			>Is your current address same as permenent address?</label
+		>
+		<label class="text-base flex gap-4 text-gray-600 dark:text-gray-200">
+			<input
+				type="checkbox"
+				bind:checked={is_permanent}
+				name="p_marital_status"
+				class="block text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg"
+			/>
+			{is_permanent ? 'Yes' : 'No'}
+		</label>
+	</div>
+
+	{#if !is_permanent}
+		<div class="col-span-full">
+			<label for="permanentCountry" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				>Permanent Country</label
+			>
+			<select
+				bind:value={permanent_country}
+				name="permanentCountry"
+				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			>
+				<option value="" selected disabled hidden>Select Permanent Country</option>
+				{#each countries as country}
+					<option value={country.name}>{country.name}</option>
+				{/each}
+			</select>
+		</div>
+
+		{#if permanent_country}
+			<div class="col-span-full">
+				<label for="permanentState" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+					>Permanent State</label
+				>
+				<select
+					bind:value={permanent_state}
+					name="permanentState"
+					class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				>
+					<option value="" selected disabled hidden>Select Permanent State</option>
+					{#each permanent_states as state}
+						<option value={state.name}>{state.name}</option>
+					{/each}
+				</select>
+			</div>
+		{/if}
+
+		{#if permanent_state}
+			<div class="col-span-full">
+				<label for="permanentCity" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+					>Permanent City</label
+				>
+				<select
+					bind:value={permanent_city}
+					name="permanentCity"
+					class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				>
+					<option value="" selected disabled hidden>Select Permanent City</option>
+					{#each permanent_cities as city}
+						<option value={city.name}>{city.name}</option>
+					{/each}
+				</select>
+			</div>
+		{/if}
+	{/if}
+
+	<div class="col-span-full">
+		<label for="citizenshipStatus" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			>Citizenship Status</label
+		>
+		<select
+			bind:value={citizenship_status}
+			name="citizenshipStatus"
+			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+		>
+			<option value="" selected disabled hidden>Select Permanent City</option>
+			<option value="indian">Indian</option>
+			<option value="nri">NRI (Non Residential Indian)</option>
+			<option value="Overseas Citizenship of India">Overseas Citizenship of India</option>
+			<option value="others">Others</option>
+		</select>
+	</div>
+
+	{#if citizenship_status === 'others'}
+		<div class="col-span-full">
+			<label for="otherCitizenshipStatus" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				>Please specify your country where you hold your Citizenship</label
+			>
+			<select
+				bind:value={other_citizenship_status}
+				name="otherCitizenshipStatus"
+				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			>
+				<option value="" selected disabled hidden>Select  Country</option>
+				{#each countries as country}
+					<option value={country.name}>{country.name}</option>
+				{/each}
+			</select>
+		</div>
+	{/if}
+
+	<div class="col-span-full">
+		<label for="dualCitizenship" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			>Do you hold dual citizenship?</label
+		>
+		<select
+			bind:value={dual_citizenship}
+			name="dualCitizenship"
+			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+		>
+			<option value="" selected disabled hidden>Select Option</option>
+			<option value="yes">Yes</option>
+			<option value="no">No</option>
+		</select>
+	</div>
+
+	{#if dual_citizenship == 'yes'}
+		<div class="col-span-full">
+			<label for="otherCitizenshipStatus" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				>Please specify(Use CTRL or CMD + click to select multiple options. MAX ALLOWED = 2)</label
+			>
+			<select
+				multiple
+				bind:value={dual_citizenship_countries}
+				name="otherCitizenshipStatus"
+				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			>
+				<option value="" selected disabled hidden>Select  Country</option>
+				{#each countries as country}
+					<option value={country.name}>{country.name}</option>
+				{/each}
+			</select>
+		</div>
+	{/if}
 
 	<div class="col-span-full">
 		<label for="bloodGroup" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
@@ -103,40 +342,73 @@
 			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		>
 			<option value="" selected disabled hidden>Select Diet</option>
-			<option value="veg">Vegetarian</option>
-			<option value="non-veg">Non-Vegetarian</option>
-			<option value="jain">Jain (no root vegetables)</option>
-			<option value="sattvik">Sattvik (no onion/garlic)</option>
+			<option value="Vegetarian">Vegetarian</option>
+			<option value="Non-Vegetarian">Non-Vegetarian</option>
+			<option value="Vegan">Vegan</option>
+			<option value="Eggetarian">Eggetarian</option>
+			<option value="Jain">Jain (no root vegetables)</option>
+			<option value="Sattvik">Sattvik (no onion/garlic)</option>
 			<option value="others">Others (please specify)</option>
 		</select>
+	</div>
 
-		{#if diet === 'others'}
+	{#if diet === 'others'}
 			<div class="col-span-full">
 				<label for="otherDiet" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
 					>Please specify</label
 				>
 				<input
 					type="text"
-					bind:value={otherDiet}
-					name="diet"
+					bind:value={other_diet}
+					name="otherDiet"
 					class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 				/>
 			</div>
 		{/if}
+
+	<div class="col-span-full">
+		<label for="marital_status" class="block mb-2 text-lg text-gray-600 dark:text-gray-200">Marital Status</label>
+		<select
+		  bind:value={marital_status}
+		  name="marital_status"
+		  class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+		>
+		  <option value="" selected disabled hidden>Select Marital Status</option>
+		  <option value="Never Married">Never Married</option>
+		  <option value="Divorced">Divorced</option>
+		  <option value="Awaiting Divorce">Awaiting Divorce</option>
+		  <option value="Widowed">Widowed</option>
+		  <option value="Separated">Separated</option>
+		</select>
+	  </div>
+	  
+
+	<div class="col-span-full">
+		<label for="caste" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Category</label>
+		<select
+			bind:value={category}
+			name="category"
+			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+		>
+			<option value="" selected disabled hidden>Select category</option>
+			<option value="gen">General</option>
+			<option value="Other Backward Class (OBC)">Other Backward Class (OBC)</option>
+			<option value="Scheduled Tribe (ST)">Scheduled Tribe (ST)</option>
+			<option value="Scheduled Caste (SC)">Scheduled Caste (SC)</option>
+		</select>
 	</div>
 
 	<div class="col-span-full">
-		<label for="caste" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Caste</label>
-		<select
+		<label for="caste" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			>Caste</label
+		>
+		<input
+			type="text"
+			placeholder="Your caste"
 			bind:value={caste}
 			name="caste"
-			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-		>
-			<option value="" selected disabled hidden>Select Caste</option>
-			<option value="gen">General</option>
-			<option value="st">Scheduled Tribe (ST)</option>
-			<option value="sc">Scheduled Caste (SC)</option>
-		</select>
+			class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+		/>
 	</div>
 
 	<div class="col-span-full">

@@ -43,6 +43,7 @@
 		"bits-ui": "^0.5.1",
 		"class-variance-authority": "^0.6.1",
 		"clsx": "^1.2.1",
+		"country-state-city": "^3.2.0",
 		"lucia-auth": "^1.5.0",
 		"lucide-svelte": "^0.258.0",
 		"radix-svelte": "^0.8.0",

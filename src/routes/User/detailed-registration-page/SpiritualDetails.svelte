@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Button } from '$components/ui/button';
 	import { formData } from '../../../form_store';
+	import { books } from './options';
 	import InitiationGuruComponent from './InitiationGuruComponent.svelte';
 	import SpiritualOrgsComponent from './SpiritualOrgsComponent.svelte';
 	let isAffiliated: boolean = false;
@@ -26,10 +27,12 @@
 	let aspiringtobeInitiated: string;
 	let initiationGuru: string;
 
-	let understanding_prabhupad: string;
+	let read_prabhupad_books: string;
+	let prabhupad_books: string[];
 	let bhagwatam_knowledge: string;
 
 	let diet_pref: string;
+	let other_diet_pref: string;
 	let diet_prasadam: string;
 
 	let committment_spiritual: string;
@@ -42,10 +45,12 @@
 	let service_interests: string;
 
 	let connection_culture: string;
+	let other_connection_culture: string;
 	let understanding_iskcon: string;
 
 	let committment_readiness: string;
 	let children_willingness: string;
+	let children_education: string;
 
 	function handleSubmit(event: any) {
 		event.preventDefault();
@@ -71,9 +76,11 @@
 			initiatedName,
 			aspiringtobeInitiated,
 			initiationGuru,
-			understanding_prabhupad,
+			read_prabhupad_books,
+			prabhupad_books,
 			bhagwatam_knowledge,
 			diet_pref,
+			other_diet_pref,
 			diet_prasadam,
 			committment_spiritual,
 			adherence_principles,
@@ -82,9 +89,11 @@
 			willingness_for_service,
 			service_interests,
 			connection_culture,
+			other_connection_culture,
 			understanding_iskcon,
 			committment_readiness,
-			children_willingness
+			children_willingness,
+			children_education
 		};
 
 		// Update the formData store with spiritualData
@@ -374,14 +383,12 @@
 		</h1>
 
 		<div class="col-span-full">
-			<label
-				for="understanding_prabhupad"
-				class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="bhagwatam_knowledge" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
 				>Understanding and acceptance of the teachings of Srila Prabhupada
 			</label>
 			<select
-				bind:value={understanding_prabhupad}
-				name="understanding_prabhupad"
+				bind:value={bhagwatam_knowledge}
+				name="bhagwatam_knowledge"
 				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
 				<option value="" selected disabled hidden>Select Option</option>
@@ -398,21 +405,40 @@
 		</div>
 
 		<div class="col-span-full">
-			<label for="bhagwatam_knowledge" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
-				>Knowledge of the Bhagvad Gita and Srimad Bhagvatam
+			<label for="read_prabhupad_books" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				>Do you read the Bhagavad Gita/Bhagvatam/Srila Prabhupad's books?
 			</label>
 			<select
-				bind:value={bhagwatam_knowledge}
-				name="bhagwatam_knowledge"
+				bind:value={read_prabhupad_books}
+				name="read_prabhupad_books"
 				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
 				<option value="" selected disabled hidden>Select Option</option>
-				<option value="Advanced Knowledge">Advanced Knowledge</option>
-				<option value="Intermediate Knowledge">Intermediate Knowledge</option>
-				<option value="Basic Knowledge">Basic Knowledge</option>
-				<option value="No Knowledge">No Knowledge</option>
+				<option value="yes">Yes</option>
+				<option value="no">No</option>
 			</select>
 		</div>
+
+		{#if read_prabhupad_books === 'yes'}
+			<div class="col-span-full">
+				<label for="prabhupad_books" class="block mb-2 text-lg text-gray-600 dark:text-gray-200"
+					>Which of Srila Prabhupad's books have you read?</label
+				>
+
+				{#each books as value}
+					<label class="text-base flex gap-4 text-gray-600 dark:text-gray-200">
+						<input
+							type="checkbox"
+							bind:group={prabhupad_books}
+							name="prabhupad_books"
+							{value}
+							class="block text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg"
+						/>
+						{value}
+					</label>
+				{/each}
+			</div>
+		{/if}
 
 		<h1
 			class="text-xl font-semibold col-span-1 text-center md:col-span-2 tracking-wider text-gray-800 capitalize dark:text-white"
@@ -422,22 +448,37 @@
 
 		<div class="col-span-full">
 			<label for="diet_pref" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
-				>Vegetarian or vegan (avoidance of meat, fish, eggs)
-			</label>
+				>Food Choices</label
+			>
 			<select
 				bind:value={diet_pref}
 				name="diet_pref"
 				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
-				<option value="" selected disabled hidden>Select Option</option>
-				<option value="Strictly Vegetarian or Vegan">Strictly Vegetarian or Vegan</option>
-				<option value="Mostly Vegetarian or Vegan">Mostly Vegetarian or Vegan</option>
-				<option value="Occasionally Non-Vegetarian">Occasionally Non-Vegetarian</option>
-				<option value="Regularly Consume Meat, Fish, and Eggs"
-					>Regularly Consume Meat, Fish, and Eggs</option
-				>
+				<option value="" selected disabled hidden>Select Diet</option>
+				<option value="Vegetarian">Vegetarian</option>
+				<option value="Non-Vegetarian">Non-Vegetarian</option>
+				<option value="Vegan">Vegan</option>
+				<option value="Eggetarian">Eggetarian</option>
+				<option value="Jain">Jain (no root vegetables)</option>
+				<option value="Sattvik">Sattvik (no onion/garlic)</option>
+				<option value="others">Others (please specify)</option>
 			</select>
 		</div>
+
+		{#if diet_pref === 'others'}
+			<div class="col-span-full">
+				<label for="other_diet_pref" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+					>Please spec\ify your dietary preferences
+				</label>
+				<input
+					bind:value={other_diet_pref}
+					type="text"
+					name="other_diet_pref"
+					class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				/>
+			</div>
+		{/if}
 
 		<div class="col-span-full">
 			<label for="diet_prasadam" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
@@ -592,9 +633,7 @@
 				<option value="Interested but Not Actively Involved Yet"
 					>Interested but Not Actively Involved Yet</option
 				>
-				<option value="Not Sure about Specific Areas of Service"
-					>Not Sure about Specific Areas of Service</option
-				>
+				<option value="Open to Any Service Provided">Open to Any Service Provided</option>
 				<option value="Not Interested in Any Specific Areas of Service"
 					>Not Interested in Any Specific Areas of Service</option
 				>
@@ -617,20 +656,33 @@
 				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
 				<option value="" selected disabled hidden>Select Option</option>
-				<option value="Strong Connection and Active Involvement"
-					>Strong Connection and Active Involvement</option
+				<option value="North Indian Vaishnav">North Indian Vaishnav</option>
+				<option value="South Indian Vaishnav">South Indian Vaishnav</option>
+				<option value="East Indian Vaishnav">East Indian Vaishnav</option>
+				<option value="West Indian Vaishnav">West Indian Vaishnav</option>
+				<option value="Vaishnav Irrespective of Location">Vaishnav Irrespective of Location</option>
+				<option value="Not connected to Vaishnava culture"
+					>Not connected to Vaishnava culture</option
 				>
-				<option value="Moderate Connection and Involvement"
-					>Moderate Connection and Involvement</option
-				>
-				<option value="Familiar with Vaishnava Culture but Not Actively Involved"
-					>Familiar with Vaishnava Culture but Not Actively Involved</option
-				>
-				<option value="Not Familiar with Vaishnava Culture"
-					>Not Familiar with Vaishnava Culture</option
-				>
+				<option value="others">Others</option>
 			</select>
 		</div>
+
+		{#if connection_culture === 'others'}
+			<div class="mt-2 col-span-full">
+				<label
+					for="other_connection_culture"
+					class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+					>Please specify about your culture</label
+				>
+				<input
+					bind:value={other_connection_culture}
+					type="text"
+					name="other_connection_culture"
+					class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				/>
+			</div>
+		{/if}
 
 		<div class="col-span-full">
 			<label for="understanding_iskcon" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
@@ -702,6 +754,24 @@
 				<option value="Not Willing to Raise Children in Such an Environment"
 					>Not Willing to Raise Children in Such an Environment</option
 				>
+			</select>
+		</div>
+
+		<div class="col-span-full">
+			<label for="children_education" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				>What are your preferences for your child's education?
+			</label>
+			<select
+				bind:value={children_education}
+				name="children_education"
+				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			>
+				<option value="" selected disabled hidden>Select Option</option>
+				<option value="Homeschooling">Homeschooling </option>
+				<option value="ISKCON Gurukul">ISKCON Gurukul</option>
+				<option value="Any other Spiritual Gurukul">Any other Spiritual Gurukul</option>
+				<option value="Normal School">Normal School</option>
+				<option value="Not Decided Yet">Not Decided Yet</option>
 			</select>
 		</div>
 	{/if}
