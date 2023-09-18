@@ -28,11 +28,15 @@
 		permanent_city = current_city;
 	}
 
+	function toggleIsPermanent(value: boolean) {
+		is_permanent = value;
+	}
+
 	let country_of_birth: string;
 	let current_country: string;
 	let current_state: string;
 	let current_city: string;
-	let is_permanent: boolean;
+	let is_permanent: boolean = true;
 	let permanent_country: string;
 	let permanent_state: string;
 	let permanent_city: string;
@@ -44,6 +48,8 @@
 	let diet: string;
 	let other_diet: string;
 	let marital_status: string;
+	let have_children: string;
+	let how_many_children: number | string;
 	let category: string;
 	let caste: string;
 	let mother_tongue: string;
@@ -78,6 +84,8 @@
 			diet,
 			other_diet,
 			marital_status,
+			have_children,
+			how_many_children,
 			category,
 			caste,
 			mother_tongue,
@@ -115,7 +123,7 @@
 			name="countryOfBirth"
 			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		>
-			<option value="" selected disabled hidden>Select Place of Birth</option>
+			<option value="" selected disabled hidden>Select Country of Birth</option>
 			{#each countries as country}
 				<option value={country.name}>{country.name}</option>
 			{/each}
@@ -175,18 +183,31 @@
 	{/if}
 
 	<div class="col-span-full flex flex-col items-center justify-center">
-		<label for="p_marital_status" class="block mb-2 text-lg text-gray-600 dark:text-gray-200"
-			>Is your current address same as permenent address?</label
-		>
-		<label class="text-base flex gap-4 text-gray-600 dark:text-gray-200">
-			<input
-				type="checkbox"
-				bind:checked={is_permanent}
-				name="p_marital_status"
-				class="block text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg"
-			/>
-			{is_permanent ? 'Yes' : 'No'}
+		<label for="p_marital_status" class="block mb-2 text-lg text-gray-600 dark:text-gray-200">
+			Is your current address same as permanent address?
 		</label>
+		<div class="flex gap-4 text-gray-600 dark:text-gray-200">
+			<label>
+				<input
+					type="radio"
+					id="yes"
+					name="p_marital_status"
+					value={true}
+					bind:group={is_permanent}
+				/>
+				Yes
+			</label>
+			<label>
+				<input
+					type="radio"
+					id="no"
+					name="p_marital_status"
+					value={false}
+					bind:group={is_permanent}
+				/>
+				No
+			</label>
+		</div>
 	</div>
 
 	{#if !is_permanent}
@@ -252,7 +273,7 @@
 			name="citizenshipStatus"
 			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		>
-			<option value="" selected disabled hidden>Select Permanent City</option>
+			<option value="" selected disabled hidden>Select Citizenship Status</option>
 			<option value="indian">Indian</option>
 			<option value="nri">NRI (Non Residential Indian)</option>
 			<option value="Overseas Citizenship of India">Overseas Citizenship of India</option>
@@ -262,7 +283,9 @@
 
 	{#if citizenship_status === 'others'}
 		<div class="col-span-full">
-			<label for="otherCitizenshipStatus" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label
+				for="otherCitizenshipStatus"
+				class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
 				>Please specify your country where you hold your Citizenship</label
 			>
 			<select
@@ -270,7 +293,7 @@
 				name="otherCitizenshipStatus"
 				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
-				<option value="" selected disabled hidden>Select  Country</option>
+				<option value="" selected disabled hidden>Select Country</option>
 				{#each countries as country}
 					<option value={country.name}>{country.name}</option>
 				{/each}
@@ -295,7 +318,9 @@
 
 	{#if dual_citizenship == 'yes'}
 		<div class="col-span-full">
-			<label for="otherCitizenshipStatus" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label
+				for="otherCitizenshipStatus"
+				class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
 				>Please specify(Use CTRL or CMD + click to select multiple options. MAX ALLOWED = 2)</label
 			>
 			<select
@@ -304,7 +329,7 @@
 				name="otherCitizenshipStatus"
 				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
-				<option value="" selected disabled hidden>Select  Country</option>
+				<option value="" selected disabled hidden>Select Country</option>
 				{#each countries as country}
 					<option value={country.name}>{country.name}</option>
 				{/each}
@@ -353,35 +378,73 @@
 	</div>
 
 	{#if diet === 'others'}
-			<div class="col-span-full">
-				<label for="otherDiet" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
-					>Please specify</label
-				>
-				<input
-					type="text"
-					bind:value={other_diet}
-					name="otherDiet"
-					class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-				/>
-			</div>
-		{/if}
+		<div class="col-span-full">
+			<label for="otherDiet" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				>Please specify your diet</label
+			>
+			<input
+				type="text"
+				bind:value={other_diet}
+				name="otherDiet"
+				class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			/>
+		</div>
+	{/if}
 
 	<div class="col-span-full">
-		<label for="marital_status" class="block mb-2 text-lg text-gray-600 dark:text-gray-200">Marital Status</label>
-		<select
-		  bind:value={marital_status}
-		  name="marital_status"
-		  class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+		<label for="marital_status" class="block mb-2 text-lg text-gray-600 dark:text-gray-200"
+			>Marital Status</label
 		>
-		  <option value="" selected disabled hidden>Select Marital Status</option>
-		  <option value="Never Married">Never Married</option>
-		  <option value="Divorced">Divorced</option>
-		  <option value="Awaiting Divorce">Awaiting Divorce</option>
-		  <option value="Widowed">Widowed</option>
-		  <option value="Separated">Separated</option>
+		<select
+			bind:value={marital_status}
+			name="marital_status"
+			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+		>
+			<option value="" selected disabled hidden>Select Marital Status</option>
+			<option value="Never Married">Never Married</option>
+			<option value="Divorced">Divorced</option>
+			<option value="Awaiting Divorce">Awaiting Divorce</option>
+			<option value="Widowed">Widowed</option>
+			<option value="Separated">Separated</option>
 		</select>
-	  </div>
-	  
+	</div>
+
+	{#if ['Divorced', 'Awaiting Divorce', 'Widowed', 'Separated'].includes(marital_status)}
+		<div class="col-span-full">
+			<label for="have_children" class="block mb-2 text-lg text-gray-600 dark:text-gray-200"
+				>Do you have children?</label
+			>
+			<select
+				bind:value={have_children}
+				name="have_children"
+				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			>
+				<option value="" selected disabled hidden>Select Marital Status</option>
+				<option value="Yes">Yes</option>
+				<option value="No">No</option>
+			</select>
+		</div>
+
+		{#if have_children == 'Yes'}
+			<div class="col-span-full">
+				<label for="how_many_children" class="block mb-2 text-lg text-gray-600 dark:text-gray-200"
+					>How many children do you have?</label
+				>
+				<select
+					bind:value={how_many_children}
+					name="how_many_children"
+					class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				>
+					<option value="" selected disabled hidden>Select Option</option>
+					<option value=1>1</option>
+					<option value=2>2</option>
+					<option value=3>3</option>
+					<option value=4>4</option>
+					<option value="More">More</option>
+				</select>
+			</div>
+		{/if}
+	{/if}
 
 	<div class="col-span-full">
 		<label for="caste" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Category</label>
@@ -399,9 +462,7 @@
 	</div>
 
 	<div class="col-span-full">
-		<label for="caste" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
-			>Caste</label
-		>
+		<label for="caste" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Caste</label>
 		<input
 			type="text"
 			placeholder="Your caste"
@@ -444,13 +505,13 @@
 			<option value="Telugu">Telugu</option>
 			<option value="Tulu">Tulu</option>
 			<option value="Urdu">Urdu</option>
-			<option value="others">Others</option>
+			<option value="others">Others(please specify)</option>
 		</select>
 
 		{#if mother_tongue === 'others'}
 			<div class="col-span-full">
 				<label for="other_tongue" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
-					>Please specify</label
+					>Please specify your Mother Tongue</label
 				>
 				<input
 					type="text"
@@ -530,7 +591,7 @@
 				name="pwd_type"
 				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
-				<option value="" selected disabled hidden>Select Caste</option>
+				<option value="" selected disabled hidden>Select Option</option>
 				<option value="Blindness">Blindness</option>
 				<option value="Low-vision">Low-vision</option>
 				<option value="Leprosy Cured Person">Leprosy Cured Person</option>
@@ -565,7 +626,7 @@
 		{#if pwd_type === 'others'}
 			<div class="col-span-full">
 				<label for="other_pwd" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
-					>Please specify</label
+					>Please specify your Type of Disability</label
 				>
 				<input
 					type="text"
@@ -578,7 +639,7 @@
 
 		<div class="col-span-full">
 			<label for="pwd_relation" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
-				>Relation with Pwd</label
+				>Relation with PwD</label
 			>
 			<select
 				bind:value={pwd_relation}
@@ -661,7 +722,7 @@
 			bind:value={bio}
 			name="bio"
 			class="text-white border-gray-600 rounded-lg h-32 placeholder:text-sm placeholder:text-gray-400 text-base"
-			placeholder="describe your personality in less than 200 words"
+			placeholder="Describe your personality in less than 200 words"
 		/>
 	</div>
 	<Button

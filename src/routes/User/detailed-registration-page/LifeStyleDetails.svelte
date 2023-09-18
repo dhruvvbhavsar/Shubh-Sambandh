@@ -101,7 +101,7 @@
 		<div class="col-span-full">
 			<label
 				for="others_who_do_you_live_with"
-				class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Please specify</label
+				class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Please specify who do you currently live with</label
 			>
 			<input
 				type="text"
@@ -135,7 +135,7 @@
 		<div class="col-span-full">
 			<label
 				for="others_after_marriage_plans"
-				class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Please specify</label
+				class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Please specify where do you plan to live after marriage</label
 			>
 			<input
 				type="text"

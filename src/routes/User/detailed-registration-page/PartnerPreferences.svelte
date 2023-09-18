@@ -11,10 +11,58 @@
 
 	const marital_status = ['Never Married', 'Divorced', 'Awaiting Divorce', 'Widowed', 'Separated'];
 
-	const devotional_preferences = [
-		'Connected to ISKCON',
-		// 'Connected to any other spiritual organization',
+	const devotional_preferences = ['Connected to ISKCON', 'No specific preference'];
+
+	const diet = [
+		'Vegetarian',
+		'Non-vegetarian',
+		'Vegan',
+		'Jain (no root vegetables)',
+		'Sattvik (no onion/garlic)'
+	];
+
+	const location = [
+		'Same city as me',
+		'Same state as me',
+		'Same country as me',
+		'Different country but willing to relocate',
 		'No specific preference'
+	];
+
+	const family_background = [
+		'Traditional and Cultured',
+		'Modern and Open-minded',
+		'Balanced mix of Traditional and Modern Values',
+		'No specific preference'
+	];
+
+	const annual_income = [
+		'Less than 1,00,000',
+		'1,00,000-3,00,000',
+		'3,00,001-5,00,000',
+		'5,00,001-8,00,000',
+		'8,00,001-12,00,000',
+		'12,00,001-15,00,000',
+		'15,00,001-20,00,000',
+		'20,00,001-25,00,000',
+		'Greater than 25,00,000',
+		'No specific preference'
+	];
+
+	const occupation = [
+		'Professional/White-collar job',
+		'Business/Self-employed',
+		'Skilled/Technical job',
+		'Not employed',
+		'Homemaker',
+		'No specific preference'
+	];
+
+	const education = [
+		'High School or Below',
+		"Bachelor's Degree",
+		"Master's Degree",
+		'Doctorate or Professional Degree'
 	];
 
 	const rashi = [
@@ -38,12 +86,12 @@
 	let p_specific_rashi: string[] = [];
 	let p_marital_status: string[] = [];
 	let age_difference: string;
-	let p_education: string;
-	let p_occupation: string;
-	let p_annual_income: string;
-	let p_family_background: string;
-	let p_location: string;
-	let p_diet: string;
+	let p_education: string[] = [];
+	let p_occupation: string[] = [];
+	let p_annual_income: string[] = [];
+	let p_family_background: string[] = [];
+	let p_location: string[] = [];
+	let p_diet: string[] = [];
 	let p_post_living: string;
 	let p_other_post_living: string;
 	let p_language: string;
@@ -51,38 +99,38 @@
 	let p_rashi: string;
 
 	function handleSubmit(event: any) {
-    event.preventDefault();
+		event.preventDefault();
 
-    // Collect form data
-    const partnerPreferencesData = {
-      p_devotional,
-      p_age_range,
-      p_initiation_status,
-      p_chanting_status,
-      p_specific_rashi,
-      p_marital_status,
-      age_difference,
-      p_education,
-      p_occupation,
-      p_annual_income,
-      p_family_background,
-      p_location,
-      p_diet,
-      p_post_living,
-      p_other_post_living,
-      p_language,
-      p_manglik,
-      p_rashi,
-    };
+		// Collect form data
+		const partnerPreferencesData = {
+			p_devotional,
+			p_age_range,
+			p_initiation_status,
+			p_chanting_status,
+			p_specific_rashi,
+			p_marital_status,
+			age_difference,
+			p_education,
+			p_occupation,
+			p_annual_income,
+			p_family_background,
+			p_location,
+			p_diet,
+			p_post_living,
+			p_other_post_living,
+			p_language,
+			p_manglik,
+			p_rashi
+		};
 
-    // Update the formData store with partnerPreferencesData
-    formData.update(data => ({ ...data, partner_preferences: partnerPreferencesData }));
+		// Update the formData store with partnerPreferencesData
+		formData.update((data) => ({ ...data, partner_preferences: partnerPreferencesData }));
 
-    // Log the updated formData to see the changes
-    formData.subscribe(updatedData => {
-      console.log("Updated Form Data:", updatedData);
-    });
-  }
+		// Log the updated formData to see the changes
+		formData.subscribe((updatedData) => {
+			console.log('Updated Form Data:', updatedData);
+		});
+	}
 </script>
 
 <form on:submit={handleSubmit} class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
@@ -151,61 +199,55 @@
 		<label for="p_education" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
 			>Education Preference of Partner</label
 		>
-		<select
-			bind:value={p_education}
-			name="p_education"
-			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-		>
-			<option value="" selected disabled hidden>Select option</option>
-			<option value="High School or Below">High School or Below</option>
-			<option value="Bachelor's Degree">Bachelor's Degree</option>
-			<option value="Master's Degree">Master's Degree</option>
-			<option value="Doctorate or Professional Degree">Doctorate or Professional Degree</option>
-			<option value="No specific preference">No specific preference</option>
-		</select>
+		{#each education as value}
+			<label class="text-base flex gap-4 text-gray-600 dark:text-gray-200">
+				<input
+					type="checkbox"
+					bind:group={p_education}
+					name="p_education"
+					{value}
+					class="block text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg"
+				/>
+				{value}
+			</label>
+		{/each}
 	</div>
 
 	<div class="col-span-full">
 		<label for="p_occupation" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
 			>Occupation Preference of Partner</label
 		>
-		<select
-			bind:value={p_occupation}
-			name="p_occupation"
-			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-		>
-			<option value="" selected disabled hidden>Select option</option>
-			<option value="Professional/White-collar job">Professional/White-collar job</option>
-			<option value="Business/Self-employed">Business/Self-employed</option>
-			<option value="Skilled/Technical job">Skilled/Technical job</option>
-			<option value="Not employed">Not employed</option>
-			<option value="Homemaker">Homemaker</option>
-			<option value="No specific preference">No specific preference</option>
-		</select>
+		{#each occupation as value}
+			<label class="text-base flex gap-4 text-gray-600 dark:text-gray-200">
+				<input
+					type="checkbox"
+					bind:group={p_occupation}
+					name="p_occupation"
+					{value}
+					class="block text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg"
+				/>
+				{value}
+			</label>
+		{/each}
 	</div>
 
-	{#if p_occupation != 'Homemaker' && p_occupation != 'Not employed'}
+	{#if !p_occupation.includes('Homemaker') && !p_occupation.includes('Not employed')}
 		<div class="col-span-full">
 			<label for="p_annual_income" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
 				>Annual Income of Partner</label
 			>
-			<select
-				bind:value={p_annual_income}
-				name="p_annual_income"
-				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-			>
-				<option value="" selected disabled hidden>Select option</option>
-				<option value="Less than 1,00,000">Less than 1,00,000</option>
-				<option value="1,00,000-3,00,000">1,00,000-3,00,000</option>
-				<option value="3,00,001-5,00,000">3,00,001-5,00,000</option>
-				<option value="5,00,001-8,00,000">5,00,001-8,00,000</option>
-				<option value="8,00,001-12,00,000">8,00,001-12,00,000</option>
-				<option value="12,00,001-15,00,000">12,00,001-15,00,000</option>
-				<option value="15,00,001-20,00,000">15,00,001-20,00,000</option>
-				<option value="20,00,001-25,00,000">20,00,001-25,00,000</option>
-				<option value="Greater than 25,00,000">Greater than 25,00,000</option>
-				<option value="No specific preference">No specific preference</option>
-			</select>
+			{#each annual_income as value}
+				<label class="text-base flex gap-4 text-gray-600 dark:text-gray-200">
+					<input
+						type="checkbox"
+						bind:group={p_annual_income}
+						name="p_annual_income"
+						{value}
+						class="block text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg"
+					/>
+					{value}
+				</label>
+			{/each}
 		</div>
 	{/if}
 
@@ -213,19 +255,18 @@
 		<label for="p_family_background" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
 			>Family Background Preference of Partner</label
 		>
-		<select
-			bind:value={p_family_background}
-			name="p_family_background"
-			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-		>
-			<option value="" selected disabled hidden>Select option</option>
-			<option value="Traditional and Cultured">Traditional and Cultured</option>
-			<option value="Modern and Open-minded">Modern and Open-minded</option>
-			<option value="Balanced mix of Traditional and Modern Values"
-				>Balanced mix of Traditional and Modern Values</option
-			>
-			<option value="No specific preference">No specific preference</option>
-		</select>
+		{#each family_background as value}
+			<label class="text-base flex gap-4 text-gray-600 dark:text-gray-200">
+				<input
+					type="checkbox"
+					bind:group={p_family_background}
+					name="p_family_background"
+					{value}
+					class="block text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg"
+				/>
+				{value}
+			</label>
+		{/each}
 	</div>
 
 	<div class="col-span-full">
@@ -288,38 +329,36 @@
 		<label for="p_location" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
 			>Location Preference of Partner</label
 		>
-		<select
-			bind:value={p_location}
-			name="p_location"
-			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-		>
-			<option value="" selected disabled hidden>Select option</option>
-			<option value="Same city as me">Same city as me</option>
-			<option value="Same state as me">Same state as me</option>
-			<option value="Same country as me">Same country as me</option>
-			<option value="Different country but willing to relocate"
-				>Different country but willing to relocate</option
-			>
-			<option value="No specific preference">No specific preference</option>
-		</select>
+		{#each location as value}
+			<label class="text-base flex gap-4 text-gray-600 dark:text-gray-200">
+				<input
+					type="checkbox"
+					bind:group={p_location}
+					name="p_location"
+					{value}
+					class="block text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg"
+				/>
+				{value}
+			</label>
+		{/each}
 	</div>
 
 	<div class="col-span-full">
 		<label for="p_diet" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
 			>Diet Preference of Partner</label
 		>
-		<select
-			bind:value={p_diet}
-			name="p_diet"
-			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-		>
-			<option value="" selected disabled hidden>Select option</option>
-			<option value="Vegetarian">Vegetarian</option>
-			<option value="Non-vegetarian">Non-vegetarian</option>
-			<option value="Vegan">Vegan</option>
-			<option value="Jain (no root vegetables)">Jain (no root vegetables)</option>
-			<option value="Sattvik (no onion/garlic)">Sattvik (no onion/garlic)</option>
-		</select>
+		{#each diet as value}
+			<label class="text-base flex gap-4 text-gray-600 dark:text-gray-200">
+				<input
+					type="checkbox"
+					bind:group={p_diet}
+					name="p_diet"
+					{value}
+					class="block text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg"
+				/>
+				{value}
+			</label>
+		{/each}
 	</div>
 
 	<div class="col-span-full">
@@ -346,7 +385,7 @@
 	{#if p_post_living === 'others'}
 		<div class="col-span-full">
 			<label for="p_other_post_living" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
-				>Please specify</label
+				>Please specify where you would want your partner and you to live after marriage</label
 			>
 			<input
 				type="text"
@@ -389,9 +428,7 @@
 			<option value="No, my partner should not be Manglik"
 				>No, my partner should not be Manglik</option
 			>
-			<option value="No preference"
-				>No preference</option
-			>
+			<option value="No preference">No preference</option>
 		</select>
 	</div>
 
@@ -406,7 +443,7 @@
 		>
 			<option value="" selected disabled hidden>Select option</option>
 			<option value="Prefer a Specific Rashi">Prefer a Specific Rashi (Please specify)</option>
-			<option value="No Specific Zodiac Sign Preference">No Specific Zodiac Sign Preference</option>
+			<option value="No Specific Rashi Preference">No Specific Rashi Preference</option>
 		</select>
 	</div>
 

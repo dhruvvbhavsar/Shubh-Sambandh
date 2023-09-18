@@ -2,12 +2,14 @@
 	import { Button } from '$components/ui/button';
 	import { formData } from '../../../form_store';
 	import { books } from './options';
-	import InitiationGuruComponent from './InitiationGuruComponent.svelte';
-	import SpiritualOrgsComponent from './SpiritualOrgsComponent.svelte';
+	import { spiritualOrgs } from './options';
+	import { initiatingGurus } from './options';
 	let isAffiliated: boolean = false;
+	let willingness_support_each_other: string;
 
 	let templeLocation: any;
 	let haveCounsellor: boolean = false;
+	let since_when_connected: string;
 	let counsellorName: string;
 	let counsellorNumber: number;
 	let counsellorInitiationGuru: any;
@@ -59,6 +61,7 @@
 		const spiritualData = {
 			isAffiliated,
 			templeLocation,
+			since_when_connected,
 			haveCounsellor,
 			counsellorName,
 			counsellorNumber,
@@ -163,10 +166,41 @@
 		>
 			For ISKCON Devotees
 		</h1>
-		<SpiritualOrgsComponent bind:value={templeLocation} />
+		<div class="col-span-full">
+			<label for="temple_location" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				>Location of the ISKCON Temple you are connected with</label
+			>
+			<select
+				bind:value={templeLocation}
+				name="temple_location"
+				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			>
+				<option value="" selected disabled hidden>Select Option</option>
+				{#each spiritualOrgs as location}
+					<option value={location.label}>{location.label}</option>
+				{/each}
+			</select>
+		</div>
+		<div class="col-span-full">
+			<label for="since_when_connected" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				>Since when are you connected with ISKCON?</label
+			>
+			<select
+				bind:value={since_when_connected}
+				name="since_when_connected"
+				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			>
+				<option value="" selected disabled hidden>Select Option</option>
+				<option value="<1 year">less than a year</option>
+				<option value="1-3 years">1-3 years </option>
+				<option value="3-5 years">3-5 years </option>
+				<option value=">5 years">>5 years</option>
+				<option value=">10 years">>10 years </option>
+			</select>
+		</div>
 		<div class="col-span-full">
 			<label for="religious-affiliation" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
-				>Do you have a counsellor?</label
+				>Do you have a Counsellor?</label
 			>
 			<select
 				bind:value={haveCounsellor}
@@ -181,7 +215,7 @@
 		{#if haveCounsellor}
 			<div class="mt-2 col-span-full">
 				<label for="counsellorName" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
-					>Name of your counsellor</label
+					>Name of your Counsellor</label
 				>
 				<input
 					bind:value={counsellorName}
@@ -192,7 +226,7 @@
 			</div>
 			<div class="mt-2 col-span-full">
 				<label for="counsellorNumber" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
-					>Contact number of your counsellor</label
+					>Contact Number of your counsellor</label
 				>
 				<input
 					bind:value={counsellorNumber}
@@ -201,7 +235,21 @@
 					class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 				/>
 			</div>
-			<InitiationGuruComponent bind:value={counsellorInitiationGuru} />
+			<div class="col-span-full">
+				<label for="temple_location" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+					>Counselor's Spiritual Master</label
+				>
+				<select
+					bind:value={counsellorInitiationGuru}
+					name="temple_location"
+					class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				>
+					<option value="" selected disabled hidden>Select Option</option>
+					{#each initiatingGurus as location}
+						<option value={location.label}>{location.label}</option>
+					{/each}
+				</select>
+			</div>
 		{/if}
 
 		<h1
@@ -469,7 +517,7 @@
 		{#if diet_pref === 'others'}
 			<div class="col-span-full">
 				<label for="other_diet_pref" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
-					>Please spec\ify your dietary preferences
+					>Please specify your dietary preferences
 				</label>
 				<input
 					bind:value={other_diet_pref}
@@ -749,7 +797,7 @@
 			>
 				<option value="" selected disabled hidden>Select Option</option>
 				<option value="Completely Willing and Prepared">Completely Willing and Prepared</option>
-				<option value="Willing but Need Guidance*">Willing but Need Guidance*</option>
+				<option value="Willing but Need Guidance">Willing but Need Guidance</option>
 				<option value="Considering it but Uncertain">Considering it but Uncertain</option>
 				<option value="Not Willing to Raise Children in Such an Environment"
 					>Not Willing to Raise Children in Such an Environment</option
@@ -757,24 +805,44 @@
 			</select>
 		</div>
 
-		<div class="col-span-full">
-			<label for="children_education" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
-				>What are your preferences for your child's education?
-			</label>
-			<select
-				bind:value={children_education}
-				name="children_education"
-				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-			>
-				<option value="" selected disabled hidden>Select Option</option>
-				<option value="Homeschooling">Homeschooling </option>
-				<option value="ISKCON Gurukul">ISKCON Gurukul</option>
-				<option value="Any other Spiritual Gurukul">Any other Spiritual Gurukul</option>
-				<option value="Normal School">Normal School</option>
-				<option value="Not Decided Yet">Not Decided Yet</option>
-			</select>
-		</div>
+		{#if ['Completely Willing and Prepared', 'Willing but Need Guidance', 'Considering it but Uncertain'].includes(children_willingness)}
+			<div class="col-span-full">
+				<label for="children_education" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+					>What are your preferences for your child's education?
+				</label>
+				<select
+					bind:value={children_education}
+					name="children_education"
+					class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				>
+					<option value="" selected disabled hidden>Select Option</option>
+					<option value="Homeschooling">Homeschooling </option>
+					<option value="ISKCON Gurukul">ISKCON Gurukul</option>
+					<option value="Any other Spiritual Gurukul">Any other Spiritual Gurukul</option>
+					<option value="Normal School">Normal School</option>
+					<option value="Not Decided Yet">Not Decided Yet</option>
+				</select>
+			</div>
+		{/if}
 	{/if}
+
+	<div class="col-span-full">
+		<label
+			for="willingness_support_each_other"
+			class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			>Willingess to support and participate in each other's spiritual growth</label
+		>
+		<select
+			bind:value={willingness_support_each_other}
+			name="willingness_support_each_other"
+			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+		>
+			<option value="" selected disabled hidden>Select Option</option>
+			<option value="Yes">Yes</option>
+			<option value="No">No</option>
+			<option value="Not Sure">Not Sure</option>
+		</select>
+	</div>
 	<div class="col-span-full">
 		<label for="spiritualityImportance" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
 			>Importance of spirituality in your life

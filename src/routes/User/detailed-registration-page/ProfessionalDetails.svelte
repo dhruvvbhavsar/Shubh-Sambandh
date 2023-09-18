@@ -3,10 +3,10 @@
 	import { careers_list } from './options';
 	import Select from 'svelte-select';
 	import { formData } from '../../../form_store';
-	let items = careers_list;
 
 	let career: any;
 	let designation: string;
+	let employer_or_organization: string;
 	let income: string;
 
 	function handleSubmit(event: any) {
@@ -16,6 +16,7 @@
 		const professionalData = {
 			career,
 			designation,
+			employer_or_organization,
 			income
 		};
 
@@ -39,19 +40,17 @@
 		<label for="hobbies" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
 			>Profession</label
 		>
-		<Select
-			{items}
-			bind:value={career}
-			closeListOnChange={true}
-			--background="transparent"
-			--item-color="white"
-			--list-background="#111827"
-			--placeholder-color="white"
-			--selected-item-color="white"
-			--item-hover-color="black"
-			--item-is-active-bg="white"
-			--item-is-active-color="black"
-		/>
+
+		<select
+			bind:value={income}
+			name="income"
+			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+		>
+			<option value="" selected disabled hidden>Select Option</option>
+			{#each careers_list as item}
+				<option value={item.label}>{item.label}</option>
+			{/each}
+		</select>
 	</div>
 
 	<div class="col-span-full">
@@ -62,6 +61,18 @@
 			type="text"
 			bind:value={designation}
 			name="designation"
+			class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+		/>
+	</div>
+
+	<div class="col-span-full">
+		<label for="employer_or_organization" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			>Employer/Organization name</label
+		>
+		<input
+			type="text"
+			bind:value={employer_or_organization}
+			name="employer_or_organization"
 			class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		/>
 	</div>

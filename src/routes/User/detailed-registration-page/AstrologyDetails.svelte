@@ -8,6 +8,7 @@
 	let astrology_compatibility: string;
 	let consultation: string;
 	let p_astrologer: string;
+	let other_astrolger: string;
 
 	function handleSubmit(event: any) {
 		event.preventDefault();
@@ -19,7 +20,8 @@
 			horoscope_match,
 			astrology_compatibility,
 			consultation,
-			p_astrologer
+			p_astrologer,
+			other_astrolger
 		};
 
 		// Update the formData store with astrologyData
@@ -154,6 +156,20 @@
 			<option value="No Specific Preference">No Specific Preference</option>
 		</select>
 	</div>
+
+	{#if p_astrologer === 'I Have a Preferred Astrologer/Method'}
+		<div class="col-span-full">
+			<label for="other_astrolger" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				>Please specify the name of you Preferred Astrologer</label
+			>
+			<input
+				type="text"
+				bind:value={other_astrolger}
+				name="other_astrolger"
+				class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			/>
+		</div>
+	{/if}
 
 	{#if p_astrologer === 'No Specific Preference'}
 		<h1

@@ -60,7 +60,7 @@
 	{#if qualification === 'others'}
 		<div class="col-span-full">
 			<label for="others_qualification" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
-				>Please specify</label
+				>Please specify your highest education</label
 			>
 			<input
 				type="text"

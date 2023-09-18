@@ -22,20 +22,25 @@
 </script>
 
 <div class="col-span-full text-white">
-	<label for="hobbies" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Sports</label>
+	<label for="hobbies" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Sports Interests</label>
 	<Select
 		placeholder="Select Option"
 		on:change={handleChange}
 		multiple
 		on:filter={handleFilter}
 		bind:filterText
+		showChevron
 		bind:value
 		{items}
 		--background="transparent"
-		--item-color="white"
-		--multi-item-bg="black"
-		--placeholder-color="white"
-		--selected-item-color="white"
+		--list-background="white"
+		--border="1px solid #ccc"
+		--border-radius="4px"
+		--box-sizing="border-box"
+		--item-color="#333"
+		--multi-item-bg="#f0f0f0"
+		--placeholder-color="#777"
+		--selected-item-color="#333"
 	>
 		<div class="text-black" slot="item" let:item>
 			{item.created ? 'Add new: ' : ''}

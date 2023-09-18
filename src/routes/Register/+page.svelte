@@ -15,7 +15,7 @@
 		firstName: z.string().min(3).max(20).trim(),
 		lastName: z.string().min(3).max(20).trim(),
 		gender: z.string().default('Male'),
-		caste: z.string().default('hindu'),
+		caste: z.string().default('Hindu'),
 		dateOfBirth: z.string(),
 		timeOfBirth: z.string(),
 		city: z.string(),
@@ -322,10 +322,10 @@
 								class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 							>
 								<option value="" selected disabled hidden>Select Marital Status</option>
-								<option value="never married">Never Married</option>
-								<option value="divorced">Divorced</option>
-								<option value="widowed">Widowed</option>
-								<option value="separated">Separated</option>
+								<option value="Never married">Never Married</option>
+								<option value="Divorced">Divorced</option>
+								<option value="Widowed">Widowed</option>
+								<option value="Separated">Separated</option>
 							</select>
 
 							{#if $errors.maritalStatus}<span class="text-red-600 text-sm"
@@ -343,11 +343,11 @@
 								class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 							>
 								<option value="" selected disabled hidden>Select Caste</option>
-								<option value="hindu">Hindu</option>
-								<option value="muslim">Muslim</option>
-								<option value="sikh">Sikh</option>
-								<option value="christian">Christian</option>
-								<option value="buddhist">Buddhist</option>
+								<option value="Hindu">Hindu</option>
+								<option value="Muslim">Muslim</option>
+								<option value="Sikh">Sikh</option>
+								<option value="Christian">Christian</option>
+								<option value="Buddhist">Buddhist</option>
 								<option value="jain">Jain</option>
 								<option value="others">Others</option>
 							</select>

@@ -143,7 +143,7 @@
 	{#if family_value === 'others'}
 		<div class="col-span-full">
 			<label for="other_family_value" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
-				>Please specify</label
+				>Please specify your family values</label
 			>
 			<input
 				type="text"
@@ -187,7 +187,7 @@
 	{#if father_status === 'Working' || father_status === 'Self-employed' || father_status === 'Business owner'}
 		<div class="col-span-full">
 			<label for="father_occupation" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
-				>Please specify</label
+				>Please specify father's Occupation</label
 			>
 			<input
 				type="text"
@@ -233,7 +233,7 @@
 	{#if mother_status === 'Working' || mother_status === 'Self-employed' || mother_status === 'Business owner'}
 		<div class="col-span-full">
 			<label for="mother_occupation" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
-				>Please specify</label
+				>Please specify mother's Occupation</label
 			>
 			<input
 				type="text"

@@ -30,12 +30,17 @@
 		on:filter={handleFilter}
 		bind:filterText
 		bind:value
+		showChevron
 		{items}
 		--background="transparent"
-		--item-color="white"
-		--multi-item-bg="black"
-		--placeholder-color="white"
-		--selected-item-color="white"
+		--list-background="white"
+		--border="1px solid #ccc"
+		--border-radius="4px"
+		--box-sizing="border-box"
+		--item-color="#333"
+		--multi-item-bg="#f0f0f0"
+		--placeholder-color="#777"
+		--selected-item-color="#333"
 	>
 		<div class="text-black" slot="item" let:item>
 			{item.created ? 'Add new: ' : ''}
