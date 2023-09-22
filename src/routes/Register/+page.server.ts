@@ -6,45 +6,18 @@ import prisma from '$lib/server/prisma';
 import AWS from 'aws-sdk';
 import { auth } from '$lib/server/lucia';
 
-const s3 = new AWS.S3({
-	accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-	secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-	region: process.env.AWS_REGION,
-	signatureVersion: 'v4'
-});
-
-const bucketName = process.env.S3_BUCKET_NAME;
-let uploadUrll: string;
-
-async function generateUploadURL() {
-	const imageName = `${Date.now()}.jpg`;
-	const params = {
-		Bucket: bucketName,
-		Key: imageName,
-		Expires: 60 * 5
-	};
-
-	const uploadUrl = await s3.getSignedUrlPromise('putObject', params);
-	uploadUrll = uploadUrl.split('?')[0];
-	return uploadUrl;
-}
-
 const userSchema = z.object({
 	firstName: z.string().min(3).max(20).trim(),
 	lastName: z.string().min(3).max(20).trim(),
 	gender: z.string().default('Male'),
-	caste: z.string().default('hindu'),
+	caste: z.string().default('Hindu'),
 	dateOfBirth: z.string(),
 	timeOfBirth: z.string(),
 	city: z.string(),
 	country: z.string(),
-	maritalStatus: z.string().default('never married'),
+	maritalStatus: z.string().default('Never married'),
 	other_caste: z.string().nullable(),
-	profilePictureUrl: z
-		.string()
-		.default(
-			'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
-		),
+	profilePictureUrl: z.string(),
 	passwordHash: z.string().min(8).max(64),
 	mobileNumber: z.string().min(10).max(10),
 	email: z.string().email()
@@ -56,19 +29,15 @@ export const load: PageServerLoad = async ({ locals }) => {
 		throw redirect(302, '/');
 	} else {
 		const form = await superValidate(userSchema);
-		const url = await generateUploadURL();
 
-		return { form, url };
+		return { form };
 	}
 };
 
 export const actions = {
 	register: async ({ request }) => {
 		const form = await superValidate(request, userSchema);
-		form.data.profilePictureUrl =
-			uploadUrll ??
-			'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
-
+		console.log(form.data.profilePictureUrl);
 		if (!form.valid) {
 			return fail(400, { form });
 		}

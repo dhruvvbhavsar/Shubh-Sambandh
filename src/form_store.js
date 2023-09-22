@@ -2,7 +2,7 @@ import { writable } from "svelte/store";
 
 // Initial form data structure
 const initialFormData = {
-  personal_details: {}, // Add fields for other form sections
+  personal_details: {},
   medical_details: {},
   spiritual_details: {},
   lifestyle_details: {},

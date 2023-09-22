@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import type { ActionData, PageData, RequestEvent } from './$types';
+	import type { PageData } from './$types';
 	import { superForm } from 'sveltekit-superforms/client';
 	import { z } from 'zod';
 	import { Country, City } from 'country-state-city';
+	import { enhance } from '$app/forms';
 
 	let countries = Country.getAllCountries();
 
@@ -20,13 +21,9 @@
 		timeOfBirth: z.string(),
 		city: z.string(),
 		country: z.string(),
-		maritalStatus: z.string().default('never married'),
+		maritalStatus: z.string().default('Never married'),
 		other_caste: z.string().nullable(),
-		profilePictureUrl: z
-			.string()
-			.default(
-				'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
-			),
+		profilePictureUrl: z.string(),
 		passwordHash: z.string().min(8).max(64),
 		mobileNumber: z.string().min(10).max(10),
 		email: z.string().email()
@@ -37,16 +34,15 @@
 		taintedMessage: 'Are you sure you want leave?',
 		validators: userSchema
 	});
-	const preSignedUrl = data.url;
-	console.log('PreSignedUrl:', preSignedUrl);
-	let imagePreviewUrl: string;
 
 	$: match = password === $form.passwordHash;
 
-	let selectedFile: File | undefined;
+	let selected_file: File | undefined;
+	let imagePreviewUrl: string;
 
-	async function handleImageUpload(event: Event) {
-		const file = (event.target as HTMLInputElement).files?.[0];
+	function handleImageChange(event: Event) {
+		const target = event.target as HTMLInputElement;
+		const file = target.files?.[0];
 		if (!file) {
 			return;
 		}
@@ -61,45 +57,22 @@
 		};
 		reader.readAsDataURL(file);
 
-		selectedFile = file;
+		selected_file = file;
 	}
 
-	async function uploadSelectedFile() {
-		if (!selectedFile) {
-			return;
-		}
-		try {
-			var imageUrl = await uploadToS3(selectedFile, preSignedUrl);
-			imageUrl = imageUrl.split('?')[0];
-			$form.profilePictureUrl = imageUrl;
-			console.log('UPLOAD:', imageUrl);
-		} catch (error) {
-			console.error('Error uploading image:', error);
+	async function uploadPicture() {
+		if (selected_file) {
+			const formData = new FormData();
+			formData.append('file', selected_file);
+			const response = await fetch('/api/upload', {
+				method: 'POST',
+				body: formData
+			}).then((res) => res.json());
+			return await response.url;
 		}
 	}
 
-	async function uploadToS3(file: File, preSignedUrl: string): Promise<string> {
-		const response = await fetch(preSignedUrl, {
-			method: 'PUT',
-			body: file,
-			headers: {
-				'Content-Type': file.type
-			}
-		});
-
-		if (!response.ok) {
-			throw new Error(`Failed to upload file to S3. Status: ${response.status}`);
-		}
-
-		const imageUrl = response.url;
-		return imageUrl;
-	}
-
-	function handleSubmit(event: Event) {
-		uploadSelectedFile();
-	}
-
-	async function removeImage() {
+	function removeImage() {
 		imagePreviewUrl = '';
 	}
 </script>
@@ -136,6 +109,19 @@
 						our website, and we wish you the best of luck in your journey.
 					</p>
 					<form
+						use:enhance={async ({ formElement, formData, action, cancel, submitter }) => {
+							// `formElement` is this `<form>` element
+							// `formData` is its `FormData` object that's about to be submitted
+							// `action` is the URL to which the form is posted
+							// calling `cancel()` will prevent the submission
+							// `submitter` is the `HTMLElement` that caused the form to be submitted
+							if(!selected_file) {
+								alert('Please select a profile picture');
+								return cancel();
+							}
+							const url = await uploadPicture();
+							formData.append('profilePictureUrl', url);
+						}}
 						method="POST"
 						action="?/register"
 						class="grid grid-cols-1 gap-6 mt-8 md:grid-cols-2"
@@ -179,8 +165,7 @@
 										type="file"
 										accept="image/*"
 										class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-										on:change={handleImageUpload}
-										bind:value={$form.profilePictureUrl}
+										on:change={handleImageChange}
 									/>
 									<div class="flex items-center justify-center h-full">
 										<svg class="h-20 w-20 text-gray-400" fill="none" viewBox="0 0 24 24">
@@ -242,15 +227,6 @@
 							</select>
 							{#if $errors.gender}<span class="text-red-600 text-sm">{$errors.gender}</span>{/if}
 						</div>
-
-						<!-- <div>
-						<label class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Phone number</label>
-						<input
-							type="text"
-							placeholder="XXX-XX-XXXX-XXX"
-							class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-						/>
-					</div> -->
 
 						<div>
 							<label for="email" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
@@ -433,9 +409,7 @@
 						</div>
 
 						<button
-							on:click={(e) => {
-								handleSubmit(e);
-							}}
+							type="submit"
 							disabled={!match || $form.passwordHash.length == 0}
 							class={`flex items-center justify-between w-full px-6 py-3 text-sm tracking-wide text-white capitalize transition-colors duration-300 transform rounded-lg focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 ${
 								!match || $form.passwordHash.length == 0

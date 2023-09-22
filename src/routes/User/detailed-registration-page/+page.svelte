@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import PersonalDetails from './PersonalDetails.svelte';
 	import MedicalDetails from './MedicalDetails.svelte';
 	import SpiritualDetails from './SpiritualDetails.svelte';
@@ -8,6 +8,21 @@
 	import FamilyDetails from './FamilyDetails.svelte';
 	import PartnerPreferences from './PartnerPreferences.svelte';
 	import AstrologyDetails from './AstrologyDetails.svelte';
+	import { Button } from '$components/ui/button';
+	import { formData } from '../../../form_store';
+
+	$: form_data = $formData;
+
+	export let data
+	const user = data.user
+
+	async function handleSubmit() {
+		const res = await fetch('/api/userData', {
+			method: 'POST',
+			body: JSON.stringify({ id: user.userId, data: form_data})
+		});
+		console.log(await res.json());
+	}
 </script>
 
 <section class="dark:bg-gray-900 min-h-max">
@@ -47,7 +62,7 @@
 					more accurate and tailored matches for you. Join now and embark on a more personalized and
 					fruitful matchmaking experience.
 				</p>
-				<PersonalDetails /> 
+				<PersonalDetails />
 				<MedicalDetails />
 				<SpiritualDetails />
 				<LifeStyleDetails />
@@ -56,6 +71,8 @@
 				<FamilyDetails />
 				<PartnerPreferences />
 				<AstrologyDetails />
+
+				<Button on:click={handleSubmit} variant="default">Submit</Button>
 			</div>
 		</div>
 	</div>
