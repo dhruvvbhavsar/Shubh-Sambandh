@@ -23,12 +23,37 @@ model AuthUser {
   mobileNumber      String        @unique
   email             String        @unique
   profilePictureUrl String
-  isPaid            Boolean       @default(false) 
+  isPaid            Boolean       @default(false)
   isProfileComplete Boolean       @default(false)
   auth_session      AuthSession[]
   auth_key          AuthKey[]
+  Bookmark          Bookmark[]
+  Connection        Connection[]
 
   @@map("auth_user")
+}
+
+model Connection {
+  id         String   @id @unique @default(uuid())
+  senderId   String
+  receiverId String
+  status     String   @default("pending")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  user       AuthUser @relation(references: [id], fields: [senderId], onDelete: Cascade)
+
+  @@index([senderId])
+}
+
+model Bookmark {
+  id               String   @id @unique @default(uuid())
+  userId           String
+  bookmarkedUserId String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  user             AuthUser @relation(references: [id], fields: [userId], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 model AuthSession {

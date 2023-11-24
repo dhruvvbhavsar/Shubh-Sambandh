@@ -64,7 +64,8 @@ export const actions = {
 					profilePictureUrl: form.data.profilePictureUrl,
 					mobileNumber: form.data.mobileNumber,
 					serialNumber: ssId,
-					email: form.data.email
+					email: form.data.email,
+					isPaid: false
 				}
 			});
 			return message(form, `${form.data.firstName} ${form.data.lastName}`);
