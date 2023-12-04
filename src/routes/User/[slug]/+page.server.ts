@@ -29,5 +29,13 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 
 	const isLiked = like ? true : false;
 	const isConnected = connect ? true : false;
-	return { profile, user, isLiked, isConnected };
+
+	const details = profile[0].isPaid
+		? await prisma.details.findMany({
+				where: {
+					userId: params.slug
+				}
+		  })
+		: null;
+	return { profile, user, isLiked, isConnected, details };
 };

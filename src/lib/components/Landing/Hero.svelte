@@ -1,21 +1,12 @@
 <script>
 	let open = false;
+	import logo from '../../../assets/logo.png';
 </script>
 
 <header class="back">
-	<nav class="container backdrop-blur-xl relative flex items-center justify-between px-6 py-4 mx-auto text-white">
+	<nav class="container relative flex items-center justify-between px-6 py-4 mx-auto text-white">
 		<a href="/">
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				viewBox="0 0 512 512"
-				class="w-8 h-8 md:w-10 md:h-10"
-				fill="white"
-			>
-				<!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-				<path
-					d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"
-				/>
-			</svg>
+			<img src={logo} width="60px" alt="" />
 		</a>
 
 		<button on:click={() => (open = !open)} class="md:hidden">
@@ -57,9 +48,7 @@
 				open ? 'translate-x-0 opacity-100 ' : 'opacity-0 -translate-x-full'
 			} absolute inset-x-0 z-30 w-full px-6 py-8 mt-4 space-y-6 transition-all duration-300 ease-in-out bg-transparent top-16 md:mt-0 md:p-0 md:top-0 md:relative md:bg-transparent md:w-auto md:opacity-100 md:translate-x-0 md:space-y-0 md:-mx-6 md:flex md:items-center`}
 		>
-			<a
-				href="/"
-				class="block text-white transition-colors duration-300 md:px-6 hover:text-red-300"
+			<a href="/" class="block text-white transition-colors duration-300 md:px-6 hover:text-red-300"
 				>Home</a
 			>
 			<a
@@ -79,13 +68,11 @@
 			>
 			<a
 				href="#blogs"
-				class="block text-white transition-colors duration-300 md:px-6 hover:text-red-300"
-				>Blog</a
+				class="block text-white transition-colors duration-300 md:px-6 hover:text-red-300">Blog</a
 			>
 			<a
 				href="#faqs"
-				class="block text-white transition-colors duration-300 md:px-6 hover:text-red-300"
-				>FAQs</a
+				class="block text-white transition-colors duration-300 md:px-6 hover:text-red-300">FAQs</a
 			>
 			<a
 				href="/Sign"
@@ -111,9 +98,9 @@
 					Uniting Hearts, With Purpose
 				</p>
 
-                <a href="/Register" class="border-2 text-2xl backdrop-blur-sm rounded-lg text-white border-gray-400 mt-8 py-4 w-60">
-                    Get Started
-                </a >
+				<a href="/Register" class="border-2 text-2xl rounded-lg bg-white mt-8 py-4 w-60">
+					Get Started
+				</a>
 
 				<a href="#about" class="mt-8 cursor-pointer animate-bounce">
 					<svg

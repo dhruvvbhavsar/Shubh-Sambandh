@@ -49,7 +49,7 @@
 	let other_diet: string;
 	let marital_status: string;
 	let have_children: string;
-	let how_many_children: number | string;
+	let how_many_children: string;
 	let category: string;
 	let caste: string;
 	let mother_tongue: string;
@@ -436,10 +436,10 @@
 					class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 				>
 					<option value="" selected disabled hidden>Select Option</option>
-					<option value=1>1</option>
-					<option value=2>2</option>
-					<option value=3>3</option>
-					<option value=4>4</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
 					<option value="More">More</option>
 				</select>
 			</div>

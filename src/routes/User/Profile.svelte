@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { MapPin } from "lucide-svelte";
+	import { MapPin } from 'lucide-svelte';
 
-	export let user: any
+	export let user: any;
 
 	function calculateAge(dateOfBirthString: string | number | Date) {
 		const dateOfBirth = new Date(dateOfBirthString);
@@ -19,7 +19,7 @@
 	}
 </script>
 
-<a href={`/User/${user.id}`} class="w-full overflow-hidden rounded-lg bg-blue-300 p-4 shadow-lg">
+<a href={`/User/${user.id}`} class="w-full overflow-hidden rounded-lg bg-red-300 p-4 shadow-lg">
 	<div class="h-60 bg-cover bg-center" style="background-image: url('{user.profilePictureUrl}')" />
 	<div class="mt-4 flex items-center justify-between">
 		<div class="text-lg font-medium">

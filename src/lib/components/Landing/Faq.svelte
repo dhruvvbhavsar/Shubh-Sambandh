@@ -1,10 +1,10 @@
-<section class="bg-gray-900" id="faqs">
+<section class="bg-red-900" id="faqs">
 	<div class="container px-6 py-12 mx-auto">
 		<h1 class="text-2xl font-semibold lg:text-3xl text-white">Frequently asked questions.</h1>
 
 		<div class="grid grid-cols-1 gap-8 mt-8 lg:mt-16 md:grid-cols-2 xl:grid-cols-3">
 			<div>
-				<div class="inline-block p-3 text-white bg-blue-600 rounded-lg">
+				<div class="inline-block p-3 text-white bg-red-700 rounded-lg">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						class="w-6 h-6"
@@ -33,7 +33,7 @@
 			</div>
 
 			<div>
-				<div class="inline-block p-3 text-white bg-blue-600 rounded-lg">
+				<div class="inline-block p-3 text-white bg-red-700 rounded-lg">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						class="w-6 h-6"
@@ -63,7 +63,7 @@
 			</div>
 
 			<div>
-				<div class="inline-block p-3 text-white bg-blue-600 rounded-lg">
+				<div class="inline-block p-3 text-white bg-red-700 rounded-lg">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						class="w-6 h-6"
@@ -94,7 +94,7 @@
 			</div>
 
 			<div>
-				<div class="inline-block p-3 text-white bg-blue-600 rounded-lg">
+				<div class="inline-block p-3 text-white bg-red-700 rounded-lg">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						class="w-6 h-6"
@@ -123,7 +123,7 @@
 			</div>
 
 			<div>
-				<div class="inline-block p-3 text-white bg-blue-600 rounded-lg">
+				<div class="inline-block p-3 text-white bg-red-700 rounded-lg">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						class="w-6 h-6"

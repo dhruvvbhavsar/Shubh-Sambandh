@@ -6,6 +6,7 @@
 	let connect: Boolean = data.isConnected;
 	const person = data.profile[0];
 	const user = data.user;
+	const details = data.details;
 
 	async function handleLike() {
 		if (click) return;
@@ -108,3 +109,7 @@
 		</div>
 	</section>
 </main>
+
+{#if details}
+	<p>This is a paid user</p>
+{/if}

@@ -1,9 +1,9 @@
-<section class="bg-[#111827] py-12">
+<section class="bg-red-900 py-12">
 	<article class="text-white flex flex-col justify-center items-center">
 		<h1 class="text-4xl underline underline-offset-4 text-center">
 			Secrets of a happy married life, Part 1
 		</h1>
-		<section class="max-w-[65ch] mt-8 space-y-4 mx-4">
+		<section class="max-w-[75ch] mt-8 space-y-4 mx-4">
 			<p>
 				“Enough is enough! It’s been two years; I can’t take it anymore. Divorce seems the only way
 				out. But when I think of the kids I get cold feet”. Vinay said this, his eyes brimming with

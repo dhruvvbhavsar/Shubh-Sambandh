@@ -1,13 +1,13 @@
-import { redirect, type Actions, fail } from "@sveltejs/kit";
-import type { PageServerLoad } from "./$types";
-import { auth } from "$lib/server/lucia";
-import prisma from "$lib/server/prisma";
-  
+import { redirect, type Actions, fail } from '@sveltejs/kit';
+import type { PageServerLoad } from './$types';
+import { auth } from '$lib/server/lucia';
+import prisma from '$lib/server/prisma';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const { user } = await locals.auth.validateUser();
-	if (!user) throw redirect(302, "/Sign");
-	// console.log(user)
+	if (!user) throw redirect(302, '/Sign');
+	let gender = user['gender'] === 'Male' ? 'Female' : 'Male';
+	console.log(user);
 
 	const users = await prisma.authUser.findMany({
 		select: {
@@ -19,6 +19,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 			id: true
 		},
 		where: {
+			gender: gender,
 			NOT: {
 				id: user.userId
 			}
@@ -26,7 +27,8 @@ export const load: PageServerLoad = async ({ locals }) => {
 	});
 
 	return {
-		user,users
+		user,
+		users
 	};
 };
 
@@ -38,4 +40,3 @@ export const actions: Actions = {
 		locals.auth.setSession(null); // remove cookie
 	}
 };
-

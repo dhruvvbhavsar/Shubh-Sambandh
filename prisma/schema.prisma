@@ -29,6 +29,7 @@ model AuthUser {
   auth_key          AuthKey[]
   Bookmark          Bookmark[]
   Connection        Connection[]
+  details           details[]
 
   @@map("auth_user")
 }
@@ -77,4 +78,21 @@ model AuthKey {
 
   @@index([user_id])
   @@map("auth_key")
+}
+
+model details {
+  id                   String   @id @unique @default(uuid())
+  userId               String
+  personal_details     Json
+  medical_details      Json
+  spiritual_details    Json
+  lifestyle_details    Json
+  educational_details  Json
+  professional_details Json
+  family_details       Json
+  partner_preferences  Json
+  astrology_details    Json
+  AuthUser             AuthUser @relation(references: [id], fields: [userId], onDelete: Cascade)
+
+  @@index([userId])
 }

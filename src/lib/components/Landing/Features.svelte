@@ -1,20 +1,17 @@
-<section class="bg-gray-900" id="features">
+<section class="bg-red-900" id="features">
 	<div class="container px-6 py-10 mx-auto">
-		<h1 class="text-2xl font-semibold capitalize lg:text-3xl text-white">
-			explore our <br />
-			awesome Components
-		</h1>
+		<h1 class="text-2xl font-semibold capitalize lg:text-3xl text-white">Our Uniqie Offerings</h1>
 
 		<div class="mt-2">
-			<span class="inline-block w-40 h-1 bg-blue-500 rounded-full" />
-			<span class="inline-block w-3 h-1 ml-1 bg-blue-500 rounded-full" />
-			<span class="inline-block w-1 h-1 ml-1 bg-blue-500 rounded-full" />
+			<span class="inline-block w-40 h-1 bg-red-700 rounded-full" />
+			<span class="inline-block w-3 h-1 ml-1 bg-red-700 rounded-full" />
+			<span class="inline-block w-1 h-1 ml-1 bg-red-700 rounded-full" />
 		</div>
 
 		<div class="mt-8 xl:mt-12 lg:flex lg:items-center">
 			<div class="grid w-full grid-cols-1 gap-8 md:grid-cols-2">
 				<div class="space-y-3">
-					<span class="inline-block p-3 rounded-xl text-white bg-blue-500">
+					<span class="inline-block p-3 rounded-xl text-white bg-red-700">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							class="w-6 h-6"
@@ -46,7 +43,7 @@
 				</div>
 
 				<div class="space-y-3">
-					<span class="inline-block p-3 rounded-xl text-white bg-blue-500">
+					<span class="inline-block p-3 rounded-xl text-white bg-red-700">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							class="w-6 h-6"
@@ -87,9 +84,7 @@
 				</div>
 
 				<div class="space-y-3">
-					<span
-						class="inline-block p-3 rounded-xl text-white bg-blue-500"
-					>
+					<span class="inline-block p-3 rounded-xl text-white bg-red-700">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							class="w-6 h-6"
@@ -123,9 +118,7 @@
 				</div>
 
 				<div class="space-y-3">
-					<span
-						class="inline-block p-3 rounded-xl text-white bg-blue-500"
-					>
+					<span class="inline-block p-3 rounded-xl text-white bg-red-700">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							class="w-6 h-6"
@@ -160,9 +153,7 @@
 				</div>
 
 				<div class="space-y-3">
-					<span
-						class="inline-block p-3 rounded-xl text-white bg-blue-500"
-					>
+					<span class="inline-block p-3 rounded-xl text-white bg-red-700">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							class="w-6 h-6"
@@ -194,9 +185,7 @@
 				</div>
 
 				<div class="space-y-3">
-					<span
-						class="inline-block p-3 rounded-xl text-white bg-blue-500"
-					>
+					<span class="inline-block p-3 rounded-xl text-white bg-red-700">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							class="w-6 h-6"
@@ -224,9 +213,7 @@
 				</div>
 
 				<div class="space-y-3">
-					<span
-						class="inline-block p-3 rounded-xl text-white bg-blue-500"
-					>
+					<span class="inline-block p-3 rounded-xl text-white bg-red-700">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							class="w-6 h-6"

@@ -1,15 +1,15 @@
-<section class="container px-6 py-8 mx-auto lg:py-16" id="about">
+<section class="container bg-red-900 px-6 py-8 mx-auto lg:py-16" id="about">
 	<div class="lg:flex lg:items-center lg:-mx-4">
 		<div class="lg:w-1/2 lg:px-4">
-			<h3 class="text-xl font-medium text-gray-800 md:text-2xl lg:text-3xl">Our Unique Offerrings</h3>
+			<h3 class="text-xl font-medium text-white md:text-2xl lg:text-3xl">About Us</h3>
 
-			<p class="mt-6 text-gray-500">
+			<p class="mt-6 text-white">
 				Welcome to ShubhSambandh, where we bring together individuals who share the same values and
-				beliefs. Our mission is <span class="font-extrabold">‘Uniting Hearts in Love’</span> and creating long-lasting, meaningful
-				relationships. At our marriage website, we stand out because we focus on sincere connections
-				based on shared values and beliefs, and we provide a supportive community for individuals to
-				connect and grow together. Our advanced search features and quality profiles ensure that
-				users are matched with compatible partners who share their goals and interests.
+				beliefs. Our mission is <span class="text-xl italic font-bold">Uniting Hearts in Love</span>
+				and creating long-lasting, meaningful relationships. At our marriage website, we stand out because
+				we focus on sincere connections based on shared values and beliefs, and we provide a supportive
+				community for individuals to connect and grow together. Our advanced search features and quality
+				profiles ensure that users are matched with compatible partners who share their goals and interests.
 				Additionally, we prioritize the safety and privacy of our users and offer a secure platform.
 			</p>
 		</div>
