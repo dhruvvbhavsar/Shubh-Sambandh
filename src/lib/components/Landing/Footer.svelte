@@ -42,20 +42,20 @@
 
 				<div class="flex flex-col items-start mt-5 space-y-2">
 					<a
-						href="#"
+						href="/links/Privacy-Policy"
 						class=" transition-colors duration-300 text-white hover:text-red-400 hover:underline"
 						>Privacy Policy</a
 					>
 					<a
-						href="#"
+						href="/links/TnC"
 						class=" transition-colors duration-300 text-white hover:text-red-400 hover:underline"
 						>Terms and Conditions</a
 					>
-					<!-- <a
-						href="#"
+					<a
+						href="/links/Cancellation"
 						class=" transition-colors duration-300 text-white hover:text-red-400 hover:underline"
-						>Our Philosophy</a
-					> -->
+						>Cancellation Policy</a
+					>
 				</div>
 			</div>
 
