@@ -117,6 +117,10 @@
 						class=" transition-colors duration-300 text-white hover:text-red-400 hover:underline"
 						>shubhsambandh108@gmail.com</a
 					>
+					<pre
+						class="transition-colors duration-300 text-white hover:text-red-400 hover:underline">49/B2, Bombay Cotton Mills,
+Dattaram Lad Marg, Kalachowki,
+Mumbai: 400033, Maharashtra, India</pre>
 				</div>
 			</div>
 		</div>
