@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Button } from '$components/ui/button';
+	import { toast } from 'svoast';
 	import { formData } from '../../../form_store';
 
 	const age_range: string[] = [
@@ -130,28 +131,31 @@
 		formData.subscribe((updatedData) => {
 			console.log('Updated Form Data:', updatedData);
 		});
+		toast.success("Saved.", {
+			duration: 1000,
+		})
 	}
 </script>
 
 <form on:submit={handleSubmit} class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
 	<h1
-		class="text-4xl font-semibold col-span-1 text-center md:col-span-2 tracking-wider text-gray-800 capitalize dark:text-white"
+	class="text-4xl font-semibold col-span-1 text-center md:col-span-2 tracking-wider text-white capitalize "
 	>
 		Partner preferences
 	</h1>
 	<div class="col-span-full">
-		<label for="p_age_range" class="block mb-2 text-lg text-gray-600 dark:text-gray-200"
+		<label for="p_age_range" class="block mb-2 text-lg text-white"
 			>Age Range</label
 		>
 
 		{#each age_range as value}
-			<label class="text-base flex gap-4 text-gray-600 dark:text-gray-200">
+			<label class="text-base flex gap-4 text-white">
 				<input
 					type="checkbox"
 					bind:group={p_age_range}
 					name="p_age_range"
 					{value}
-					class="block text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg"
+					class="block text-white placeholder-gray-400 bg-white border border-gray-200 rounded-lg"
 				/>
 				{value}
 			</label>
@@ -160,13 +164,13 @@
 
 	{#if p_age_range.includes('Younger than me') || p_age_range.includes('Older than me')}
 		<div class="col-span-full">
-			<label for="age_differencee" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="age_differencee" class="block mb-2 text-sm text-white"
 				>Age Difference</label
 			>
 			<select
 				bind:value={age_difference}
 				name="age_differencee"
-				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2 text-black placeholder-gray-400 bg-white border border-gray-200 rounded-lg  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
 				<option value="" selected disabled hidden>Select option</option>
 				<option value="± 0-2 years age difference">± 0-2 years age difference</option>
@@ -177,18 +181,18 @@
 	{/if}
 
 	<div class="col-span-full">
-		<label for="p_marital_status" class="block mb-2 text-lg text-gray-600 dark:text-gray-200"
+		<label for="p_marital_status" class="block mb-2 text-lg text-white"
 			>Marital Status</label
 		>
 
 		{#each marital_status as value}
-			<label class="text-base flex gap-4 text-gray-600 dark:text-gray-200">
+			<label class="text-base flex gap-4 text-white">
 				<input
 					type="checkbox"
 					bind:group={p_marital_status}
 					name="p_marital_status"
 					{value}
-					class="block text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg"
+					class="block text-white placeholder-gray-400 bg-white border border-gray-200 rounded-lg"
 				/>
 				{value}
 			</label>
@@ -196,17 +200,17 @@
 	</div>
 
 	<div class="col-span-full">
-		<label for="p_education" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+		<label for="p_education" class="block mb-2 text-sm text-white"
 			>Education Preference of Partner</label
 		>
 		{#each education as value}
-			<label class="text-base flex gap-4 text-gray-600 dark:text-gray-200">
+			<label class="text-base flex gap-4 text-white">
 				<input
 					type="checkbox"
 					bind:group={p_education}
 					name="p_education"
 					{value}
-					class="block text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg"
+					class="block text-white placeholder-gray-400 bg-white border border-gray-200 rounded-lg"
 				/>
 				{value}
 			</label>
@@ -214,17 +218,17 @@
 	</div>
 
 	<div class="col-span-full">
-		<label for="p_occupation" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+		<label for="p_occupation" class="block mb-2 text-sm text-white"
 			>Occupation Preference of Partner</label
 		>
 		{#each occupation as value}
-			<label class="text-base flex gap-4 text-gray-600 dark:text-gray-200">
+			<label class="text-base flex gap-4 text-white">
 				<input
 					type="checkbox"
 					bind:group={p_occupation}
 					name="p_occupation"
 					{value}
-					class="block text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg"
+					class="block text-white placeholder-gray-400 bg-white border border-gray-200 rounded-lg"
 				/>
 				{value}
 			</label>
@@ -233,17 +237,17 @@
 
 	{#if !p_occupation.includes('Homemaker') && !p_occupation.includes('Not employed')}
 		<div class="col-span-full">
-			<label for="p_annual_income" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="p_annual_income" class="block mb-2 text-sm text-white"
 				>Annual Income of Partner</label
 			>
 			{#each annual_income as value}
-				<label class="text-base flex gap-4 text-gray-600 dark:text-gray-200">
+				<label class="text-base flex gap-4 text-white">
 					<input
 						type="checkbox"
 						bind:group={p_annual_income}
 						name="p_annual_income"
 						{value}
-						class="block text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg"
+						class="block text-white placeholder-gray-400 bg-white border border-gray-200 rounded-lg"
 					/>
 					{value}
 				</label>
@@ -252,17 +256,17 @@
 	{/if}
 
 	<div class="col-span-full">
-		<label for="p_family_background" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+		<label for="p_family_background" class="block mb-2 text-sm text-white"
 			>Family Background Preference of Partner</label
 		>
 		{#each family_background as value}
-			<label class="text-base flex gap-4 text-gray-600 dark:text-gray-200">
+			<label class="text-base flex gap-4 text-white">
 				<input
 					type="checkbox"
 					bind:group={p_family_background}
 					name="p_family_background"
 					{value}
-					class="block text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg"
+					class="block text-white placeholder-gray-400 bg-white border border-gray-200 rounded-lg"
 				/>
 				{value}
 			</label>
@@ -270,18 +274,18 @@
 	</div>
 
 	<div class="col-span-full">
-		<label for="p_devotional" class="block mb-2 text-lg text-gray-600 dark:text-gray-200"
+		<label for="p_devotional" class="block mb-2 text-lg text-white"
 			>Devotional Preference of Partner</label
 		>
 
 		{#each devotional_preferences as value}
-			<label class="text-base flex gap-4 text-gray-600 dark:text-gray-200">
+			<label class="text-base flex gap-4 text-white">
 				<input
 					type="checkbox"
 					bind:group={p_devotional}
 					name="p_devotional"
 					{value}
-					class="block text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg"
+					class="block text-white placeholder-gray-400 bg-white border border-gray-200 rounded-lg"
 				/>
 				{value}
 			</label>
@@ -290,13 +294,13 @@
 
 	{#if p_devotional.includes('Connected to ISKCON')}
 		<div class="col-span-full">
-			<label for="p_initiation_status" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="p_initiation_status" class="block mb-2 text-sm text-white"
 				>Initiation Status of Partner</label
 			>
 			<select
 				bind:value={p_initiation_status}
 				name="p_initiation_status"
-				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2 text-black placeholder-gray-400 bg-white border border-gray-200 rounded-lg  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
 				<option value="" selected disabled hidden>Select option</option>
 				<option value="Should be Initiated">Should be Initiated</option>
@@ -305,13 +309,13 @@
 		</div>
 
 		<div class="col-span-full">
-			<label for="p_chanting_status" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="p_chanting_status" class="block mb-2 text-sm text-white"
 				>Chanting Status of Partner</label
 			>
 			<select
 				bind:value={p_chanting_status}
 				name="p_chanting_status"
-				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2 text-black placeholder-gray-400 bg-white border border-gray-200 rounded-lg  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
 				<option value="" selected disabled hidden>Select option</option>
 				<option value="Regularly Chants">Regularly Chants</option>
@@ -326,17 +330,17 @@
 	{/if}
 
 	<div class="col-span-full">
-		<label for="p_location" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+		<label for="p_location" class="block mb-2 text-sm text-white"
 			>Location Preference of Partner</label
 		>
 		{#each location as value}
-			<label class="text-base flex gap-4 text-gray-600 dark:text-gray-200">
+			<label class="text-base flex gap-4 text-white">
 				<input
 					type="checkbox"
 					bind:group={p_location}
 					name="p_location"
 					{value}
-					class="block text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg"
+					class="block text-white placeholder-gray-400 bg-white border border-gray-200 rounded-lg"
 				/>
 				{value}
 			</label>
@@ -344,17 +348,17 @@
 	</div>
 
 	<div class="col-span-full">
-		<label for="p_diet" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+		<label for="p_diet" class="block mb-2 text-sm text-white"
 			>Diet Preference of Partner</label
 		>
 		{#each diet as value}
-			<label class="text-base flex gap-4 text-gray-600 dark:text-gray-200">
+			<label class="text-base flex gap-4 text-white">
 				<input
 					type="checkbox"
 					bind:group={p_diet}
 					name="p_diet"
 					{value}
-					class="block text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg"
+					class="block text-white placeholder-gray-400 bg-white border border-gray-200 rounded-lg"
 				/>
 				{value}
 			</label>
@@ -362,13 +366,13 @@
 	</div>
 
 	<div class="col-span-full">
-		<label for="p_post_living" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+		<label for="p_post_living" class="block mb-2 text-sm text-white"
 			>After marriage, where would you want your partner and you to live?</label
 		>
 		<select
 			bind:value={p_post_living}
 			name="p_post_living"
-			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			class="block w-full px-5 py-3 mt-2 text-black placeholder-gray-400 bg-white border border-gray-200 rounded-lg  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		>
 			<option value="" selected disabled hidden>Select option</option>
 			<option value="Living with Family">Living with Family</option>
@@ -384,26 +388,26 @@
 
 	{#if p_post_living === 'others'}
 		<div class="col-span-full">
-			<label for="p_other_post_living" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="p_other_post_living" class="block mb-2 text-sm text-white"
 				>Please specify where you would want your partner and you to live after marriage</label
 			>
 			<input
 				type="text"
 				bind:value={p_other_post_living}
 				name="p_other_post_living"
-				class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 text-white placeholder-gray-400 bg-white border border-gray-200 rounded-lg  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			/>
 		</div>
 	{/if}
 
 	<div class="col-span-full">
-		<label for="p_language" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+		<label for="p_language" class="block mb-2 text-sm text-white"
 			>Language Preference of Partner</label
 		>
 		<select
 			bind:value={p_language}
 			name="p_language"
-			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			class="block w-full px-5 py-3 mt-2 text-black placeholder-gray-400 bg-white border border-gray-200 rounded-lg  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		>
 			<option value="" selected disabled hidden>Select option</option>
 			<option value="Same mother tongue as me">Same mother tongue as me</option>
@@ -415,13 +419,13 @@
 	</div>
 
 	<div class="col-span-full">
-		<label for="p_manglik" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+		<label for="p_manglik" class="block mb-2 text-sm text-white"
 			>Manglik Dosha of Partner</label
 		>
 		<select
 			bind:value={p_manglik}
 			name="p_manglik"
-			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			class="block w-full px-5 py-3 mt-2 text-black placeholder-gray-400 bg-white border border-gray-200 rounded-lg  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		>
 			<option value="" selected disabled hidden>Select option</option>
 			<option value="Yes, my partner should be Manglik">Yes, my partner should be Manglik</option>
@@ -433,13 +437,13 @@
 	</div>
 
 	<div class="col-span-full">
-		<label for="p_rashi" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+		<label for="p_rashi" class="block mb-2 text-sm text-white"
 			>Rashi Preference</label
 		>
 		<select
 			bind:value={p_rashi}
 			name="p_rashi"
-			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			class="block w-full px-5 py-3 mt-2 text-black placeholder-gray-400 bg-white border border-gray-200 rounded-lg  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		>
 			<option value="" selected disabled hidden>Select option</option>
 			<option value="Prefer a Specific Rashi">Prefer a Specific Rashi (Please specify)</option>
@@ -449,18 +453,18 @@
 
 	{#if p_rashi === 'Prefer a Specific Rashi'}
 		<div class="col-span-full">
-			<label for="p_specific_rashi" class="block mb-2 text-lg text-gray-600 dark:text-gray-200"
+			<label for="p_specific_rashi" class="block mb-2 text-lg text-white"
 				>Which Rashi partner do you prefer?</label
 			>
 
 			{#each rashi as value}
-				<label class="text-base flex gap-4 text-gray-600 dark:text-gray-200">
+				<label class="text-base flex gap-4 text-white">
 					<input
 						type="checkbox"
 						bind:group={p_specific_rashi}
 						name="p_specific_rashi"
 						{value}
-						class="block text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg"
+						class="block text-white placeholder-gray-400 bg-white border border-gray-200 rounded-lg"
 					/>
 					{value}
 				</label>

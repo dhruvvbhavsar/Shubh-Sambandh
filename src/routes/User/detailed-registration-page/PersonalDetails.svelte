@@ -4,7 +4,7 @@
 	import { Button } from '$components/ui/button';
 	import { formData } from '../../../form_store';
 	import { Country, State, City } from 'country-state-city';
-	import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from '$components/ui/tooltip';
+	import { toast } from 'svoast';
 
 	let countries = Country.getAllCountries();
 
@@ -65,8 +65,7 @@
 	let pwd_relation_number: string;
 	let bio: string;
 
-	function handleSubmit(event: any) {
-		event.preventDefault();
+	function handleSubmit() {
 
 		const personalData = {
 			country_of_birth,
@@ -105,23 +104,27 @@
 		formData.subscribe((updatedData) => {
 			console.log('Updated Form Data:', updatedData.personal_details);
 		});
+		toast.success("Saved.", {
+			duration: 1000,
+		})
+
 	}
 </script>
 
-<form on:submit={handleSubmit} class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
 	<h1
-		class="text-4xl font-semibold col-span-1 text-center md:col-span-2 tracking-wider text-gray-800 capitalize dark:text-white"
+		class="text-4xl font-semibold col-span-1 text-center md:col-span-2 tracking-wider text-white capitalize "
 	>
 		Personal Details
 	</h1>
 	<div class="col-span-full">
-		<label for="countryOfBirth" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+		<label for="countryOfBirth" class="block mb-2 text-sm text-white "
 			>Country of Birth</label
 		>
 		<select
 			bind:value={country_of_birth}
 			name="countryOfBirth"
-			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		>
 			<option value="" selected disabled hidden>Select Country of Birth</option>
 			{#each countries as country}
@@ -131,13 +134,13 @@
 	</div>
 
 	<div class="col-span-full">
-		<label for="currentCountry" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+		<label for="currentCountry" class="block mb-2 text-sm text-white  "
 			>Current Country</label
 		>
 		<select
 			bind:value={current_country}
 			name="currentCountry"
-			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		>
 			<option value="" selected disabled hidden>Select Current Country</option>
 			{#each countries as country}
@@ -148,13 +151,13 @@
 
 	{#if current_country}
 		<div class="col-span-full">
-			<label for="currentState" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="currentState" class="block mb-2 text-sm text-white  "
 				>Current State</label
 			>
 			<select
 				bind:value={current_state}
 				name="currentState"
-				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
 				<option value="" selected disabled hidden>Select Current State</option>
 				{#each current_states as state}
@@ -166,13 +169,13 @@
 
 	{#if current_state}
 		<div class="col-span-full">
-			<label for="currentCity" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="currentCity" class="block mb-2 text-sm text-white  "
 				>Current City</label
 			>
 			<select
 				bind:value={current_city}
 				name="currentCity"
-				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
 				<option value="" selected disabled hidden>Select Current City</option>
 				{#each current_cities as city}
@@ -183,10 +186,10 @@
 	{/if}
 
 	<div class="col-span-full flex flex-col items-center justify-center">
-		<label for="p_marital_status" class="block mb-2 text-lg text-gray-600 dark:text-gray-200">
+		<label for="p_marital_status" class="block mb-2 text-lg  text-white">
 			Is your current address same as permanent address?
 		</label>
-		<div class="flex gap-4 text-gray-600 dark:text-gray-200">
+		<div class="flex gap-4  text-white">
 			<label>
 				<input
 					type="radio"
@@ -212,13 +215,13 @@
 
 	{#if !is_permanent}
 		<div class="col-span-full">
-			<label for="permanentCountry" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="permanentCountry" class="block mb-2 text-sm text-white  "
 				>Permanent Country</label
 			>
 			<select
 				bind:value={permanent_country}
 				name="permanentCountry"
-				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
 				<option value="" selected disabled hidden>Select Permanent Country</option>
 				{#each countries as country}
@@ -229,13 +232,13 @@
 
 		{#if permanent_country}
 			<div class="col-span-full">
-				<label for="permanentState" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				<label for="permanentState" class="block mb-2 text-sm text-white  "
 					>Permanent State</label
 				>
 				<select
 					bind:value={permanent_state}
 					name="permanentState"
-					class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+					class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 				>
 					<option value="" selected disabled hidden>Select Permanent State</option>
 					{#each permanent_states as state}
@@ -247,13 +250,13 @@
 
 		{#if permanent_state}
 			<div class="col-span-full">
-				<label for="permanentCity" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				<label for="permanentCity" class="block mb-2 text-sm text-white  "
 					>Permanent City</label
 				>
 				<select
 					bind:value={permanent_city}
 					name="permanentCity"
-					class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+					class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 				>
 					<option value="" selected disabled hidden>Select Permanent City</option>
 					{#each permanent_cities as city}
@@ -265,13 +268,13 @@
 	{/if}
 
 	<div class="col-span-full">
-		<label for="citizenshipStatus" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+		<label for="citizenshipStatus" class="block mb-2 text-sm text-white  "
 			>Citizenship Status</label
 		>
 		<select
 			bind:value={citizenship_status}
 			name="citizenshipStatus"
-			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		>
 			<option value="" selected disabled hidden>Select Citizenship Status</option>
 			<option value="indian">Indian</option>
@@ -285,13 +288,13 @@
 		<div class="col-span-full">
 			<label
 				for="otherCitizenshipStatus"
-				class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				class="block mb-2 text-sm text-white  "
 				>Please specify your country where you hold your Citizenship</label
 			>
 			<select
 				bind:value={other_citizenship_status}
 				name="otherCitizenshipStatus"
-				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
 				<option value="" selected disabled hidden>Select Country</option>
 				{#each countries as country}
@@ -302,13 +305,13 @@
 	{/if}
 
 	<div class="col-span-full">
-		<label for="dualCitizenship" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+		<label for="dualCitizenship" class="block mb-2 text-sm text-white  "
 			>Do you hold dual citizenship?</label
 		>
 		<select
 			bind:value={dual_citizenship}
 			name="dualCitizenship"
-			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		>
 			<option value="" selected disabled hidden>Select Option</option>
 			<option value="yes">Yes</option>
@@ -320,14 +323,14 @@
 		<div class="col-span-full">
 			<label
 				for="otherCitizenshipStatus"
-				class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				class="block mb-2 text-sm text-white  "
 				>Please specify(Use CTRL or CMD + click to select multiple options. MAX ALLOWED = 2)</label
 			>
 			<select
 				multiple
 				bind:value={dual_citizenship_countries}
 				name="otherCitizenshipStatus"
-				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
 				<option value="" selected disabled hidden>Select Country</option>
 				{#each countries as country}
@@ -338,13 +341,13 @@
 	{/if}
 
 	<div class="col-span-full">
-		<label for="bloodGroup" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+		<label for="bloodGroup" class="block mb-2 text-sm text-white  "
 			>Blood Group</label
 		>
 		<select
 			bind:value={blood_group}
 			name="bloodGroup"
-			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		>
 			<option value="" selected disabled hidden>Select Blood Group</option>
 			<option value="A+">A+</option>
@@ -360,11 +363,11 @@
 	</div>
 
 	<div class="col-span-full">
-		<label for="diet" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Diet</label>
+		<label for="diet" class="block mb-2 text-sm text-white  ">Diet</label>
 		<select
 			bind:value={diet}
 			name="diet"
-			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		>
 			<option value="" selected disabled hidden>Select Diet</option>
 			<option value="Vegetarian">Vegetarian</option>
@@ -379,26 +382,26 @@
 
 	{#if diet === 'others'}
 		<div class="col-span-full">
-			<label for="otherDiet" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="otherDiet" class="block mb-2 text-sm text-white  "
 				>Please specify your diet</label
 			>
 			<input
 				type="text"
 				bind:value={other_diet}
 				name="otherDiet"
-				class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			/>
 		</div>
 	{/if}
 
 	<div class="col-span-full">
-		<label for="marital_status" class="block mb-2 text-lg text-gray-600 dark:text-gray-200"
+		<label for="marital_status" class="block mb-2 text-sm  text-white"
 			>Marital Status</label
 		>
 		<select
 			bind:value={marital_status}
 			name="marital_status"
-			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		>
 			<option value="" selected disabled hidden>Select Marital Status</option>
 			<option value="Never Married">Never Married</option>
@@ -411,13 +414,13 @@
 
 	{#if ['Divorced', 'Awaiting Divorce', 'Widowed', 'Separated'].includes(marital_status)}
 		<div class="col-span-full">
-			<label for="have_children" class="block mb-2 text-lg text-gray-600 dark:text-gray-200"
+			<label for="have_children" class="block mb-2 text-lg  "
 				>Do you have children?</label
 			>
 			<select
 				bind:value={have_children}
 				name="have_children"
-				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
 				<option value="" selected disabled hidden>Select Marital Status</option>
 				<option value="Yes">Yes</option>
@@ -427,13 +430,13 @@
 
 		{#if have_children == 'Yes'}
 			<div class="col-span-full">
-				<label for="how_many_children" class="block mb-2 text-lg text-gray-600 dark:text-gray-200"
+				<label for="how_many_children" class="block mb-2 text-lg  "
 					>How many children do you have?</label
 				>
 				<select
 					bind:value={how_many_children}
 					name="how_many_children"
-					class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+					class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 				>
 					<option value="" selected disabled hidden>Select Option</option>
 					<option value="1">1</option>
@@ -447,11 +450,11 @@
 	{/if}
 
 	<div class="col-span-full">
-		<label for="caste" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Category</label>
+		<label for="caste" class="block mb-2 text-sm text-white  ">Category</label>
 		<select
 			bind:value={category}
 			name="category"
-			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		>
 			<option value="" selected disabled hidden>Select category</option>
 			<option value="gen">General</option>
@@ -462,24 +465,24 @@
 	</div>
 
 	<div class="col-span-full">
-		<label for="caste" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Caste</label>
+		<label for="caste" class="block mb-2 text-sm text-white  ">Caste</label>
 		<input
 			type="text"
 			placeholder="Your caste"
 			bind:value={caste}
 			name="caste"
-			class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			class="block w-full px-5 py-3   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		/>
 	</div>
 
 	<div class="col-span-full">
-		<label for="mother_tongue" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+		<label for="mother_tongue" class="block mb-2 text-sm text-white  "
 			>Mother Tongue</label
 		>
 		<select
 			bind:value={mother_tongue}
 			name="mother_tongue"
-			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		>
 			<option value="" selected disabled hidden>Select mother tongue</option>
 			<option value="Assamese">Assamese</option>
@@ -510,25 +513,25 @@
 
 		{#if mother_tongue === 'others'}
 			<div class="col-span-full">
-				<label for="other_tongue" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				<label for="other_tongue" class="block mb-2 text-sm text-white  "
 					>Please specify your Mother Tongue</label
 				>
 				<input
 					type="text"
 					bind:value={other_tongue}
 					name="diet"
-					class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+					class="block w-full px-5 py-3   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 				/>
 			</div>
 		{/if}
 	</div>
 
 	<div class="col-span-full">
-		<label for="height" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Height</label>
+		<label for="height" class="block mb-2 text-sm text-white  ">Height</label>
 		<select
 			bind:value={height}
 			name="height"
-			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		>
 			<option value="" selected disabled hidden>Select Height</option>
 			<option value="Less than 4 feet (122 cm)">Less than 4 feet (122 cm)</option>
@@ -549,11 +552,11 @@
 	</div>
 
 	<div class="col-span-full">
-		<label for="weight" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Weight</label>
+		<label for="weight" class="block mb-2 text-sm text-white  ">Weight</label>
 		<select
 			bind:value={weight}
 			name="weight"
-			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		>
 			<option value="" selected disabled hidden>Select Weight</option>
 			<option value="<40 kgs">{'<40 kgs'}</option>
@@ -567,13 +570,13 @@
 	</div>
 
 	<div class="col-span-full">
-		<label for="pwd" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+		<label for="pwd" class="block mb-2 text-sm text-white  "
 			>Person with Disability(PwD)</label
 		>
 		<select
 			bind:value={pwd}
 			name="pwd"
-			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		>
 			<option value="" selected disabled hidden>Select Option</option>
 			<option value={true}>Yes</option>
@@ -583,13 +586,13 @@
 
 	{#if pwd}
 		<div class="col-span-full">
-			<label for="pwd_type" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="pwd_type" class="block mb-2 text-sm text-white  "
 				>Type of Disability</label
 			>
 			<select
 				bind:value={pwd_type}
 				name="pwd_type"
-				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
 				<option value="" selected disabled hidden>Select Option</option>
 				<option value="Blindness">Blindness</option>
@@ -625,26 +628,26 @@
 
 		{#if pwd_type === 'others'}
 			<div class="col-span-full">
-				<label for="other_pwd" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				<label for="other_pwd" class="block mb-2 text-sm text-white  "
 					>Please specify your Type of Disability</label
 				>
 				<input
 					type="text"
 					bind:value={other_pwd}
 					name="diet"
-					class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+					class="block w-full px-5 py-3   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 				/>
 			</div>
 		{/if}
 
 		<div class="col-span-full">
-			<label for="pwd_relation" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="pwd_relation" class="block mb-2 text-sm text-white  "
 				>Relation with PwD</label
 			>
 			<select
 				bind:value={pwd_relation}
 				name="pwd_relation"
-				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
 				<option value="" selected disabled hidden>Select Option</option>
 				<option value="Father">Father</option>
@@ -660,40 +663,40 @@
 
 		{#if pwd_relation === 'others'}
 			<div class="col-span-full">
-				<label for="other_pwd_relation" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				<label for="other_pwd_relation" class="block mb-2 text-sm text-white  "
 					>Please specify</label
 				>
 				<input
 					type="text"
 					bind:value={other_pwd_relation}
 					name="other_pwd_relation"
-					class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+					class="block w-full px-5 py-3   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 				/>
 			</div>
 		{/if}
 
 		{#if pwd_relation !== 'Self'}
 			<div class="col-span-full">
-				<label for="pwd_relation_name" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				<label for="pwd_relation_name" class="block mb-2 text-sm text-white  "
 					>Name of Related Person</label
 				>
 				<input
 					type="text"
 					bind:value={pwd_relation_name}
 					name="pwd_relation_name"
-					class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+					class="block w-full px-5 py-3   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 				/>
 			</div>
 
 			<div class="col-span-full">
-				<label for="pwd_relation_number" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				<label for="pwd_relation_number" class="block mb-2 text-sm text-white  "
 					>Contact Number of Related Person</label
 				>
 				<input
 					type="text"
 					bind:value={pwd_relation_number}
 					name="pwd_relation_number"
-					class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+					class="block w-full px-5 py-3   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 				/>
 			</div>
 		{/if}
@@ -701,33 +704,18 @@
 
 	<div class="col-span-full">
 		<div class="flex gap-2 items-center mb-2">
-			<label for="bio" class="block text-sm text-gray-600 dark:text-gray-200">Bio</label>
-			<TooltipProvider>
-				<Tooltip>
-					<TooltipTrigger><Info class="h-5 w-5 text-white" /></TooltipTrigger>
-					<TooltipContent class="bg-current w-96">
-						<p class="text-white text-justify">
-							You can share some details about your personality, interests, and background. This
-							will help potential matches to get to know you better. Consider mentioning your
-							hobbies, passions, and any unique qualities that make you who you are. Take this
-							opportunity to express what you value in a relationship. Keep your repsonse concise,
-							yet informative, focusing on the most important aspects of your personality and life.
-							Feel free to update you profile periodically as your interests and preferences evolve.
-						</p>
-					</TooltipContent>
-				</Tooltip>
-			</TooltipProvider>
+			<label for="bio" class="block text-sm  text-white">Bio</label>
 		</div>
 		<Textarea
 			bind:value={bio}
 			name="bio"
-			class="text-white border-gray-600 rounded-lg h-32 placeholder:text-sm placeholder:text-gray-400 text-base"
-			placeholder="Describe your personality in less than 200 words"
+			class=" border-white bg-white text-black rounded-lg h-32 placeholder:text-xs placeholder:text-gray-800  text-base"
+			placeholder="You can share some details about your personality, interests, and background. This will help potential matches to get to know you better. Consider mentioning your hobbies, passions, and any unique qualities that make you who you are. Take this opportunity to express what you value in a relationship. Keep your repsonse concise, yet informative, focusing on the most important aspects of your personality and life. Feel free to update you profile periodically as your interests and preferences evolve."
 		/>
 	</div>
 	<Button
-		type="submit"
-		class="bg-black dark:bg-white text-white dark:text-black rounded-lg mx-auto col-span-full"
+		on:click={handleSubmit}
+		class="bg-white rounded-lg mx-auto col-span-full"
 		>Save Personal Details</Button
 	>
-</form>
+</div>

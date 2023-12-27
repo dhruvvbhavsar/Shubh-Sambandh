@@ -4,6 +4,7 @@
 	import { sportsList, hobbies } from './options';
 	import { Button } from '$components/ui/button';
 	import { formData } from '../../../form_store';
+	import { toast } from 'svoast';
 
 	let s_hobbies: any[] = [];
 	let s_sports: any[] = [];
@@ -38,25 +39,28 @@
     formData.subscribe(updatedData => {
       console.log("Updated Form Data:", updatedData);
     });
+	toast.success("Saved.", {
+			duration: 1000,
+		})
   }
 </script>
 
 <form on:submit={handleSubmit} class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
 	<h1
-		class="text-4xl font-semibold col-span-1 text-center md:col-span-2 tracking-wider text-gray-800 capitalize dark:text-white"
+	class="text-4xl font-semibold col-span-1 text-center md:col-span-2 tracking-wider text-white capitalize "
 	>
 		Lifestyle Details
 	</h1>
 	<HobbiesComponent items={hobbies} bind:value={s_hobbies} />
 	<SportsComponent items={sportsList} bind:value={s_sports} />
 	<div class="col-span-full">
-		<label for="do_you_exercise" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+		<label for="do_you_exercise" class="block mb-2 text-sm text-white "
 			>Do you exercise?</label
 		>
 		<select
 			bind:value={do_you_exercise}
 			name="do_you_exercise"
-			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		>
 			<option value="" selected disabled hidden>Select Option</option>
 			<option value="Yes, regularly">Yes, regularly</option>
@@ -68,25 +72,25 @@
 	</div>
 	{#if do_you_exercise === 'others'}
 		<div class="col-span-full">
-			<label for="exercise_thoughts" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="exercise_thoughts" class="block mb-2 text-sm text-white "
 				>Please specify</label
 			>
 			<input
 				type="text"
 				bind:value={exercise_thoughts}
 				name="exercise_thoughts"
-				class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			/>
 		</div>
 	{/if}
 	<div class="col-span-full">
-		<label for="who_do_you_live_with" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+		<label for="who_do_you_live_with" class="block mb-2 text-sm text-white "
 			>Who do you currently live with?</label
 		>
 		<select
 			bind:value={who_do_you_live_with}
 			name="who_do_you_live_with"
-			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		>
 			<option value="" selected disabled hidden>Select Option</option>
 			<option value="With Parents">With Parents</option>
@@ -101,24 +105,24 @@
 		<div class="col-span-full">
 			<label
 				for="others_who_do_you_live_with"
-				class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Please specify who do you currently live with</label
+				class="block mb-2 text-sm text-white ">Please specify who do you currently live with</label
 			>
 			<input
 				type="text"
 				bind:value={others_who_do_you_live_with}
 				name="others_who_do_you_live_with"
-				class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			/>
 		</div>
 	{/if}
 	<div class="col-span-full">
-		<label for="after_marriage_plans" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+		<label for="after_marriage_plans" class="block mb-2 text-sm text-white "
 			>After marriage, where do you plan to live?</label
 		>
 		<select
 			bind:value={after_marriage_plans}
 			name="after_marriage_plans"
-			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		>
 			<option value="" selected disabled hidden>Select Option</option>
 			<option value="Living with Family">Living with Family</option>
@@ -135,13 +139,13 @@
 		<div class="col-span-full">
 			<label
 				for="others_after_marriage_plans"
-				class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Please specify where do you plan to live after marriage</label
+				class="block mb-2 text-sm text-white ">Please specify where do you plan to live after marriage</label
 			>
 			<input
 				type="text"
 				bind:value={others_after_marriage_plans}
 				name="others_after_marriage_plans"
-				class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			/>
 		</div>
 	{/if}

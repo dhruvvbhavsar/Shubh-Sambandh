@@ -3,6 +3,7 @@
 	import { careers_list } from './options';
 	import Select from 'svelte-select';
 	import { formData } from '../../../form_store';
+	import { toast } from 'svoast';
 
 	let career: any;
 	let designation: string;
@@ -27,24 +28,27 @@
 		formData.subscribe((updatedData) => {
 			console.log('Updated Form Data:', updatedData);
 		});
+		toast.success("Saved.", {
+			duration: 1000,
+		})
 	}
 </script>
 
 <form on:submit={handleSubmit} class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
 	<h1
-		class="text-4xl font-semibold col-span-1 text-center md:col-span-2 tracking-wider text-gray-800 capitalize dark:text-white"
+	class="text-4xl font-semibold col-span-1 text-center md:col-span-2 tracking-wider text-white capitalize "
 	>
 		Professional Details
 	</h1>
 	<div class="col-span-full">
-		<label for="hobbies" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+		<label for="hobbies" class="block mb-2 text-sm text-white "
 			>Profession</label
 		>
 
 		<select
 			bind:value={career}
 			name="career"
-			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		>
 			<option value="" selected disabled hidden>Select Option</option>
 			{#each careers_list as item}
@@ -54,37 +58,39 @@
 	</div>
 
 	<div class="col-span-full">
-		<label for="designation" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+		<label for="designation" class="block mb-2 text-sm text-white "
 			>Designation</label
 		>
 		<input
 			type="text"
 			bind:value={designation}
+			placeholder="eg: Software Developer"
 			name="designation"
-			class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		/>
 	</div>
 
 	<div class="col-span-full">
-		<label for="employer_or_organization" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+		<label for="employer_or_organization" class="block mb-2 text-sm text-white "
 			>Employer/Organization name</label
 		>
 		<input
 			type="text"
 			bind:value={employer_or_organization}
+			placeholder="Oracle"
 			name="employer_or_organization"
-			class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		/>
 	</div>
 
 	<div class="col-span-full">
-		<label for="income" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+		<label for="income" class="block mb-2 text-sm text-white "
 			>Annual Income</label
 		>
 		<select
 			bind:value={income}
 			name="income"
-			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		>
 			<option value="" selected disabled hidden>Select Option</option>
 			<option value="Less than 1,00,000">Less than 1,00,000</option>

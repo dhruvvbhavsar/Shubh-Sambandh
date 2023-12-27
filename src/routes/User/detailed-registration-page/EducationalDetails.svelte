@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Button } from '$components/ui/button';
+	import { toast } from 'svoast';
 	import { formData } from '../../../form_store';
 
 	let qualification: string;
@@ -21,24 +22,27 @@
     formData.subscribe(updatedData => {
       console.log("Updated Form Data:", updatedData);
     });
+	toast.success("Saved.", {
+			duration: 1000,
+		})
   }
 </script>
 
 <form on:submit={handleSubmit} class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
 	<h1
-		class="text-4xl font-semibold col-span-1 text-center md:col-span-2 tracking-wider text-gray-800 capitalize dark:text-white"
+	class="text-4xl font-semibold col-span-1 text-center md:col-span-2 tracking-wider text-white capitalize "
 	>
 		Educational Details
 	</h1>
 
 	<div class="col-span-full">
-		<label for="qualification" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+		<label for="qualification" class="block mb-2 text-sm text-white "
 			>Highest Qualification</label
 		>
 		<select
 			bind:value={qualification}
 			name="qualification"
-			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		>
 			<option value="" selected disabled hidden>Select Option</option>
 			<option value="Lower Primary (Class I-V)">Lower Primary (Class I-V)</option>
@@ -59,14 +63,14 @@
 	</div>
 	{#if qualification === 'others'}
 		<div class="col-span-full">
-			<label for="others_qualification" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="others_qualification" class="block mb-2 text-sm text-white "
 				>Please specify your highest education</label
 			>
 			<input
 				type="text"
 				bind:value={other_qualification}
 				name="others_qualification"
-				class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			/>
 		</div>
 	{/if}

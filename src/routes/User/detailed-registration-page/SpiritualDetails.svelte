@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Button } from '$components/ui/button';
+	import { toast } from 'svoast';
 	import { formData } from '../../../form_store';
 	import { books } from './options';
 	import { spiritualOrgs } from './options';
@@ -106,23 +107,26 @@
 		formData.subscribe((updatedData) => {
 			console.log('Updated Form Data:', updatedData);
 		});
+		toast.success("Saved.", {
+			duration: 1000,
+		})
 	}
 </script>
 
 <form on:submit={handleSubmit} class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
 	<h1
-		class="text-4xl font-semibold col-span-1 text-center md:col-span-2 tracking-wider text-gray-800 capitalize dark:text-white"
+	class="text-4xl font-semibold col-span-1 text-center md:col-span-2 tracking-wider text-white capitalize "
 	>
 		Spiritual Details
 	</h1>
 	<div class="col-span-full">
-		<label for="religious-affiliation" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+		<label for="religious-affiliation" class="block mb-2 text-sm text-white "
 			>Do you a religious affiliation with any spiritual organization?</label
 		>
 		<select
 			bind:value={isAffiliated}
 			name="religious-affiliation"
-			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		>
 			<option value="" selected disabled hidden>Select Option</option>
 			<option value={true}>Yes</option>
@@ -132,13 +136,13 @@
 
 	{#if isAffiliated}
 		<div class="col-span-full">
-			<label for="spiritualOrgName" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="spiritualOrgName" class="block mb-2 text-sm text-white "
 				>Which spiritual organization are you connected to?
 			</label>
 			<select
 				bind:value={spiritualOrgName}
 				name="bloodGroup"
-				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
 				<option value="" selected disabled hidden>Select Option</option>
 				<option value="ISKCON">ISKCON</option>
@@ -148,14 +152,14 @@
 	{/if}
 	{#if spiritualOrgName === 'others' && isAffiliated}
 		<div class="mt-2 col-span-full">
-			<label for="otherOrgName" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="otherOrgName" class="block mb-2 text-sm text-white "
 				>Please specify about the spiritual organisation you are connected to</label
 			>
 			<input
 				bind:value={otherOrgName}
 				type="text"
 				name="otherOrgName"
-				class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			/>
 		</div>
 	{/if}
@@ -167,13 +171,13 @@
 			For ISKCON Devotees
 		</h1>
 		<div class="col-span-full">
-			<label for="temple_location" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="temple_location" class="block mb-2 text-sm text-white "
 				>Location of the ISKCON Temple you are connected with</label
 			>
 			<select
 				bind:value={templeLocation}
 				name="temple_location"
-				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
 				<option value="" selected disabled hidden>Select Option</option>
 				{#each spiritualOrgs as location}
@@ -182,13 +186,13 @@
 			</select>
 		</div>
 		<div class="col-span-full">
-			<label for="since_when_connected" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="since_when_connected" class="block mb-2 text-sm text-white "
 				>Since when are you connected with ISKCON?</label
 			>
 			<select
 				bind:value={since_when_connected}
 				name="since_when_connected"
-				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
 				<option value="" selected disabled hidden>Select Option</option>
 				<option value="<1 year">less than a year</option>
@@ -199,13 +203,13 @@
 			</select>
 		</div>
 		<div class="col-span-full">
-			<label for="religious-affiliation" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="religious-affiliation" class="block mb-2 text-sm text-white "
 				>Do you have a Counsellor?</label
 			>
 			<select
 				bind:value={haveCounsellor}
 				name="religious-affiliation"
-				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
 				<option value="" selected disabled hidden>Select Option</option>
 				<option value={true}>Yes</option>
@@ -214,35 +218,35 @@
 		</div>
 		{#if haveCounsellor}
 			<div class="mt-2 col-span-full">
-				<label for="counsellorName" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				<label for="counsellorName" class="block mb-2 text-sm text-white "
 					>Name of your Counsellor</label
 				>
 				<input
 					bind:value={counsellorName}
 					type="text"
 					name="counsellorName"
-					class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+					class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 				/>
 			</div>
 			<div class="mt-2 col-span-full">
-				<label for="counsellorNumber" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				<label for="counsellorNumber" class="block mb-2 text-sm text-white "
 					>Contact Number of your counsellor</label
 				>
 				<input
 					bind:value={counsellorNumber}
 					type="text"
 					name="counsellorNumber"
-					class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+					class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 				/>
 			</div>
 			<div class="col-span-full">
-				<label for="temple_location" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				<label for="temple_location" class="block mb-2 text-sm text-white "
 					>Counselor's Spiritual Master</label
 				>
 				<select
 					bind:value={counsellorInitiationGuru}
 					name="temple_location"
-					class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+					class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 				>
 					<option value="" selected disabled hidden>Select Option</option>
 					{#each initiatingGurus as location}
@@ -258,13 +262,13 @@
 			Devotional Practices
 		</h1>
 		<div class="col-span-full">
-			<label for="doYouChant" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="doYouChant" class="block mb-2 text-sm text-white "
 				>Do you chant the Hare Krishna Mahamantra?
 			</label>
 			<select
 				bind:value={doYouChant}
 				name="doYouChant"
-				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
 				<option value="" selected disabled hidden>Select Option</option>
 				<option value="yes">Yes</option>
@@ -274,13 +278,13 @@
 		</div>
 		{#if doYouChant === 'yes'}
 			<div class="col-span-full">
-				<label for="chantFreq" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				<label for="chantFreq" class="block mb-2 text-sm text-white "
 					>How often do you chant the Hare Krishna Mahamantra?
 				</label>
 				<select
 					bind:value={chantFreq}
 					name="chantFreq"
-					class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+					class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 				>
 					<option value="" selected disabled hidden>Select Option</option>
 					<option value="daily">Every day</option>
@@ -293,13 +297,13 @@
 			</div>
 
 			<div class="col-span-full">
-				<label for="howManyRounds" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				<label for="howManyRounds" class="block mb-2 text-sm text-white "
 					>How many rounds of the Hare Krishna Mahamantra do you chant?
 				</label>
 				<select
 					bind:value={howManyRounds}
 					name="howManyRounds"
-					class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+					class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 				>
 					<option value="" selected disabled hidden>Select Option</option>
 					<option value="2">2</option>
@@ -314,13 +318,13 @@
 				</select>
 			</div>
 			<div class="col-span-full">
-				<label for="chantingTimeline" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				<label for="chantingTimeline" class="block mb-2 text-sm text-white "
 					>Since how long have you been chanting the Mahamantra?
 				</label>
 				<select
 					bind:value={chantingTimeline}
 					name="chantingTimeline"
-					class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+					class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 				>
 					<option value="" selected disabled hidden>Select Option</option>
 					<option value="<1 year">{'<1 year'}</option>
@@ -332,13 +336,13 @@
 			</div>
 		{/if}
 		<div class="col-span-full">
-			<label for="areYouInvolved" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="areYouInvolved" class="block mb-2 text-sm text-white "
 				>Are you involved in ISKCON activities?
 			</label>
 			<select
 				bind:value={areYouInvolved}
 				name="areYouInvolved"
-				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
 				<option value="" selected disabled hidden>Select Option</option>
 				<option value="yes">Yes</option>
@@ -347,13 +351,13 @@
 			</select>
 		</div>
 		<div class="col-span-full">
-			<label for="attendFestivals" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="attendFestivals" class="block mb-2 text-sm text-white "
 				>Attendance or service at temple activities or festivals
 			</label>
 			<select
 				bind:value={attendFestivals}
 				name="attendFestivals"
-				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
 				<option value="" selected disabled hidden>Select Option</option>
 				<option value="yes">Yes</option>
@@ -368,13 +372,13 @@
 			Initiation Status
 		</h1>
 		<div class="col-span-full">
-			<label for="areYouInitiated" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="areYouInitiated" class="block mb-2 text-sm text-white "
 				>Have you been initiated by a Spiritual Master?
 			</label>
 			<select
 				bind:value={areYouInitiated}
 				name="areYouInitiated"
-				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
 				<option value="" selected disabled hidden>Select Option</option>
 				<option value="yes">Yes</option>
@@ -384,26 +388,26 @@
 		</div>
 		{#if areYouInitiated === 'yes'}
 			<div class="col-span-full">
-				<label for="initiatedName" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				<label for="initiatedName" class="block mb-2 text-sm text-white "
 					>Initiated name
 				</label>
 				<input
 					bind:value={initiatedName}
 					type="text"
 					name="initiatedName"
-					class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+					class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 				/>
 			</div>
 
 			<div class="col-span-full">
-				<label for="initiationGuru" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				<label for="initiationGuru" class="block mb-2 text-sm text-white "
 					>Name of the Spiritual Master
 				</label>
 				<input
 					bind:value={initiationGuru}
 					type="text"
 					name="initiationGuru"
-					class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+					class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 				/>
 			</div>
 		{/if}
@@ -412,14 +416,14 @@
 			<div class="col-span-full">
 				<label
 					for="aspiringtobeInitiated"
-					class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+					class="block mb-2 text-sm text-white "
 					>Aspiring to be initiated by:
 				</label>
 				<input
 					bind:value={aspiringtobeInitiated}
 					type="text"
 					name="aspiringtobeInitiated"
-					class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+					class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 				/>
 			</div>
 		{/if}
@@ -431,13 +435,13 @@
 		</h1>
 
 		<div class="col-span-full">
-			<label for="bhagwatam_knowledge" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="bhagwatam_knowledge" class="block mb-2 text-sm text-white "
 				>Understanding and acceptance of the teachings of Srila Prabhupada
 			</label>
 			<select
 				bind:value={bhagwatam_knowledge}
 				name="bhagwatam_knowledge"
-				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
 				<option value="" selected disabled hidden>Select Option</option>
 				<option value="Completely Understand and Accept">Completely Understand and Accept</option>
@@ -453,13 +457,13 @@
 		</div>
 
 		<div class="col-span-full">
-			<label for="read_prabhupad_books" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="read_prabhupad_books" class="block mb-2 text-sm text-white "
 				>Do you read the Bhagavad Gita/Bhagvatam/Srila Prabhupad's books?
 			</label>
 			<select
 				bind:value={read_prabhupad_books}
 				name="read_prabhupad_books"
-				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
 				<option value="" selected disabled hidden>Select Option</option>
 				<option value="yes">Yes</option>
@@ -495,13 +499,13 @@
 		</h1>
 
 		<div class="col-span-full">
-			<label for="diet_pref" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="diet_pref" class="block mb-2 text-sm text-white "
 				>Food Choices</label
 			>
 			<select
 				bind:value={diet_pref}
 				name="diet_pref"
-				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
 				<option value="" selected disabled hidden>Select Diet</option>
 				<option value="Vegetarian">Vegetarian</option>
@@ -516,26 +520,26 @@
 
 		{#if diet_pref === 'others'}
 			<div class="col-span-full">
-				<label for="other_diet_pref" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				<label for="other_diet_pref" class="block mb-2 text-sm text-white "
 					>Please specify your dietary preferences
 				</label>
 				<input
 					bind:value={other_diet_pref}
 					type="text"
 					name="other_diet_pref"
-					class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+					class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 				/>
 			</div>
 		{/if}
 
 		<div class="col-span-full">
-			<label for="diet_prasadam" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="diet_prasadam" class="block mb-2 text-sm text-white "
 				>Observance of the prasadam (sanctified food) distribution system
 			</label>
 			<select
 				bind:value={diet_prasadam}
 				name="diet_prasadam"
-				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
 				<option value="" selected disabled hidden>Select Option</option>
 				<option value="Strictly Observe Prasadam">Strictly Observe Prasadam</option>
@@ -552,13 +556,13 @@
 		</h1>
 
 		<div class="col-span-full">
-			<label for="committment_spiritual" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="committment_spiritual" class="block mb-2 text-sm text-white "
 				>Commitment to living a spiritually conscious life
 			</label>
 			<select
 				bind:value={committment_spiritual}
 				name="committment_spiritual"
-				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
 				<option value="" selected disabled hidden>Select Option</option>
 				<option value="Fully Committed">Fully Committed</option>
@@ -569,14 +573,14 @@
 		</div>
 
 		<div class="col-span-full">
-			<label for="adherence_principles" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="adherence_principles" class="block mb-2 text-sm text-white "
 				>Adherence to the four regulative principles: no meat eating. no gambling, no illicit sex,
 				no intoxication
 			</label>
 			<select
 				bind:value={adherence_principles}
 				name="adherence_principles"
-				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
 				<option value="" selected disabled hidden>Select Option</option>
 				<option value="Strictly Adhere to All Four Principles"
@@ -599,13 +603,13 @@
 		</h1>
 
 		<div class="col-span-full">
-			<label for="involvement" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="involvement" class="block mb-2 text-sm text-white "
 				>Involvement in local ISKCON temple or community
 			</label>
 			<select
 				bind:value={involvement}
 				name="involvement"
-				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
 				<option value="" selected disabled hidden>Select Option</option>
 				<option value="Actively Involved">Actively Involved</option>
@@ -616,13 +620,13 @@
 		</div>
 
 		<div class="col-span-full">
-			<label for="participation" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="participation" class="block mb-2 text-sm text-white "
 				>Participation in devotee association or study groups
 			</label>
 			<select
 				bind:value={participation}
 				name="participation"
-				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
 				<option value="" selected disabled hidden>Select Option</option>
 				<option value="Actively Participate">Actively Participate</option>
@@ -644,13 +648,13 @@
 		<div class="col-span-full">
 			<label
 				for="willingness_for_service"
-				class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				class="block mb-2 text-sm text-white "
 				>Willingness to engage in devotional service or seva within the ISKCON community
 			</label>
 			<select
 				bind:value={willingness_for_service}
 				name="willingness_for_service"
-				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
 				<option value="" selected disabled hidden>Select Option</option>
 				<option value="Willing and Actively Engaged in Seva"
@@ -667,14 +671,14 @@
 		</div>
 
 		<div class="col-span-full">
-			<label for="service_interests" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="service_interests" class="block mb-2 text-sm text-white "
 				>Interest in specific areas of service, such as deity worship, book distribution, or
 				outreach programs
 			</label>
 			<select
 				bind:value={service_interests}
 				name="service_interests"
-				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
 				<option value="" selected disabled hidden>Select Option</option>
 				<option value="Interested and Actively Involved">Interested and Actively Involved</option>
@@ -695,13 +699,13 @@
 		</h1>
 
 		<div class="col-span-full">
-			<label for="connection_culture" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="connection_culture" class="block mb-2 text-sm text-white "
 				>Connection to Vaishnava culture
 			</label>
 			<select
 				bind:value={connection_culture}
 				name="connection_culture"
-				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
 				<option value="" selected disabled hidden>Select Option</option>
 				<option value="North Indian Vaishnav">North Indian Vaishnav</option>
@@ -720,26 +724,26 @@
 			<div class="mt-2 col-span-full">
 				<label
 					for="other_connection_culture"
-					class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+					class="block mb-2 text-sm text-white "
 					>Please specify about your culture</label
 				>
 				<input
 					bind:value={other_connection_culture}
 					type="text"
 					name="other_connection_culture"
-					class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+					class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 				/>
 			</div>
 		{/if}
 
 		<div class="col-span-full">
-			<label for="understanding_iskcon" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="understanding_iskcon" class="block mb-2 text-sm text-white "
 				>Understanding and appreciation of traditional ISKCON customs and etiquette
 			</label>
 			<select
 				bind:value={understanding_iskcon}
 				name="understanding_iskcon"
-				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
 				<option value="" selected disabled hidden>Select Option</option>
 				<option value="Deep Understanding and Strict Adherence"
@@ -770,13 +774,13 @@
 		</h1>
 
 		<div class="col-span-full">
-			<label for="committment_readiness" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="committment_readiness" class="block mb-2 text-sm text-white "
 				>Readiness for a lifelong commitment to marriage and family in accordnace with ISKCON values
 			</label>
 			<select
 				bind:value={committment_readiness}
 				name="committment_readiness"
-				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
 				<option value="" selected disabled hidden>Select Option</option>
 				<option value="Fully Ready and Committed">Fully Ready and Committed</option>
@@ -787,13 +791,13 @@
 		</div>
 
 		<div class="col-span-full">
-			<label for="children_willingness" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="children_willingness" class="block mb-2 text-sm text-white "
 				>Willingness to raise children in a Krishna conscious environment
 			</label>
 			<select
 				bind:value={children_willingness}
 				name="children_willingness"
-				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
 				<option value="" selected disabled hidden>Select Option</option>
 				<option value="Completely Willing and Prepared">Completely Willing and Prepared</option>
@@ -807,13 +811,13 @@
 
 		{#if ['Completely Willing and Prepared', 'Willing but Need Guidance', 'Considering it but Uncertain'].includes(children_willingness)}
 			<div class="col-span-full">
-				<label for="children_education" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+				<label for="children_education" class="block mb-2 text-sm text-white "
 					>What are your preferences for your child's education?
 				</label>
 				<select
 					bind:value={children_education}
 					name="children_education"
-					class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+					class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 				>
 					<option value="" selected disabled hidden>Select Option</option>
 					<option value="Homeschooling">Homeschooling </option>
@@ -829,13 +833,13 @@
 	<div class="col-span-full">
 		<label
 			for="willingness_support_each_other"
-			class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			class="block mb-2 text-sm text-white "
 			>Willingess to support and participate in each other's spiritual growth</label
 		>
 		<select
 			bind:value={willingness_support_each_other}
 			name="willingness_support_each_other"
-			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		>
 			<option value="" selected disabled hidden>Select Option</option>
 			<option value="Yes">Yes</option>
@@ -844,13 +848,13 @@
 		</select>
 	</div>
 	<div class="col-span-full">
-		<label for="spiritualityImportance" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+		<label for="spiritualityImportance" class="block mb-2 text-sm text-white "
 			>Importance of spirituality in your life
 		</label>
 		<select
 			bind:value={spiritualityImportance}
 			name="spiritualityImportance"
-			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		>
 			<option value="" selected disabled hidden>Select Option</option>
 			<option value="High">High</option>

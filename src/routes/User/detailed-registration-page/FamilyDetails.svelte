@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Button } from '$components/ui/button';
+	import { toast } from 'svoast';
 	import { formData } from '../../../form_store';
 
 	let family_type: string;
@@ -47,23 +48,26 @@
 		formData.subscribe((updatedData) => {
 			console.log('Updated Form Data:', updatedData);
 		});
+		toast.success("Saved.", {
+			duration: 1000,
+		})
 	}
 </script>
 
 <form on:submit={handleSubmit} class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
 	<h1
-		class="text-4xl font-semibold col-span-1 text-center md:col-span-2 tracking-wider text-gray-800 capitalize dark:text-white"
+	class="text-4xl font-semibold col-span-1 text-center md:col-span-2 tracking-wider text-white capitalize "
 	>
 		Family Details
 	</h1>
 	<div class="col-span-full">
-		<label for="family_type" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+		<label for="family_type" class="block mb-2 text-sm text-white "
 			>Family Type</label
 		>
 		<select
 			bind:value={family_type}
 			name="family_type"
-			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		>
 			<option value="" selected disabled hidden>Select Option</option>
 			<option value="Joint Family">Joint Family</option>
@@ -73,13 +77,13 @@
 		</select>
 	</div>
 	<div class="col-span-full">
-		<label for="own_house" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+		<label for="own_house" class="block mb-2 text-sm text-white "
 			>Do you own your own house?</label
 		>
 		<select
 			bind:value={own_house}
 			name="own_house"
-			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		>
 			<option value="" selected disabled hidden>Select Option</option>
 			<option value="yes">Yes</option>
@@ -89,13 +93,13 @@
 	</div>
 	{#if own_house === 'no'}
 		<div class="col-span-full">
-			<label for="housing_status" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="housing_status" class="block mb-2 text-sm text-white "
 				>Current Housing Status</label
 			>
 			<select
 				bind:value={housing_status}
 				name="housing_status"
-				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
 				<option value="" selected disabled hidden>Select Option</option>
 				<option value="Rented Apartment/House">Rented Apartment/House</option>
@@ -110,26 +114,26 @@
 			<div class="col-span-full">
 				<label
 					for="other_housing_status"
-					class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Current Housing Status</label
+					class="block mb-2 text-sm text-white ">Current Housing Status</label
 				>
 				<input
 					bind:value={other_housing_status}
 					type="text"
 					name="other_housing_status"
 					placeholder="Enter your current housing status"
-					class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+					class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 				/>
 			</div>
 		{/if}
 	{/if}
 	<div class="col-span-full">
-		<label for="family_value" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+		<label for="family_value" class="block mb-2 text-sm text-white "
 			>Family Values</label
 		>
 		<select
 			bind:value={family_value}
 			name="family_value"
-			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		>
 			<option value="" selected disabled hidden>Select Option</option>
 			<option value="Traditional and Conservative">Traditional and Conservative</option>
@@ -142,36 +146,36 @@
 	</div>
 	{#if family_value === 'others'}
 		<div class="col-span-full">
-			<label for="other_family_value" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="other_family_value" class="block mb-2 text-sm text-white "
 				>Please specify your family values</label
 			>
 			<input
 				type="text"
 				bind:value={other_family_value}
 				name="other_family_value"
-				class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			/>
 		</div>
 	{/if}
 	<div class="col-span-full">
-		<label for="father_name" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+		<label for="father_name" class="block mb-2 text-sm text-white "
 			>Father's name</label
 		>
 		<input
 			type="text"
 			bind:value={father_name}
 			name="father_name"
-			class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		/>
 	</div>
 	<div class="col-span-full">
-		<label for="father_status" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+		<label for="father_status" class="block mb-2 text-sm text-white "
 			>Father's Status and Occupation</label
 		>
 		<select
 			bind:value={father_status}
 			name="father_status"
-			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		>
 			<option value="" selected disabled hidden>Select Option</option>
 			<option value="Retired">Retired</option>
@@ -186,37 +190,37 @@
 	</div>
 	{#if father_status === 'Working' || father_status === 'Self-employed' || father_status === 'Business owner'}
 		<div class="col-span-full">
-			<label for="father_occupation" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="father_occupation" class="block mb-2 text-sm text-white "
 				>Please specify father's Occupation</label
 			>
 			<input
 				type="text"
 				bind:value={other_father_status}
 				name="father_status"
-				class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			/>
 		</div>
 	{/if}
 
 	<div class="col-span-full">
-		<label for="mother_name" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+		<label for="mother_name" class="block mb-2 text-sm text-white "
 			>Mother's name</label
 		>
 		<input
 			type="text"
 			bind:value={mother_name}
 			name="mother_name"
-			class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		/>
 	</div>
 	<div class="col-span-full">
-		<label for="mother_status" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+		<label for="mother_status" class="block mb-2 text-sm text-white "
 			>Mother's Status and Occupation</label
 		>
 		<select
 			bind:value={mother_status}
 			name="mother_status"
-			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		>
 			<option value="" selected disabled hidden>Select Option</option>
 			<option value="Retired">Retired</option>
@@ -232,25 +236,25 @@
 	</div>
 	{#if mother_status === 'Working' || mother_status === 'Self-employed' || mother_status === 'Business owner'}
 		<div class="col-span-full">
-			<label for="mother_occupation" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="mother_occupation" class="block mb-2 text-sm text-white "
 				>Please specify mother's Occupation</label
 			>
 			<input
 				type="text"
 				bind:value={other_mother_status}
 				name="mother_status"
-				class="block w-full px-5 py-3 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			/>
 		</div>
 	{/if}
 	<div class="col-span-full">
-		<label for="have_siblings" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+		<label for="have_siblings" class="block mb-2 text-sm text-white "
 			>Do you have siblings?</label
 		>
 		<select
 			bind:value={have_siblings}
 			name="have_siblings"
-			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		>
 			<option value="" selected disabled hidden>Select Option</option>
 			<option value="Yes">Yes</option>
@@ -259,13 +263,13 @@
 	</div>
 	{#if have_siblings === 'Yes'}
 		<div class="col-span-full">
-			<label for="how_many_siblings" class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			<label for="how_many_siblings" class="block mb-2 text-sm text-white "
 				>How many?</label
 			>
 			<select
 				bind:value={how_many_siblings}
 				name="how_many_siblings"
-				class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+				class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 			>
 				<option value="" selected disabled hidden>Select Option</option>
 				<option value="1">1</option>
@@ -280,13 +284,13 @@
 	<div class="col-span-full">
 		<label
 			for="family_devotional_details"
-			class="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+			class="block mb-2 text-sm text-white "
 			>Devotional details of family members</label
 		>
 		<select
 			bind:value={family_devotional_details}
 			name="family_devotional_details"
-			class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+			class="block w-full px-5 py-3 mt-2   bg-white border border-gray-200 rounded-lg  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
 		>
 			<option value="" selected disabled hidden>Select Option</option>
 			<option value="Strongly Devotional">Strongly Devotional</option>

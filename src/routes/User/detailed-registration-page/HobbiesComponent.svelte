@@ -22,7 +22,7 @@
 </script>
 
 <div class="col-span-full text-white">
-	<label for="hobbies" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Hobbies</label>
+	<label for="hobbies" class="block mb-2 text-sm text-white">Hobbies</label>
 	<Select
 		placeholder="Select Option"
 		on:change={handleChange}
@@ -32,7 +32,7 @@
 		bind:value
 		showChevron
 		{items}
-		--background="transparent"
+		--background="white"
 		--list-background="white"
 		--border="1px solid #ccc"
 		--border-radius="4px"
