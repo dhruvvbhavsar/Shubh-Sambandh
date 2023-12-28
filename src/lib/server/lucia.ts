@@ -25,6 +25,7 @@ export const auth = lucia({
 			maritalStatus: userData.maritalStatus,
 			mobileNumber: userData.mobileNumber,
 			isPaid: userData.isPaid,
+			isProfileComplete: userData.isProfileComplete
 		}
 	}
 });

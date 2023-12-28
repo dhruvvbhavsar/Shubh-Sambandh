@@ -18,12 +18,12 @@ export const load: PageServerLoad = async ({ locals }) => {
 			dateOfBirth: true,
 			id: true
 		},
-		where: {
-			gender: gender,
-			NOT: {
-				id: user.userId
-			}
-		}
+		// where: {
+		// 	gender: gender,
+		// 	NOT: {
+		// 		id: user.userId
+		// 	}
+		// }
 	});
 
 	return {

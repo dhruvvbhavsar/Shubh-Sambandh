@@ -31,6 +31,7 @@ declare global {
 			dateOfBirth: DateTime;
 			timeOfBirth: string;
 			isPaid: Boolean;
+			isProfileComplete: boolean
 		};
 	}
 }

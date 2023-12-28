@@ -6,6 +6,8 @@
 	import { spiritualOrgs } from './options';
 	import { initiatingGurus } from './options';
 	let isAffiliated: boolean = false;
+	let spiritualOrgName: string;
+	let otherOrgName: string;
 	let willingness_support_each_other: string;
 
 	let templeLocation: any;
@@ -14,8 +16,7 @@
 	let counsellorName: string;
 	let counsellorNumber: number;
 	let counsellorInitiationGuru: any;
-	let spiritualOrgName: string;
-	let otherOrgName: string;
+
 	let doYouChant: string;
 	let chantFreq: string;
 	let howManyRounds: number | string;
